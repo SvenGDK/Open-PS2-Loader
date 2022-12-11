@@ -3,6 +3,7 @@
 Copyright 2013, Ifcaro & jimmikaelkael
 Licensed under Academic Free License version 3.0
 Review the LICENSE file for further details.
+This source code and ELF of v1.0.0 include OPL-Launcher support.
 
 ## Introduction
 
