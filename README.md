@@ -4,6 +4,8 @@ Copyright 2013, Ifcaro & jimmikaelkael
 Licensed under Academic Free License version 3.0
 Review the LICENSE file for further details.
 
+Forked from https://github.com/ps2homebrew/Open-PS2-Loader v1.0.0 source code.
+
 This source code and ELF of v1.0.0 include OPL-Launcher support.
 
 ## Introduction
