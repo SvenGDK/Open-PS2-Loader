@@ -1,0 +1,283 @@
+# Turkish translation by Gürkan DEMİR <vampire_bs@hotmail.com> aka: dante
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
+Turkish
+Open PS2 Loader %s
+Değişiklikleri kaydet
+Geri
+Ağ ayarları
+Gelişmiş ayarlar
+<değer yok>
+Ayarlar %s a kaydedildi
+Ayarlar yazılırken hata oluştu!
+Çıkış
+Ayarlar
+Menü
+USB Oyunları
+HDD Oyunları
+AĞ Oyunları
+Uygulamalar
+Tema
+Dil
+Çıkış işlemi gücü kapatacaktır.
+Browser'a çık
+Güncelleme iptal edilsin mi?
+%d: HardDisk sürücü bulunamadı
+%d: HardDisk sürücü biçimlendirilmemiş
+%d: Ağ başlatma hatası
+%d: Ağ kartı bulunamadı
+%d: SMB sunucusuna bağlanılamadı
+%d: SMB sunucusunda oturum açılamıyor
+%d: Paylaşım klasörü açılamıyor
+%d: Ağ paylaşımları listelenemiyor
+%d: Oyunlar listelenemiyor
+%d: DHCP sunucusu erişilebilir değil
+%d: Ağ bağlantısı yok
+Açık
+Kapalı
+Tamam
+Seç
+İptal
+Daire
+Çarpı
+Oyun listesi
+Oyun ayarları
+Ayarları sil
+Oyunun tüm anahtarları kaldırıldı
+Kaydırma
+Yavaş
+Orta
+Hızlı
+Varsayılan menü
+Diskten yükle
+Lütfen bekleyiniz
+Oyun kimliği yüklenirken hata oluştu
+Otomatik sıralama
+Dil dosyası yüklenirken hata oluştu
+Hata ayıklama renklerini iptal et
+Oyun kolu algılanmadı, bekliyor...
+Kapak Resimlerini etkinleştir
+Geniş ekran
+Gücü kapat
+Ayarlar yükleniyor
+Ayarlar kayıt ediliyor
+Cihazı başlat
+Yenile
+USB cihazı başlangıç türü
+HDD cihazı başlangıç türü
+AĞ cihazı başlangıç türü
+Uygulamalar menüsü görünüm kipi
+Otomatik
+El ile
+HDL Sunucu Başlat
+HDL Sunucu Başlatma Hatası
+HDL Sunucu Başlıyor...
+HDL Sunucu Çalışıyor...
+HDL Sunucu Durduruluyor...
+IGR yeri
+Arkaplan rengi
+Metin rengi
+- PS2 - 
+- SMB Sunucusu -
+IP adres türü
+Sabit
+DHCP
+IP adresi
+Ağ Adresi
+Ağ Maskesi
+Ağ Geçidi
+DNS
+Port
+Paylaşım
+Kullanıcı Adı
+Şifre
+<ayarlanmadı>
+Adres türü
+IP
+NetBIOS
+Kabul et
+Nesne kalıcı olarak silinecek, devam edilsin mi?
+Y.Adlandır
+Sil
+Çalıştır
+Görüntü ayarları
+Yazma işlemlerini aktif et
+USB oyun bütünlüğünü kontrol et (Fragmentation)
+Enson oynanan oyunu hatırla
+Seçme tuşu
+Hata, oyun dosyası parçalı
+Hata, nesne çalıştırılamıyor
+Test et
+MİSAFİR oturumu için boş bırakınız.
+Okuma hızını emüle et
+Senkronize Modu
+Sistem çağrılarını çöz
+Videoları atla
+DVD-DL i etkinleştir
+IGR i etkisizleştir
+Kullanılmıyor
+Kullanılmıyor
+VMC Boyutu değiştirmek VMC nin biçimlendirilmesine neden olur
+Oluştur
+Başlat
+Düzenle
+Vazgeç
+Sıfırla
+Standardı kullan
+VMC Yapılandırma
+İsim
+Boyut
+Durum
+İlerleme
+VMC dosyası var
+Geçersiz VMC dosyası, boyut hatalı
+VMC dosyasının oluşturulması gerekli
+VMC %sdosyası hatalı, fiziksel HK ile devam edilsin mi (slot %d)?
+Otomatik yenileme
+Hakkında
+Geliştiriciler
+Kalite Kontrolü
+USB önek yolu
+IGR'den sonra özel bir ELF'e başlar
+Dakika olarak değer, iptal etmek için 0 giriniz
+Otomatik Sabit Disk durdurma
+Video modu
+İleti rengi
+Seçili öğe rengi
+Renkleri sıfırla
+Bilgi
+Özel ELF
+Renk seçimi
+Tekrar Bağlan
+Paylaşımları listelemek için boş bırakınız
+Ağ önek yolu
+Geri tuşu
+Boşluk
+Giriş
+Kip
+VMC Yuvası 1
+VMC Yuvası 2
+Oyun Kimliği
+DMA Kipi
+V-Sync
+Kip 1
+Kip 2
+Kip 3
+Kip 4
+Kip 5
+Kip 6
+Kip 7
+Kip 8
+GSM ayarları
+Ağ Bağlantı kipi
+100Mbit full-duplex
+100Mbit half-duplex
+10Mbit full-duplex
+10Mbit half-duplex
+GSM Ayarları
+GSM Aktif
+GSM'i Açar ve Kapatır
+VMODE
+Zorlanmış özel görüntüleme kipi
+Y-Konum
+Yatay Ayarlama
+D-Konum
+Dikey Ayarlama
+Overscan
+Overscan Ayarı
+FMV Atlama
+Full Motion Videoları atlar
+Hile Ayarları
+PS2RD Cheat Engine'i Aktif et
+PS2RD Cheat Engine'in oyunlara yama yapmasına izin ver
+PS2RD Cheat Engine Kipi
+Hileleri Otomatik veya Manuel seçer
+Hileleri Otomatik Seç
+Hileleri Manuel Seç
+Hata: Hile dosyası yüklemesi başarısız
+Hile bulunamadı
+Varsayılanları indir
+Internetten güncelleme
+Varolan kayıtların üzerine yaz
+Güncelleme başarısız.
+Güncelleme sunucusuna bağlantı kurulamadı.
+Güncelleme tamamlandı.
+Güncelleme iptal edildi.
+Internetten ayarlar indirilsin mi?
+Kişiselleştirilmiş Ayarlar
+Varsayılanlar indirildi
+Otomatik başlatılacak %i s...
+Otomatik başlat
+Saniye olarak değer, iptal etmek için 0 giriniz
+PS2 Logosu
+Sadece konsolun bölgesine uyan, kabul edilebilir logolar gösterilir.
+PADEMU'yu ayarla
+Pad Emulator Ayarları
+PadEmulator Aktif Et
+Seçilen oyun için PADEMU'nun durumu
+Pad Emulator modu
+Pad Emulator modunu seçin.
+DualShock3/4 USB
+DualShock3/4 BT
+Port için ayarlar.
+Ayarlanacak Pad Emulator portunu seçin
+Emulasyonu aç
+Seçilen port için Pad Emulator durumu
+Titreşimi aç
+Seçilen port için Pad Emulator titreşimi durumu
+USB Bluetooth adaptörü MAC adresi:
+MAC adresi ile eşleşmiş DS kolu:
+Eşleştir
+DS kolu eşleştir
+DS kolunu Bluetooth adaptörü MAC adresi ile eşleştir
+Bağlı değil
+Bluetooth adaptörü bilgileri
+Desteklenen özellikler ve daha fazla bilgi gösterir
+HCI Version:
+LMP Version:
+Manufacturer ID:
+Support features:
+Evet
+Hayır
+Bluetooth adaptörü DS3/DS4 kolları ile büyük ihtimalle tam uyumlu.
+Bluetooth adaptörü DS3/DS4 kolları ile tam doğru çalışmayabilir.
+Multitap emulasyonunu aç
+Seçilen oyun için Multitap emulasyonu durumu
+Multitap emulasyonu portu
+Multitap emulasyonu için port seçin
+Sahte DS3ler için workaround'u kapat
+Bazı sahte DS3ler ile çalışabilmek için gereken workaround'u kapatır.
+FIELD flipping emüle et
+Progressive video modları ile bozulan oyunlar için çözüm yaması.
+Ebeveyn Kilidi Ayarları
+Ebeveyn Kilidi Şifresi
+Ebeveyn Kilidini kapatmak için boş bırakın.
+Ebeveyn Kilidi Şifresini Girin.
+Ebeveyn Kilidi Şifresi Yanlış.
+Ebeveyn Kilidi Kapatıldı.
+Build Ayarları:
+Hata - bu parola kullanılamaz.
+VMC %sdosyası fragment olmuş, fiziksel HK ile devam edilsin mi (slot %d)?
+Ses Ayarları
+Ses Efektleri Olsun
+Açılış Sesi Olsun
+Ses Efektleri Kuvveti
+Açılış Sesi Kuvveti
+Video çıkış modu değiştirilsin mi?
+Oyun listesini cachele (HDD)
+Bildirimleri aktifleştir
+%s yüklendi %s konumundan
+Oyun Menüsü
+Oyun ayarları kaydedildi.
+%s ayarları silindi.
+Aktifleştirildiğinde varolan oyun uyumluluk ayarlarının üzerine yazar.
+Ayarlar Modu
+Global
+Oyun başına
+Hepsi
+Silinecek ayarları seçin.
+Destek forumu:
+Ad
+Tür
+Çıkış
+Geliştirici
+Açıklama

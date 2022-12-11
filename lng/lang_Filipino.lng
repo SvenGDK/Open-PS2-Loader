@@ -1,0 +1,283 @@
+# Filipino translation by Ceed Lorenzo <Ceedlorenzo@yahoo.com>
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
+Filipino
+Open PS2 Loader %s
+I-save ang mga pagbabago
+Likod
+Network config
+Advanced options
+<Walang values>
+Settings saved to %s
+Error sa pagsulat setting !
+Lumabas
+Settings
+Menu
+USB Laro
+HDD Laro
+ETH Laro
+Apps
+tema
+wika
+The system will be powered off.
+Exit to Browser?
+Cancel updating?
+%d: HardDisk Drive not detected
+%d: HardDisk Drive not formatted
+%d: Network startup error
+%d: No network adaptor detected
+%d: Hindi makakonekta sa SMB server
+%d: Hindi makapag-log in sa SMB server
+%d: Hindi mabuksan ang SMB ibahagi
+%d: Cannot list SMB shares
+%d: Cannot list games
+%d: DHCP server unavailable
+%d: No network connection
+Sa
+Mula sa
+Ayos
+Select
+Cancel
+Circle
+Cross
+Games List
+Game settings
+Remove Settings
+Inalis ang lahat ng mga pindutan para sa mga laro
+i-scroll
+Mabagal
+medium
+mabilis
+default na menu
+Mag-load mula sa disc
+Mangyaring maghintay
+Nagkaroon ng error habang naglo-load ang ID ng Laro
+Awtomatikong pag-uuri
+Error sa paglo-load ng file wika
+Huwag paganahin ang mga Kulay Debug
+Controller Walang natukoy na , naghihintay...
+Paganahin ang Cover Art
+Malapad na screen
+
+Nilo-load ang config
+Sine-save ang config
+Simulan ang aparato
+Refresh
+USB aparato simula mode
+HDD aparato simula mode
+ETH aparato simula mode
+Mga application na simulan ang mode
+auto
+manwal
+Start HDL Server
+HDL Server Starting...
+HDL Server Running...
+Failed to start HDL Server.
+HDL Server Unloading...
+Lumabas sa
+kulay ng background
+kulay ng teksto
+- PS2 -
+- SMB Server -
+IP address type
+Static
+DHCP
+IP address
+Address
+Mask
+Gateway
+DNS Server
+Port
+magbahagi
+gumagamit
+Password
+<Hindi set>
+Address type
+IP
+NetBIOS
+tanggapin
+Item ay permanenteng tatanggalin, magpatuloy?
+Rename
+Alisin
+Tumakbo
+Ipakita ang mga setting
+Enable write operations
+Check USB game fragmentation
+Tandaan ang huling play ng laro
+Select button
+Error, the game is fragmented
+Error, hindi maaaring tumakbo ang item
+Test Changes
+Iwanang walang laman para sa Guest auth .
+Accurate Reads
+Synchronous Mode
+alisin sa pagkakakawit Syscalls
+0 PSS mode
+Emulate DVD-DL
+Disable IGR
+Unused
+Unused
+Ang pagbabago ng laki ay i-reformat ang VMC
+Lumikha
+Start
+Baguhin
+May pagpapalaglag
+I-reset ang
+gumamit ng generic
+I-configure ang VMC
+Pangalan
+Laki
+katayuan
+pag-unlad
+VMC file umiiral
+Di-wastong VMC file , laki ay hindi tama
+VMC file na kailangan upang malikha
+Error accessing VMC %s. Continue with the Memory Card in slot %d?
+Awtomatikong i-refresh
+tungkol sa
+Coders
+Quality Assurance
+USB prefix landas
+Boots Custom ELF after an IGR
+Halaga sa (mga) minuto, 0 upang huwag paganahin iikot pababa
+Awtomatikong HDD paikutin pababa
+Video mode
+dialog ng kulay
+Piniling kulay
+Reset Colors
+Impo
+Custom ELF
+kulay ng seleksyon
+Muling kumonekta
+Iwanang walang laman upang ilista ang pagbabahagi
+ETH prefix landas
+Backspace
+Puwang
+Magpasok
+Moda
+VMC Slot 1
+VMC Slot 2
+ID ng Laro
+DMA Mode
+V-Sync
+Mode 1
+Mode 2
+Mode 3
+Mode 4
+Mode 5
+Mode 6
+Mode 7
+Mode 8
+Configure GSM
+Ethernet bilis at duplex setting
+100Mbit full-duplex
+100Mbit half-duplex
+10Mbit full-duplex
+10Mbit half-duplex
+GSM Settings
+paganahin GSM
+Toggles GSM ON or OFF
+VMODE
+Forced Custom Display Mode
+H-POS
+Horizontal Adjustment
+V-POS
+Vertical Adjustment
+Overscan
+Overscan Adjustment
+FMV Skip
+Skips Full Motion Videos
+Cheat Settings
+Enable PS2RD Cheat Engine
+Lets PS2RD Cheat Engine patch your games
+PS2RD Cheat Engine Mode
+Auto-select or Select game cheats
+Auto-select cheats
+Select game cheats
+Error: failed to load Cheat File
+No cheats found
+Download defaults
+Network update
+Overwrite Existing Records
+Update failed.
+Failed to connect to update server.
+Update completed.
+Update cancelled.
+Download settings from the network?
+Customized Settings
+Downloaded Defaults
+Auto start in %i s...
+Auto start
+Value in second(s), 0 to disable auto start
+PS2 Logo
+Only displayed for a valid disc logo which matches the console's region
+Configure PADEMU
+Pad Emulator Settings
+Enable PadEmulator
+Turns on/off PadEmulator for selected game.
+Pad Emulator mode
+Select Pad Emulator mode.
+DualShock3/4 USB
+DualShock3/4 BT
+Settings for port:
+Select Pad Emulator port for settings.
+Enable emulation
+Turns on/off Pad Emulator for selected port.
+Enable vibration
+Turns on/off vibration for Pad Emulator selected port.
+Usb bluetooth adapter mac address:
+DS Controller paired to mac address:
+Pair
+Pair DS Controller
+Pair DS Controller with bluetooth adapter mac address.
+Not connected
+Bluetooth adapter information
+Shows more information and supported features
+HCI Version:
+LMP Version:
+Manufacturer ID:
+Support features:
+Yes
+No
+Bluetooth adapter should be fully compatible with DS3/DS4 controllers.
+Bluetooth adapter may not work correctly with DS3/DS4 controllers.
+Enable Multitap emulation
+Turns on/off Multitap emulation for selected game.
+Multitap emulator on port
+Select port for Multitap emulation.
+Disable workaround for fake ds3
+Some fake ds3s need workaround, this option will disable it.
+Emulate FIELD flipping
+Fix for games that glitch under progressive video modes.
+Parental Lock Settings
+Parental Lock Password
+Leave blank to disable the parental lock.
+Enter Parental Lock Password
+Parental lock password incorrect.
+Parental lock disabled.
+Build Options:
+Error - this password cannot be used.
+VMC %s file is fragmented. Continue with Memory Card in slot %d?
+Audio Settings
+Enable Sound Effects
+Enable Boot Sound
+Sound Effects Volume
+Boot Sound Volume
+Confirm video mode change?
+Cache Game List (HDD)
+Enable Notifications
+%s loaded from %s
+Game Menu
+Game settings saved.
+%s settings removed.
+Overwrites existing game compatibility settings when enabled.
+Settings Mode
+Global
+Per Game
+All
+Select settings to remove.
+Support Forums:
+Title
+Genre
+Release
+Developer
+Description
