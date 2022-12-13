@@ -4,11 +4,9 @@ Copyright 2013, Ifcaro & jimmikaelkael
 Licenced under Academic Free License version 3.0  
 Review LICENSE file for further details.  
 
-[![CI](https://github.com/ifcaro/Open-PS2-Loader/workflows/CI/badge.svg)](https://github.com/ifcaro/Open-PS2-Loader/actions?query=workflow%3ACI)
-
 Forked from https://github.com/ps2homebrew/Open-PS2-Loader v1.0.0 source code.
 
-This source code and ELF of v1.0.0 include OPL-Launcher support.
+This source code and ELF of v1.0.2 include OPL-Launcher and NBD server support (HDL server is still included!).
 
 ## Introduction
 
