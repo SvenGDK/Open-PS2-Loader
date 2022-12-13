@@ -23,7 +23,6 @@ enum MENU_IDs {
     MENU_SETTINGS = 0,
     MENU_GFX_SETTINGS,
     MENU_AUDIO_SETTINGS,
-	MENU_CONTROLLER_SETTINGS,
     MENU_PARENTAL_LOCK,
     MENU_NET_CONFIG,
     MENU_NET_UPDATE,
@@ -70,13 +69,10 @@ static submenu_list_t *gameMenu;
 // active item in game settings
 static submenu_list_t *gameMenuCurrent;
 
-static submenu_list_t *appMenu;
-static submenu_list_t *appMenuCurrent;
-
 static s32 menuSemaId;
 static ee_sema_t menuSema;
 
-static void menuRenameGame(submenu_list_t **submenu)
+static void menuRenameGame(void)
 {
     if (!selected_item->item->current) {
         return;
@@ -96,7 +92,7 @@ static void menuRenameGame(submenu_list_t **submenu)
                 strncpy(newName, selected_item->item->current->item.text, nameLength);
                 if (guiShowKeyboard(newName, nameLength)) {
                     guiSwitchScreen(GUI_SCREEN_MAIN);
-                    submenuDestroy(submenu);
+                    submenuDestroy(&gameMenu);
                     support->itemRename(selected_item->item->current->item.id, newName);
                     ioPutRequest(IO_MENU_UPDATE_DEFFERED, &support->mode);
                 }
@@ -106,7 +102,7 @@ static void menuRenameGame(submenu_list_t **submenu)
         guiMsgBox("NULL Support object. Please report", 0, NULL);
 }
 
-static void menuDeleteGame(submenu_list_t **submenu)
+static void menuDeleteGame(void)
 {
     if (!selected_item->item->current)
         return;
@@ -121,7 +117,7 @@ static void menuDeleteGame(submenu_list_t **submenu)
             if (menuCheckParentalLock() == 0) {
                 if (guiMsgBox(_l(_STR_DELETE_WARNING), 1, NULL)) {
                     guiSwitchScreen(GUI_SCREEN_MAIN);
-                    submenuDestroy(submenu);
+                    submenuDestroy(&gameMenu);
                     support->itemDelete(selected_item->item->current->item.id);
                     ioPutRequest(IO_MENU_UPDATE_DEFFERED, &support->mode);
                 }
@@ -207,7 +203,6 @@ static void menuInitMainMenu(void)
     submenuAppendItem(&mainMenu, -1, NULL, MENU_SETTINGS, _STR_SETTINGS);
     submenuAppendItem(&mainMenu, -1, NULL, MENU_GFX_SETTINGS, _STR_GFX_SETTINGS);
     submenuAppendItem(&mainMenu, -1, NULL, MENU_AUDIO_SETTINGS, _STR_AUDIO_SETTINGS);
-	submenuAppendItem(&mainMenu, -1, NULL, MENU_CONTROLLER_SETTINGS, _STR_CONTROLLER_SETTINGS);
     submenuAppendItem(&mainMenu, -1, NULL, MENU_PARENTAL_LOCK, _STR_PARENLOCKCONFIG);
     submenuAppendItem(&mainMenu, -1, NULL, MENU_NET_CONFIG, _STR_NETCONFIG);
     submenuAppendItem(&mainMenu, -1, NULL, MENU_NET_UPDATE, _STR_NET_UPDATE);
@@ -251,18 +246,6 @@ void menuInitGameMenu(void)
     gameMenuCurrent = gameMenu;
 }
 
-void menuInitAppMenu(void)
-{
-    if (appMenu)
-        submenuDestroy(&appMenu);
-
-    // initialize the menu
-    submenuAppendItem(&appMenu, -1, NULL, 0, _STR_RENAME);
-    submenuAppendItem(&appMenu, -1, NULL, 1, _STR_DELETE);
-
-    appMenuCurrent = appMenu;
-}
-
 // -------------------------------------------------------------------------------------------
 // ---------------------------------------- Menu manipulation --------------------------------
 // -------------------------------------------------------------------------------------------
@@ -276,8 +259,6 @@ void menuInit()
     mainMenuCurrent = NULL;
     gameMenu = NULL;
     gameMenuCurrent = NULL;
-	appMenu = NULL;
-    appMenuCurrent = NULL;
     menuInitMainMenu();
 
     menuSema.init_count = 1;
@@ -305,7 +286,6 @@ void menuEnd()
 
     submenuDestroy(&mainMenu);
     submenuDestroy(&gameMenu);
-	submenuDestroy(&appMenu);
 
     if (itemConfig) {
         configFree(itemConfig);
@@ -834,9 +814,6 @@ void menuHandleInputMenu()
         } else if (id == MENU_AUDIO_SETTINGS) {
             if (menuCheckParentalLock() == 0)
                 guiShowAudioConfig();
-		} else if (id == MENU_CONTROLLER_SETTINGS) {
-            if (menuCheckParentalLock() == 0)
-                guiShowControllerConfig();
         } else if (id == MENU_PARENTAL_LOCK) {
             if (menuCheckParentalLock() == 0)
                 guiShowParentalLockConfig();
@@ -857,10 +834,6 @@ void menuHandleInputMenu()
         } else if (id == MENU_SAVE_CHANGES) {
             if (menuCheckParentalLock() == 0) {
                 saveConfig(CONFIG_OPL | CONFIG_NETWORK, 1);
-#ifdef PADEMU
-                guiGameSavePadEmuGlobalConfig(configGetByType(CONFIG_GAME));
-                saveConfig(CONFIG_GAME, 0);
-#endif
                 menuSetParentalLockCheckState(1); //Re-enable parental lock check.
             }
         } else if (id == MENU_EXIT) {
@@ -1076,7 +1049,7 @@ void menuHandleInputGameMenu()
             guiGameShowVMCMenu(selected_item->item->current->item.id, selected_item->item->userdata);
 #ifdef PADEMU
         } else if (menuID == GAME_PADEMU_SETTINGS) {
-            guiGameShowPadEmuConfig(0);
+            guiGameShowPadEmuConfig();
 #endif
         } else if (menuID == GAME_SAVE_CHANGES) {
             if (guiGameSaveConfig(itemConfig, selected_item->item->userdata))
@@ -1092,92 +1065,14 @@ void menuHandleInputGameMenu()
                 guiGameLoadConfig(selected_item->item->userdata, gameMenuLoadConfig(NULL));
             }
         } else if (menuID == GAME_RENAME_GAME) {
-            menuRenameGame(&gameMenu);
+            menuRenameGame();
         } else if (menuID == GAME_DELETE_GAME) {
-            menuDeleteGame(&gameMenu);
+            menuDeleteGame();
         }
         // so the exit press wont propagate twice
         readPads();
     }
 
-    if (getKeyOn(KEY_START) || getKeyOn(gSelectButton == KEY_CIRCLE ? KEY_CROSS : KEY_CIRCLE)) {
-        guiSwitchScreen(GUI_SCREEN_MAIN);
-    }
-}
-
-void menuRenderAppMenu()
-{
-    guiDrawBGPlasma();
-
-    if (!appMenu)
-        return;
-
-    // draw the animated menu
-    if (!appMenuCurrent)
-        appMenuCurrent = appMenu;
-
-    submenu_list_t *it = appMenu;
-
-    // calculate the number of items
-    int count = 0;
-    int sitem = 0;
-    for (; it; count++, it = it->next) {
-        if (it == appMenuCurrent)
-            sitem = count;
-    }
-
-    int spacing = 25;
-    int y = (gTheme->usedHeight >> 1) - (spacing * (count >> 1));
-    int cp = 0; // current position
-    for (it = appMenu; it; it = it->next, cp++) {
-        // render, advance
-        fntRenderString(gTheme->fonts[0], 320, y, ALIGN_CENTER, 0, 0, submenuItemGetText(&it->item), (cp == sitem) ? gTheme->selTextColor : gTheme->textColor);
-        y += spacing;
-    }
-
-    //hints
-    guiDrawSubMenuHints();
-}
-
-void menuHandleInputAppMenu()
-{
-    if (!appMenu)
-        return;
-
-    if (!appMenuCurrent)
-        appMenuCurrent = appMenu;
-
-    if (getKey(KEY_UP)) {
-        sfxPlay(SFX_CURSOR);
-        if (appMenuCurrent->prev)
-            appMenuCurrent = appMenuCurrent->prev;
-        else // rewind to the last item
-            while (appMenuCurrent->next)
-                appMenuCurrent = appMenuCurrent->next;
-    }
-
-    if (getKey(KEY_DOWN)) {
-        sfxPlay(SFX_CURSOR);
-        if (appMenuCurrent->next)
-            appMenuCurrent = appMenuCurrent->next;
-        else
-            appMenuCurrent = appMenu;
-    }
-
-    if (getKeyOn(gSelectButton)) {
-        // execute the item via looking at the id of it
-        int menuID = appMenuCurrent->item.id;
-
-        sfxPlay(SFX_CONFIRM);
-
-        if (menuID == 0) {
-            menuRenameGame(&appMenu);
-        } else if (menuID == 1) {
-            menuDeleteGame(&appMenu);
-        }
-        // so the exit press wont propagate twice
-        readPads();
-    }
     if (getKeyOn(KEY_START) || getKeyOn(gSelectButton == KEY_CIRCLE ? KEY_CROSS : KEY_CIRCLE)) {
         guiSwitchScreen(GUI_SCREEN_MAIN);
     }

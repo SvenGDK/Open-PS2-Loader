@@ -885,17 +885,19 @@ int sysExecElf(const char *path)
 
 int sysCheckMC(void)
 {
-    DIR* mc0_root_dir = opendir("mc0:");
-    if (mc0_root_dir != NULL) {
-        closedir(mc0_root_dir);
-        return 0;
-    }
+    int dummy, ret;
 
-    DIR* mc1_root_dir = opendir("mc1:");
-    if (mc1_root_dir != NULL) {
-        closedir(mc1_root_dir);
+    mcGetInfo(0, 0, &dummy, &dummy, &dummy);
+    mcSync(0, NULL, &ret);
+
+    if (-1 == ret || 0 == ret)
+        return 0;
+
+    mcGetInfo(1, 0, &dummy, &dummy, &dummy);
+    mcSync(0, NULL, &ret);
+
+    if (-1 == ret || 0 == ret)
         return 1;
-    }
 
     return -11;
 }

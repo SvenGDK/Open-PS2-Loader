@@ -1,6 +1,7 @@
 # German translation by ps2guy completed by velocet, LopoTRI & TnA
-# For Open PS2 Loader v1.0.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 German
+Open PS2 Loader %s
 Änderungen Speichern
 Zurück
 Netzwerk
@@ -11,7 +12,7 @@ Fehler: Schreiben der Einstellungen!
 Verlassen
 Einstellungen
 Menü
-BDM Spiele
+USB Spiele
 HDD Spiele
 ETH Spiele
 Apps
@@ -41,6 +42,7 @@ Kreuz
 Spiele
 Spiel Einstellungen
 Einstellungen Entfernen
+Einstellungen für Spiel entfernt.
 Scrollen
 Langsam
 Mittel
@@ -51,29 +53,30 @@ Bitte Warten.
 Fehler: Laden der Spiel ID.
 Auto. Sortierung
 Fehler: Laden der Sprachdatei.
-Debug Colors
-Kein Controller erkannt, warte…
-Cover Art
+Debug Farben Deaktivieren
+Kein Controller erkannt, warte...
+Cover Bilder
 Widescreen
 Ausschalten
-Konfiguration Laden…
-Konfiguration Speichern…
+Konfiguration Laden...
+Konfiguration Speichern...
 Gerät Starten
 Aktual.
-BDM Start Mode
+Start Modus: USB
 Start Modus: HDD
 Start Modus: ETH
 Start Modus: Apps
 Auto.
 Manuell
-NBD Server Starten
-NBD Server Startet…
-NBD Server Läuft…
-Fehler: Starten des NBD-Server.
-NBD Server Stoppen…
+HDL Server Starten
+HDL Server Startet...
+HDL Server Läuft...
+Fehler: Starten des HDL-Server.
+HDL Server Stoppen...
 IGR Pfad
 Hintergrund
 Text
+- PS2 -
 - SMB Server -
 IP Typ
 Fest
@@ -97,7 +100,8 @@ Umbenennen
 Löschen
 Start
 Anzeige
-Write Operations
+Schreib Operationen
+USB Fragmentierung Prüfen
 Letztes Spiel Merken
 Ausw. Button
 Fehler: Spiel Fragmentiert!
@@ -110,6 +114,8 @@ Syscalls Aushängen
 Videos Überspringen
 DVD-DL Emulation
 IGR Deaktivieren
+Unbenutzt
+Unbenutzt
 Änderung der VMC Größe führt zu Reformatierung.
 Neu
 Start
@@ -130,7 +136,7 @@ Auto. Aktualisieren
 Über
 Programmierer
 Qualitätskontrolle
-BDM Präfix Pfad
+USB Präfix Pfad
 ELF nach IGR Booten
 Wert in Minuten. 0 = Keine HDD Abschaltung
 Auto. HDD Abschaltung
@@ -159,6 +165,8 @@ Modus 3
 Modus 4
 Modus 5
 Modus 6
+Modus 7
+Modus 8
 GSM Konfigurieren
 Ethernet Link Mode
 100Mbit/s Full-Duplex
@@ -166,8 +174,9 @@ Ethernet Link Mode
 10Mbit/s Full-Duplex
 10Mbit/s Half-Duplex
 GSM Einstellungen
-GSM Selector
+GSM
 GSM Ein/Aus.
+V-MODE
 Benutzerdef. Video Mode.
 H-POS
 Horizontale Position
@@ -196,7 +205,7 @@ Update Abgebrochen.
 Einstellungen über Netzwerk Laden?
 Benutzerdef. Einstellungen
 Standardeinstellungen Geladen
-Auto. Start in %i s…
+Auto. Start in %i s...
 Auto. Start
 Wert in Sekunden. 0 = Deaktiviert.
 PS2 Logo
@@ -211,9 +220,9 @@ DualShock 3/4 USB
 DualShock 3/4 BT
 Anschluss Einstellungen:
 Pad Emulator Port für Einstellungen
-Emulation
+Emulator Aktivieren
 Pad Emulator für Port Ein/Aus.
-Vibration
+Vibration Aktivieren
 Vibration für Port Ein/Aus.
 BT Aadapter MAC-Adresse:
 DS Controller Verbunden mit MAC-Adresse:
@@ -235,8 +244,8 @@ Multitap Emulation
 Multitap Emulation Ein/Aus.
 Multitap Emulation Port:
 Multitap Emulation Port Wählen.
-Fake DS3 Workaround
-Some fake DS3s need a workaround, this option will enable it.
+Fake DS3 Workaround Deaktivieren
+Workaround für Fake DS3s Ein/Aus.
 FIELD Flipping Emulation
 Fix für Spiele mit Progressive Video Modes (zB. 576p)
 Kindersicherung
@@ -256,11 +265,8 @@ Lautstärke Boot Ton
 Video Mode Änderungen Bestätigen?
 Spiele Liste Cache (HDD)
 Benachrichtigungen
-Config loaded from %s
-Theme loaded from %s
-Language loaded from %s
-%s partition mounted.
-Optionen
+%s von %s Geladen
+Spiel Menü
 Spiel Einstellungen Gespeichert.
 %s Einstellungen Entfernt.
 Überschreibt Kompatibilitäts Einstellungen
@@ -275,10 +281,3 @@ Genre
 Release
 Entwickler
 Beschreibung
-Block Devices
-Controller Settings
-Turn on/off Block Device Manager.
-Turn on/off Block Devices (e.g. USB).
-USB Games
-iLink Games
-MX4SIO Games

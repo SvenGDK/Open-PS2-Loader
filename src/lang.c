@@ -3,7 +3,6 @@
 #include "include/util.h"
 #include "include/fntsys.h"
 #include "include/ioman.h"
-#include "include/themes.h"
 
 // Language support
 static char *internalEnglish[LANG_STR_COUNT] = {
@@ -50,7 +49,7 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Game Settings",
     "Remove Settings",
     "Removed all keys for the game.",
-    "Scrolling Speed",
+    "Scrolling",
     "Slow",
     "Medium",
     "Fast",
@@ -113,6 +112,7 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Run",
     "Display Settings",
     "Enable Write Operations",
+    "Check USB Game Fragmentation",
     "Remember Last Played Game",
     "Select Button",
     "Error, the game is fragmented.",
@@ -277,7 +277,7 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Cache Game List (HDD)",
     "Enable Notifications",
     "%s loaded from %s",
-    "Options",
+    "Game Menu",
     "Game settings saved.",
     "%s settings removed.",
     "Overwrites existing game compatibility settings when enabled.",
@@ -292,7 +292,6 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Release",
     "Developer",
     "Description",
-	"Controller Settings",
 };
 
 static int guiLangID = 0;

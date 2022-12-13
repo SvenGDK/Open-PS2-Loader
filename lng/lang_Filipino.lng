@@ -1,119 +1,124 @@
 # Filipino translation by Ceed Lorenzo <Ceedlorenzo@yahoo.com>
-# Fixed by Colton SIlva @ColtonSilvaonKnoxKontor
-# For Open PS2 Loader v1.0.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 Filipino
+Open PS2 Loader %s
 I-save ang mga pagbabago
 Likod
 Network config
-Advanced na opsyon
+Advanced options
 <Walang values>
 Settings saved to %s
-Error sa pagsulat ng setting!
+Error sa pagsulat setting !
 Lumabas
 Settings
 Menu
-BDM Laro
+USB Laro
 HDD Laro
 ETH Laro
 Apps
-Tema
-Wika
-Ipa-power off ang system?.
-Lumabas sa Browser?
-Kanselahin ang pag-update?
-%d: Hindi na-detect ang HardDisk Drive
-%d: Hindi naka-format ang HardDisk Drive
+tema
+wika
+The system will be powered off.
+Exit to Browser?
+Cancel updating?
+%d: HardDisk Drive not detected
+%d: HardDisk Drive not formatted
 %d: Network startup error
-%d: Walang ma-detect na network adaptor
+%d: No network adaptor detected
 %d: Hindi makakonekta sa SMB server
 %d: Hindi makapag-log in sa SMB server
 %d: Hindi mabuksan ang SMB ibahagi
-%d: Hindi mailista ang SMB Shares
-%d: Hindi mailista ang mga laro
-%d: Hindi available ang DHCP server
-%d: Walang koneksyon sa network
+%d: Cannot list SMB shares
+%d: Cannot list games
+%d: DHCP server unavailable
+%d: No network connection
 Sa
 Mula sa
 Ayos
-Piliin
-Kansel
+Select
+Cancel
 Circle
 Cross
-Listahan
-Settings ng laro
-Alisin ang Settings
-I-scroll
+Games List
+Game settings
+Remove Settings
+Inalis ang lahat ng mga pindutan para sa mga laro
+i-scroll
 Mabagal
-Medium
-Mabilis
-Default na menu
+medium
+mabilis
+default na menu
 Mag-load mula sa disc
 Mangyaring maghintay
 Nagkaroon ng error habang naglo-load ang ID ng Laro
 Awtomatikong pag-uuri
-Error sa paglo-load ng file na wika
-Debug Colors
-Controller Walang natukoy na , naghihintay…
-Cover Art
+Error sa paglo-load ng file wika
+Huwag paganahin ang mga Kulay Debug
+Controller Walang natukoy na , naghihintay...
+Paganahin ang Cover Art
 Malapad na screen
-Power-off
+
 Nilo-load ang config
 Sine-save ang config
 Simulan ang aparato
 Refresh
-BDM Start Mode
+USB aparato simula mode
 HDD aparato simula mode
 ETH aparato simula mode
 Mga application na simulan ang mode
-Awto
-Manwal
-I-sart ang NBD Server
-NBD Server Starting…
-NBD Server Running…
-Bigong i- start ang NBD Server.
-NBD Server Unloading…
+auto
+manwal
+Start HDL Server
+HDL Server Starting...
+HDL Server Running...
+Failed to start HDL Server.
+HDL Server Unloading...
 Lumabas sa
 kulay ng background
 kulay ng teksto
+- PS2 -
 - SMB Server -
-uri ng IP address
+IP address type
 Static
 DHCP
-Adres ng IP
-Adres
+IP address
+Address
 Mask
 Gateway
 DNS Server
 Port
-Magbahagi
-Gumagamit
+magbahagi
+gumagamit
 Password
-<Hindi nai-set>
+<Hindi set>
 Address type
 IP
 NetBIOS
-Tanggapin
+tanggapin
 Item ay permanenteng tatanggalin, magpatuloy?
 Rename
 Alisin
 Tumakbo
 Ipakita ang mga setting
-Write Operations
+Enable write operations
+Check USB game fragmentation
 Tandaan ang huling play ng laro
 Select button
-Error, fragmented ang laro
+Error, the game is fragmented
 Error, hindi maaaring tumakbo ang item
-Subukan
+Test Changes
 Iwanang walang laman para sa Guest auth .
 Accurate Reads
-Synchronous na Mode
-Alisin sa pagkakakawit ng Syscalls
+Synchronous Mode
+alisin sa pagkakakawit Syscalls
 0 PSS mode
-I-emulate ang DVD-DL
-I-disable ang IGR
+Emulate DVD-DL
+Disable IGR
+Unused
+Unused
 Ang pagbabago ng laki ay i-reformat ang VMC
 Lumikha
-Magsimula
+Start
 Baguhin
 May pagpapalaglag
 I-reset ang
@@ -121,22 +126,22 @@ gumamit ng generic
 I-configure ang VMC
 Pangalan
 Laki
-Katayuan
-Pag-unlad
-Umiiral ang VMC file
+katayuan
+pag-unlad
+VMC file umiiral
 Di-wastong VMC file , laki ay hindi tama
 VMC file na kailangan upang malikha
-Bigong ma-access ang VMC %s. Magpatuloy gamit ang memory card ng PS2 sa slot %d?
+Error accessing VMC %s. Continue with the Memory Card in slot %d?
 Awtomatikong i-refresh
-Tungkol sa
-Mga coders
+tungkol sa
+Coders
 Quality Assurance
-BDM prefix path
-Ibo-boot ang Custom ELF pagtapos ng IGR
-Value sa (mga) minuto, 0 upang huwag paganahin
-Awtomatikong pababagalin ang HDD
-Mode ng bidyo
-Dialog ng kulay
+USB prefix landas
+Boots Custom ELF after an IGR
+Halaga sa (mga) minuto, 0 upang huwag paganahin iikot pababa
+Awtomatikong HDD paikutin pababa
+Video mode
+dialog ng kulay
 Piniling kulay
 Reset Colors
 Impo
@@ -144,7 +149,7 @@ Custom ELF
 kulay ng seleksyon
 Muling kumonekta
 Iwanang walang laman upang ilista ang pagbabahagi
-Path ng ETH prefix
+ETH prefix landas
 Backspace
 Puwang
 Magpasok
@@ -160,16 +165,19 @@ Mode 3
 Mode 4
 Mode 5
 Mode 6
-I-configure ang GSM
-Ethernet speed at duplex setting
+Mode 7
+Mode 8
+Configure GSM
+Ethernet bilis at duplex setting
 100Mbit full-duplex
 100Mbit half-duplex
 10Mbit full-duplex
 10Mbit half-duplex
 GSM Settings
-GSM Selector
+paganahin GSM
 Toggles GSM ON or OFF
-Pwersahin ang Custom Display Mode
+VMODE
+Forced Custom Display Mode
 H-POS
 Horizontal Adjustment
 V-POS
@@ -177,109 +185,99 @@ Vertical Adjustment
 Overscan
 Overscan Adjustment
 FMV Skip
-I-skip ang Full Motion Videos
-Settings ng cheat
-PS2RD Cheat Engine
-Ipa-patch ng PS2RD Cheat Engine ang iyong games
+Skips Full Motion Videos
+Cheat Settings
+Enable PS2RD Cheat Engine
+Lets PS2RD Cheat Engine patch your games
 PS2RD Cheat Engine Mode
-Awto. pagpili or pagpili ng game cheats
-Awto. pagpili ng cheats
-Pagpili ng game cheats
-Error: Bigong i-load ang Cheat File
-Walang makitang Cheat
+Auto-select or Select game cheats
+Auto-select cheats
+Select game cheats
+Error: failed to load Cheat File
+No cheats found
 Download defaults
-I-update ang network
+Network update
 Overwrite Existing Records
-Bigong mag-update.
-Bigong kumonekta sa update server.
-Kumpletong na-update.
-Nakansela ang pag-update.
-I-download ang settings mula sa network?
+Update failed.
+Failed to connect to update server.
+Update completed.
+Update cancelled.
+Download settings from the network?
 Customized Settings
 Downloaded Defaults
-Mag aawto-start ng %i s…
+Auto start in %i s...
 Auto start
-Value sa segundo, 0 para i-disable auto start
+Value in second(s), 0 to disable auto start
 PS2 Logo
-Ididisplay ang valid disc logo kung tugma ito sa region na bersyon ng laro
-I-configure ang PADEMU
+Only displayed for a valid disc logo which matches the console's region
+Configure PADEMU
 Pad Emulator Settings
-Pad Emulator
-Turns on/off PadEmulator para sa piling laro.
-Mode ng Pad Emulator
-Pumili ng Pad Emulator mode.
+Enable PadEmulator
+Turns on/off PadEmulator for selected game.
+Pad Emulator mode
+Select Pad Emulator mode.
 DualShock3/4 USB
 DualShock3/4 BT
-Settings para sa port:
-Pumili ng Pad Emulator port para sa settings.
-Emulation
-Turns on/off Pad Emulator para sa piling port.
-Vibration
-Turns on/off vibration ng Pad Emulator para sa piling port.
+Settings for port:
+Select Pad Emulator port for settings.
+Enable emulation
+Turns on/off Pad Emulator for selected port.
+Enable vibration
+Turns on/off vibration for Pad Emulator selected port.
 Usb bluetooth adapter mac address:
 DS Controller paired to mac address:
-I-pair
-I-pair ang DS Controller
-I-pair ang DS Controller gamit ang bluetooth adapter mac address.
-Walang koneksyon
-Impormasyon ng Bluetooth adapter
-Ipakita ang impormation at supported features
-Bersyon ng HCI:
-Bersyon ng LMP:
+Pair
+Pair DS Controller
+Pair DS Controller with bluetooth adapter mac address.
+Not connected
+Bluetooth adapter information
+Shows more information and supported features
+HCI Version:
+LMP Version:
 Manufacturer ID:
-Suportadong mga features:
-Opo
-Hindi
-Ang Bluetooth adapter ay daapat suportado ng DS3/DS4 controllers.
-Ang Bluetooth adapter ay maaring hindi gumana sa DS3/DS4 controllers.
-Multitap Emulation
-Turns on/off Multitap emulation para sa piling game.
+Support features:
+Yes
+No
+Bluetooth adapter should be fully compatible with DS3/DS4 controllers.
+Bluetooth adapter may not work correctly with DS3/DS4 controllers.
+Enable Multitap emulation
+Turns on/off Multitap emulation for selected game.
 Multitap emulator on port
-Pumili ng port para sa Multitap emulation.
-Fake DS3 Workaround
-Some fake DS3s need a workaround, this option will enable it.
-I-emulate ang FIELD flipping
-Aayusin ang laro na may isyu ng glitch sa progressive video modes.
-Settings ng Parental Lock
+Select port for Multitap emulation.
+Disable workaround for fake ds3
+Some fake ds3s need workaround, this option will disable it.
+Emulate FIELD flipping
+Fix for games that glitch under progressive video modes.
+Parental Lock Settings
 Parental Lock Password
-Hayaang nakablangko para ma-disable ang parental lock.
-I-enter ang Parental Lock Password
-Ang Parental lock password ay mali.
+Leave blank to disable the parental lock.
+Enter Parental Lock Password
+Parental lock password incorrect.
 Parental lock disabled.
-Opsyon ng build:
-Error - Hindi maaring gamitin ang password na ito.
-VMC %s na file ay fragmented. Magpatuloy gamit ang Memory Card sa slot %d?
-Settings ng Audio
-Sound Effects
-Boot Sound
+Build Options:
+Error - this password cannot be used.
+VMC %s file is fragmented. Continue with Memory Card in slot %d?
+Audio Settings
+Enable Sound Effects
+Enable Boot Sound
 Sound Effects Volume
 Boot Sound Volume
-Kumpirmahin "video mode change"?
+Confirm video mode change?
 Cache Game List (HDD)
-Notifications
-Config loaded from %s
-Theme loaded from %s
-Language loaded from %s
-%s partition mounted.
-Mga Opsyon
-Nai-save ang "Game settings".
-%s settings ay nai-alis.
-Io-overwrite ang nakairal na game compatibility settings kapag naka-enable.
+Enable Notifications
+%s loaded from %s
+Game Menu
+Game settings saved.
+%s settings removed.
+Overwrites existing game compatibility settings when enabled.
 Settings Mode
 Global
 Per Game
-Lahat
-Piliin ang settings para alisin.
+All
+Select settings to remove.
 Support Forums:
-Pamagat
+Title
 Genre
-Nai-eelease
-Debeloper
-Deskripsyon
-Block Devices
-Controller Settings
-Turn on/off Block Device Manager.
-Turn on/off Block Devices (e.g. USB).
-USB Games
-iLink Games
-MX4SIO Games
+Release
+Developer
+Description

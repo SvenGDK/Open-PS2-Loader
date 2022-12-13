@@ -1,6 +1,7 @@
 # Hungarian translation by co5oos
-# For Open PS2 Loader v1.0.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 Hungarian
+Open PS2 Loader %s
 Változtatások mentése
 Vissza
 Hálózat konfigurálás
@@ -11,7 +12,7 @@ Hiba a beállítások írásában!
 Kilépés
 Beállítások
 Menü
-BDM Játékok
+USB Játékok
 HDD Játékok
 ETH Játékok
 Alkalmazások
@@ -41,6 +42,7 @@ Kereszt
 Játék Lista
 Játékbeállítások
 Beállítások eltávolítása
+Játékhoz tartozó összes kulcs eltávolítva
 Görgetés
 Lassú
 Közepes
@@ -51,29 +53,30 @@ Kérem várjon
 Hiba a Játék ID betöltése közben
 Automatikus rendezés
 Hiba a nyelv fájl betöltésnél
-Debug Colors
-Nem található kontroller, várakozás…
-Cover Art
+Hibakeresési színek letiltása
+Nem található kontroller, várakozás...
+Lemezborító engedélyezése
 Szélesvásznú
 Kikapcsolás
 Konfiguráció betöltése
 Konfiguráció mentése
 Eszköz indítása
 Frissítés
-BDM Start Mode
+USB eszköz indítási mód
 HDD eszköz indítási mód
 ETH eszköz indítási mód
 Alkalmazások menü megjelenítési mód
 Automatikus
 Manuális
-NBD szerver indítása
-NBD Szerver Elindul…
-NBD Szerver Fut…
-Az NBD Szerver elindítása Sikertelen.
-Az NBD Szerver kirakodása…
+HDL szerver indítása
+HDL Szerver Elindul...
+HDL Szerver Fut...
+Az HDL Szerver elindítása Sikertelen.
+Az HDL Szerver kirakodása...
 IGR útvonala
 Háttér színe
 Szöveg szín
+- PS2 -
 - SMB Szerver -
 IP Cím típus
 Statikus
@@ -97,7 +100,8 @@ Az elem véglegesen törlésre kerül, folytatja?
 Törlés
 Futtatás
 Képernyő Beállítások
-Write Operations
+Írási műveletek engedélyezése
+USB játék töredezettség ellenőrzése
 Emlékezz a legutóbbi játékra
 Select Gomb
 Hiba, a játék töredezett
@@ -110,6 +114,8 @@ Syscalls kiakasztás
 Videók átugrása
 DVD-DL emulálás
 IGR letiltása
+Nem Használt
+Nem Használt
 A méretváltoztatás leformázza a VMC-t
 Létrehoz
 Indít
@@ -130,7 +136,7 @@ Automatikus frissítés
 Névjegy
 Kódolók
 Minőségbiztosítás
-BDM előtag elérési út
+USB előtag elérési út
 Testreszabott ELF bootolása egy IGR után
 Érték perc(ek)ben, 0 a kikapcsolás letiltására
 Automatikus Merevlemez kikapcsolás
@@ -159,6 +165,8 @@ Mód 3
 Mód 4
 Mód 5
 Mód 6
+Mód 7
+Mód 8
 GSM Konfiguráció
 Ethernet kapcsolat módja
 100Mbit full-duplex
@@ -166,8 +174,9 @@ Ethernet kapcsolat módja
 10Mbit full-duplex
 10Mbit half-duplex
 GSM Beállítások
-GSM Selector
+GSM Engedélyezése
 KI vagy BE kapcsolja a GSM-t
+VMODE
 Kényzerített Testreszabott Megjelenítési Mód
 Vízszintes-Pozíció
 Vízszintes Szabályozás
@@ -178,7 +187,7 @@ Overscan Beállítása
 FMV Átugrása
 Átugorja a  Full Motion Videókat
 Csalás Beállítások
-PS2RD Cheat Engine
+PS2RD Csalás Motor engedélyezése
 Engedd a PS2RD Csalás motornak, hogy patch-elje a játékodat.
 PS2RD Csalás Motor Mód
 Auto-kiválaszt vagy játékcsalások Kiválasztása
@@ -196,14 +205,14 @@ Frissítés visszavonva.
 Beállítások letöltése a hálózatról?
 Testreszabott Beállítások
 Letöltött alapértelmezések
-Automatikus indítás %i s belül…
+Automatikus indítás %i s belül...
 Automatikus indítás
 Érték másodperc(ek)ben, 0 az Automatikus indítás letiltásához
 PS2 Logó
 Csak egy érvényes lemez logónál jelenik meg, amely egyezik a konzol régiójával
 PADEMU konfigurálás
 Pad Emulator Beállítások
-Pad Emulator
+PadEmulator Engedélyezése
 Be/ki kapcsolja a PadEmulátor-t a kiválaszott játékhoz.
 Pad Emulátor mód
 Válassza ki a  Pad Emulátor módját.
@@ -211,9 +220,9 @@ DualShock3/4 USB
 DualShock3/4 BT
 Port beállítások:
 Válassza ki a Pad Emulátor portot a beállításokhoz.
-Emulation
+Emuláció engedélyezése
 Be/ki kapcsolja a Pad Emulátor-t a kiválasztott porthoz.
-Vibration
+Rezgés engedélyezése
 Be/ki kapcsolja a rezgést a Pad Emulátor kiválasztott portjához.
 Usb bluetooth adapter mac címe:
 DS Kontroller a következő MAC címhez pároztatva:
@@ -231,12 +240,12 @@ Igen
 Nem
 A Bluetooth adapternek teljes mértékben kompatibilisnek kell lennie a DS3/DS4 kontrollerekkel.
 A Bluetooth adapter nem biztos, hogy megfelelően fog működni DS3/DS4 kontrollerekkel.
-Multitap Emulation
+Multitap emuláció Engedélyezése
 ki/be kapcsolja Multitap emulációt a kiválasztott játékhoz.
 Multitap emulátor ezen a porton
 Válassza ki a portot a Multitap emulációhoz.
-Fake DS3 Workaround
-Some fake DS3s need a workaround, this option will enable it.
+Megkerülés letiltása a hamisítvány DS3-hoz.
+Néhány hamis ds3-hoz megkerülés szükséges, ez az opció letiltja ezt.
 FIELD flipping emulálása
 Fix azon játékokhoz, melyek hibát produkálnak progresszív videó mód alatt.
 Gyerekzár Beállítások
@@ -249,18 +258,15 @@ Build Opciók:
 Hiba - ez a jelszó nem használható.
 VMC %s fájl töredezett. Folytatás a %d foglalatban lévő Memória Kártyával?
 Hangbeállítások
-Sound Effects
-Boot Sound
+Hanghatások engedélyezése
+Boot Sound engedélyezése
 Hanghatások hangereje
 Boot Sound hangereje
 Videó mód változtatás jóváhagyása?
 Játéklista cachelés (HDD)
-Notifications
-Config loaded from %s
-Theme loaded from %s
-Language loaded from %s
-%s partition mounted.
-Options
+Értesítések engedélyezése
+%s betöltve %s-ből
+Játék Menü
 Játékbeállítások elmentve.
 %s beállítások eltávolítva
 Engedélyezéskor felülírja a létező játék kompatibilitási beállításokat.
@@ -275,10 +281,3 @@ Műfaj
 Megjelenés
 Fejlesztő
 Leírás
-Block Devices
-Controller Settings
-Turn on/off Block Device Manager.
-Turn on/off Block Devices (e.g. USB).
-USB Games
-iLink Games
-MX4SIO Games

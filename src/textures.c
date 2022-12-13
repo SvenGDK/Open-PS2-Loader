@@ -274,7 +274,7 @@ static void texPngReadMemFunction(png_structp pngPtr, png_bytep data, png_size_t
     *PngBufferPtr = (u8 *)(*PngBufferPtr) + length;
 }
 
-static void texPngReadPixels4(GSTEXTURE *texture, png_bytep *rowPointers, size_t size)
+static void texPngReadPixels4(GSTEXTURE *texture, png_bytep *rowPointers)
 {
     unsigned char *pixel = (unsigned char *)texture->Mem;
     png_clut_t *clut = (png_clut_t *)texture->Clut;
@@ -296,19 +296,15 @@ static void texPngReadPixels4(GSTEXTURE *texture, png_bytep *rowPointers, size_t
         clut[i].alpha = pngTexture.trans[i] >> 1;
 
     for (i = 0; i < texture->Height; i++) {
-        for (j = 0; j < texture->Width / 2; j++)
-            memcpy(&pixel[k++], &rowPointers[i][1 * j], 1);
+        for (j = 0; j < texture->Width / 2; j++) {
+            memcpy(&pixel[k], &rowPointers[i][1 * j], 1);
+            pixel[k] = (pixel[k] << 4) | (pixel[k] >> 4);
+            k++;
+        }
     }
-	
-	int byte;
-    unsigned char *tmpdst = (unsigned char *)texture->Mem;
-    unsigned char *tmpsrc = (unsigned char *)pixel;
-
-    for (byte = 0; byte < size; byte++)
-        tmpdst[byte] = (tmpsrc[byte] << 4) | (tmpsrc[byte] >> 4);
 }
 
-static void texPngReadPixels8(GSTEXTURE *texture, png_bytep *rowPointers, size_t size)
+static void texPngReadPixels8(GSTEXTURE *texture, png_bytep *rowPointers)
 {
     unsigned char *pixel = (unsigned char *)texture->Mem;
     png_clut_t *clut = (png_clut_t *)texture->Clut;
@@ -345,7 +341,7 @@ static void texPngReadPixels8(GSTEXTURE *texture, png_bytep *rowPointers, size_t
     }
 }
 
-static void texPngReadPixels24(GSTEXTURE *texture, png_bytep *rowPointers, size_t size)
+static void texPngReadPixels24(GSTEXTURE *texture, png_bytep *rowPointers)
 {
     struct pixel3
     {
@@ -361,7 +357,7 @@ static void texPngReadPixels24(GSTEXTURE *texture, png_bytep *rowPointers, size_
     }
 }
 
-static void texPngReadPixels32(GSTEXTURE *texture, png_bytep *rowPointers, size_t size)
+static void texPngReadPixels32(GSTEXTURE *texture, png_bytep *rowPointers)
 {
     struct pixel
     {
@@ -379,7 +375,7 @@ static void texPngReadPixels32(GSTEXTURE *texture, png_bytep *rowPointers, size_
 }
 
 static void texPngReadData(GSTEXTURE *texture, png_structp pngPtr, png_infop infoPtr,
-                           void (*texPngReadPixels)(GSTEXTURE *texture, png_bytep *rowPointers, size_t size))
+                           void (*texPngReadPixels)(GSTEXTURE *texture, png_bytep *rowPointers))
 {
     int row, rowBytes = png_get_rowbytes(pngPtr, infoPtr);
     size_t size = gsKit_texture_size_ee(texture->Width, texture->Height, texture->PSM);
@@ -397,7 +393,7 @@ static void texPngReadData(GSTEXTURE *texture, png_structp pngPtr, png_infop inf
     }
     png_read_image(pngPtr, rowPointers);
 
-    texPngReadPixels(texture, rowPointers, size);
+    texPngReadPixels(texture, rowPointers);
 
     for (row = 0; row < texture->Height; row++)
         free(rowPointers[row]);
@@ -463,19 +459,16 @@ int texPngLoad(GSTEXTURE *texture, const char *path, int texId, short psm)
     png_get_IHDR(pngPtr, infoPtr, &pngWidth, &pngHeight, &bitDepth, &colorType, &interlaceType, NULL, NULL);
     texUpdate(texture, pngWidth, pngHeight);
 
+    if (colorType == PNG_COLOR_TYPE_GRAY)
+        png_set_expand(pngPtr);
+
     if (bitDepth == 16)
         png_set_strip_16(pngPtr);
-	
-	if (colorType == PNG_COLOR_TYPE_GRAY || bitDepth < 4) {
-        png_set_expand(pngPtr);
-        if (png_get_valid(pngPtr, infoPtr, PNG_INFO_tRNS))
-            png_set_tRNS_to_alpha(pngPtr);
-    }
 
     png_set_filler(pngPtr, 0x80, PNG_FILLER_AFTER);
     png_read_update_info(pngPtr, infoPtr);
 
-    void (*texPngReadPixels)(GSTEXTURE * texture, png_bytep * rowPointers, size_t size);
+    void (*texPngReadPixels)(GSTEXTURE * texture, png_bytep * rowPointers);
     switch (png_get_color_type(pngPtr, infoPtr)) {
         case PNG_COLOR_TYPE_RGB_ALPHA:
             // if PNG have alpha, then it fits for every case (even if we only wanted RGB)
@@ -504,14 +497,13 @@ int texPngLoad(GSTEXTURE *texture, const char *path, int texId, short psm)
                 memset(texture->Clut, 0, gsKit_texture_size_ee(8, 2, GS_PSM_CT32));
 
                 texPngReadPixels = &texPngReadPixels4;
-            } else if (bitDepth == 8) {
+            } else {
                 texture->PSM = GS_PSM_T8;
                 texture->Clut = memalign(128, gsKit_texture_size_ee(16, 16, GS_PSM_CT32));
                 memset(texture->Clut, 0, gsKit_texture_size_ee(16, 16, GS_PSM_CT32));
 
                 texPngReadPixels = &texPngReadPixels8;
-            } else
-                return texPngEnd(pngPtr, infoPtr, file, ERR_BAD_DEPTH);
+            }
             break;
         default:
             return texPngEnd(pngPtr, infoPtr, file, ERR_BAD_DEPTH);

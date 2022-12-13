@@ -1,37 +1,38 @@
-# Portuguese_Brazil Translation by gledson999. https://www.retro-jogos.com/
-# For Open PS2 Loader v1.1.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# Portuguese_Brazil translation by gledson999. http://gledson999.blogspot.com.br/
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 Portuguese Brazil
-Salvar Mudanças
+Open PS2 Loader %s
+Salvar mudanças
 Voltar
-Configurações de Rede
-Opções Avançadas
+Configurações de rede
+Opções avançadas
 <sem valores>
 Configurações salvas em %s
 Erro ao salvar as configurações!
 Sair
 Configurações
 Menu
-Jogos no BDM
+Jogos no USB
 Jogos no HDD
-Jogos no ETH
+Jogos em ETH
 Aplicativos
 Temas
 Idioma
 O sistema será desligado.
 Sair para o Navegador?
 Cancelar as atualizações?
-%d: O Disco Rígido não foi detectado.
-%d: O Disco Rígido não está formatado.
-%d: Erro ao iniciar a rede.
-%d: Nenhum adaptador de rede foi detectado.
-%d: Não foi possível conectar com o servidor SMB.
-%d: Não foi possível entrar no servidor SMB.
+%d: O Disco Rígido não foi detectado
+%d: O Disco Rígido não está formatado
+%d: Erro ao iniciar a rede
+%d: Nenhum adaptador de rede foi detectado
+%d: Não foi possível conectar com o servidor SMB
+%d: Não foi possível entrar no servidor SMB
 %d: Não foi possível abrir o compartilhamento no SMB
 %d: Não foi possível listar o compartilhamento no SMB
 %d: Não foi possível listar os jogos
 %d: O servidor DHCP está indisponível
 %d: Nenhuma conexão de rede
-ON
+ON 
 OFF
 Ok
 Ok
@@ -39,41 +40,43 @@ Cancelar
 O
 X
 Lista de Jogos
-Configurações do Jogo
-Remover Configurações
-Velocidade da Rolagem
+Configurar
+Remover configurações
+Todas as configurações dos jogos foram removidas
+Rolagem
 Lenta
 Média
 Rápida
-Menu Padrão
-Carregar do Disco
-Por favor aguarde.
-Erro ao carregar o ID do jogo.
-Ordenação Automática
-Erro ao carregar os arquivos de idioma.
-Cores de Depuração
-Nenhum controle detectado, aguardando…
-Artes da Capa
-Tela Panorâmica
+Menu padrão
+Carregar do disco
+Por favor aguarde
+Erro ao carregar o ID do jogo
+Organizar em ordem alfabética
+Erro ao carregar os arquivos de idioma
+Desativar cores de depuração
+Nenhum controle detectado, aguardando...
+Habilitar as artes da Capa
+Tela panorâmica
 Desligar o PS2
-Carregando configurações…
-Salvando configurações…
-Iniciar Dispositivo
+Carregando configurações...
+Salvando configurações...
+Iniciar dispositivo
 Atualizar
-Modo de Início no BDM
-Modo de Início no HDD
-Modo de Início no ETH
-Modo de Início nos Aplicativos
+Modo de inicio no USB
+Modo de inicio no HDD
+Modo de inicio no ETH
+Modo de inicio nos Aplicativos
 Automático
 Manual
-Iniciar o Servidor NBD
-O servidor NBD está iniciando…
-O servidor NBD está sendo executado…
-Falha ao iniciar o servidor NBD.
-O servidor NBD está sendo encerrado…
-Caminho de Saída do IGR
-Cor do Fundo
-Cor do Texto
+Iniciar o Servidor HDL
+O servidor HDL está iniciando...
+O servidor HDL está sendo executado...
+Falha ao iniciar o servidor HDL.
+O servidor HDL está sendo encerrado...
+Caminho de saída do IGR
+Cor do fundo
+Cor do texto
+- PS2 -
 - Servidor SMB -
 Tipo de Endereço IP
 Estático
@@ -96,28 +99,31 @@ O item será apagado permanentemente, continuar?
 Renomear
 Apagar
 Iniciar
-Configurações de Tela
-Opções de Escritas
-Lembrar do Último Jogo Jogado
-Botão de Seleção
-Erro, o jogo está fragmentado.
-Erro, o item não pode ser iniciado.
+Configurações de tela
+Ativar opções de escritas
+Verificar fragmentação no USB
+Lembrar do último jogo jogado
+Botão de seleção
+Erro, o jogo está fragmentado
+Erro, o item não pode ser iniciado
 Testar Mudanças
 Deixe em branco para não usar senhas.
 Leituras Corretas
 Modo de Sincronia
-Desativar Chamadas do Sistema
+Desativar chamadas do sistema
 Pular Vídeos
 Emular DVD-DL
 Desativa o IGR
+Sem uso
+Sem uso
 Mudando de tamanho, formatará o VMC.
 Criar
 Iniciar
 Modificar
 Abortar
 Reiniciar
-Usar o Genérico
-Configurações do VMC
+Usa o genérico
+Configure o VMC
 Nome
 Tamanho
 Estatísticas
@@ -130,20 +136,20 @@ Atualização Automática
 Créditos
 Desenvolvedores
 Controle de Qualidade
-Prefixo do Caminho BDM
+Prefixo do caminho USB
 Inicia um ELF preferencial após um IGR.
 Valor em minuto(s), 0 para desativar.
-Desligamento Automático do HDD
-Modo de Vídeo
+Desligamento automático do HDD
+Modo de vídeo
 Cor do Diálogo
 Cor Selecionada
 Redefinir Cores
-Informações
+Info.
 ELF Modificado
 Seleção de Cor
 Reconectar
 Deixar vazio para listar compartilhamentos.
-Prefixo do Caminho ETH
+Prefixo de caminho ETH
 Apagar
 Espaço
 Enter
@@ -159,31 +165,34 @@ Modo 3
 Modo 4
 Modo 5
 Modo 6
-Configurações do GSM
+Modo 7
+Modo 8
+Configurar GSM
 Modo de Link da Internet
 100Mbit Duplex-Integral
 100Mbit Semi-Duplex
 10Mbit Duplex-Integral
 10Mbit Semi-Duplex
-Configurações do GSM
-Seletor GSM
+Opções do GSM
+Ativar GSM
 Ativar/Desativar o GSM.
+VMODE
 Modo de vídeo para forçar.
-Posição Horizontal
+POS-H
 Ajustes Horizontais.
-Posição Vertical
+POS-V
 Ajustes Verticais.
 Overscan
 Ajustes do Overscan.
 Pular FMV
 Pula os vídeos do jogo.
-Configurações de Trapaças
-PS2RD Cheat Engine
+Opções de trapaças
+Ativar o PS2RD Cheat Engine
 Deixar o PS2RD patchear seus jogos
 Modo do PS2RD Cheat Engine
-Auto-Selecionar ou Escolher as trapaças.
-Auto-Selecionar Trapaças
-Selecionar Trapaças
+Auto-selecionar ou Escolher as trapaças.
+Auto-selecionar trapaças
+Selecionar trapaças
 Erro: Falha ao carregar as trapaças
 Nenhuma trapaça encontrada
 Baixar configurações
@@ -194,53 +203,53 @@ Falha ao conectar no servidor de atualização.
 Atualização concluída.
 Atualização cancelada.
 Baixar configurações da Internet?
-Configurações Personalizadas
-Configurações Baixadas
-Iniciar automaticamente no %i s…
+Configurações personalizadas
+Configurações baixadas
+Iniciar automaticamente no %i s...
 Auto-começar
 Valores em segundos (s), 0 para desativar.
-Logotipo do PlayStation 2
+Logotipo do Playstation 2
 Será mostrado apenas para os jogos que for da mesma região do console.
-Configurações do DualShock3/4
-Configurações de Emulação do Controle
-Emulação de Controle
+Configurar DualShock3/4
+Configurações de emulação de Controle
+Ativar emulação de Controle
 Liga/desliga a emulação de controle para o jogo selecionado.
-Modo de Emulação de Controle
+Modo de emulação de controle
 Escolha o modo de emulação de controle.
 DualShock3/4 USB
 DualShock3/4 BlueTooth
-Configurações da Porta:
+Configurações da porta:
 Escolha a porta do controle emulado para aplicar os ajustes.
-Emulação
+Ativar emulação
 Liga/desliga o emulador de controle para a porta selecionada.
-Vibração
+Ativar vibração
 Liga/desliga a vibração para o controle emulado da porta selecionada.
-Endereço MAC do Adaptador USB:
-DualShock 3 Sincronizado com o MAC:
+Endereço MAC do adaptador USB:
+DualShock 3 sincronizado com o MAC:
 Sincronizar
-Sincronizar o Controle DualShock 3/4
+Sincroniza o controle DualShock 3/4
 Sincroniza o controle DualShock 3/4 com endereço MAC do adaptador bluetooth.
 Não está conectado
-Informações do Adaptador Bluetooth
+Informações do adaptador Bluetooth
 Mostra mais informações e recursos suportados.
 Versão do HCI:
 Versão do LMP:
-ID do Fabricante:
+ID do fabricante:
 Recursos de Suporte:
 Sim
 Não
 O adaptador Bluetooth precisa ser compatível com o controle DS3/DS4.
 O adaptador Bluetooth talvez não funcione corretamente no controle DS3/DS4.
-Emulação do Multitap
+Ativar emulação do Multitap
 Liga/Desliga a emulação do Multitap para o jogo selecionado.
-Emulador do Multitap na Porta:
+Emulador do Multitap na porta:
 Escolha a porta para a emulação do Multitap.
-Soluções Alternativas para DS3 Falsos
-Alguns DS3 falsos precisam de soluções alternativas, esta opção irá ativá-la.
-Emular Inversão de Campo
-Correção para jogos que apresentam falhas nos modos de vídeos progressivos.
-Configurações de Bloqueio Parental
-Senha do Bloqueio Parental
+Desativar soluções alternativa para DS3 falsos
+Alguns DS3 falsos precisam de soluções alternativas, esta opção irá desativá-la.
+Emular inversão de campo
+Correção para alguns jogos que apresentam falhas nos modos de vídeos progressivos.
+Configurações de bloqueio parental
+Senha do bloqueio parental
 Deixe em branco para desativar o bloqueio parental.
 Insira a senha do bloqueio parental
 A senha do bloqueio parental está incorreta.
@@ -249,18 +258,15 @@ Opção de Montagem:
 Erro - Esta senha não pode ser usada.
 O arquivo do VMC %s está fragmentado. Continuar com o Memory Card do slot %d?
 Configurações de Áudio
-Efeitos Sonoros
-Som de Inicialização
+Ativar feito Sonoro
+Ativar Som de Inicialização
 Volume do Efeito Sonoro
 Volume do Som de Inicialização
 Confirmar as mudanças do modo de vídeo?
-Cache da Lista de Jogos (HDD)
-Notificações
-Configurações carregadas do %s
-Tema carregado do %s
-Idioma carregado do %s
-Partição %s montada.
-Opções
+Cache da lista de jogos (HDD)
+Ativar Notificações
+%s carregado do %s
+Menu de Jogo
 Configurações de jogos salvas.
 Ajustes %s removidos.
 Substitui as configurações de compatibilidade de jogos existentes ao ativar.
@@ -275,10 +281,3 @@ Gênero
 Lançamento
 Desenvolvedor
 Descrição
-Dispositivos de Blocos
-Configurações de Controles
-Ativa/Desativa o Gerenciador de Dispositivos de Blocos.
-Ativa/Desativa Dispositivos de Blocos (Exemplo: USB).
-Jogos no USB
-Jogos no iLink
-Jogos no MX4SIO

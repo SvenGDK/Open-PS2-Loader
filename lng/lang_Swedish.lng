@@ -1,6 +1,7 @@
 # Swedish translation by Flaya
-# For Open PS2 Loader v1.0.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 Swedish
+Open PS2 Loader %s
 Spara ändringar
 Tillbaka
 Nätverkskonfig
@@ -11,7 +12,7 @@ Fel vid skrivning av inställningar!
 Avsluta
 Inställning
 Meny
-BDM Spel
+USB Spel
 HDD Spel
 ETH Spel
 Appar
@@ -41,6 +42,7 @@ Kryss
 Spel-lista
 Spelinst.
 Ta bort inställningar
+Tog bort alla nycklar för spelet
 Bläddra
 Sakta
 Medel
@@ -51,29 +53,30 @@ Vänta
 Fel vid laddning av Game ID
 Automatisk sortering
 Fel vid inläsning av språkfilen
-Debug Colors
-Ingen kontroll upptäcks , vänta …
-Cover Art
+Inaktivera Debug Färger
+Ingen kontroll upptäcks , vänta ...
+Aktivera Omslag
 Bredbild
 Stäng av
 Ladda config
 Spara config
 Starta enheten
 Uppdatera
-BDM Start Mode
+USB enhet startläge
 HDD enhet startläge
 ETH enhet startläge
 APP-meny visningsläge
 Auto
 Manuell
-Starta NBD Server
-NBD Server Startar …
-NBD Server Running…
-Kan inte starta NBD server.
-NBD Server Stängs…
+Starta HDL Server
+HDL Server Startar ...
+HDL Server Running...
+Kan inte starta HDL server.
+HDL Server Stängs...
 Utgång till
 Bakgrundsfärg
 Textfärg
+- PS2 -
 - SMB Server -
 IP Address typ
 Statisk
@@ -97,7 +100,8 @@ Byt namn
 Radera
 Kör
 Skärminställningar
-Write Operations
+Aktivera skrivåtkomst
+Kontrollera USB spelfragmentering
 Kom ihåg senast spelade spel
 Välj knapp
 Fel, spelet är fragmenterat
@@ -110,6 +114,8 @@ Släpp Syscalls
 Skippa Videos
 Emulera DVD-DL
 Inaktivera IGR
+Används ej
+Används ej
 Ändra storleken kommer att formatera om VMC
 Skapa
 Start
@@ -130,7 +136,7 @@ Automatisk uppdatering
 Om
 Kodare
 Kvalitetstestare
-BDM prefix sökväg
+USB prefix sökväg
 Laddar vald ELF efter en IGR
 Värde i minut (er), 0 för att inaktivera nerspinn
 Automatisk HDD nerspinn
@@ -159,6 +165,8 @@ Läge 3
 Läge 4
 Läge 5
 Läge 6
+Läge 7
+Läge 8
 Konfigurera GSM
 Ethernet hastighet och duplex
 100Mbit full duplex
@@ -166,8 +174,9 @@ Ethernet hastighet och duplex
 10Mbit full duplex
 10Mbit halv duplex
 GSM inställningar
-GSM Selector
+Aktivera GSM
 GSM PÅ eller AV
+Vidoeläge
 Videoläge tvingas
 Horisontell position
 Ställer Horisontell offset
@@ -178,7 +187,7 @@ Ställer Vertikal förskjutning
 Skippa FMV
 Skippar Full Motion Video
 Inställningar Fusk
-PS2RD Cheat Engine
+Aktivera PS2RD Fusk Motor
 Tillåter PS2RD patcha dina spel
 PS2RD Fusk Motor Läge
 Autovälj eller Välj spel fusk
@@ -196,14 +205,14 @@ Uppdatering avbruten
 Hämta inställningar från nätverket?
 Modifierade inställningar
 Hämtade standard
-Autostart om %i s…
-Autostart
+Autostart om %i s...
+Autostart 
 Värde i sekund(er), 0 inaktiverar Autostart
 PS2 Logo
 Visas bara när skivavbilden matchar konsolens region
 Konfigurera PADEMU
 Pad Emulator Inställningar
-Pad Emulator
+Aktivera PadEmulator
 Slå av/på PadEmulator för valt spel.
 Pad Emulator läge
 Vlj Pad Emulator läge.
@@ -211,9 +220,9 @@ DualShock3 / 4 USB
 DualShock3 / 4 BT
 Inställningar för port:
 Välj Pad Emulator port för inställningar.
-Emulation
+Aktivera emulation
 Slå av/på Pad Emulator för vald port.
-Vibration
+Aktivera vibration
 Slå av/på vibration för Pad Emulator vald port.
 Usb bluetooth adapter mac address:
 DS Controller kopplad till MAC-adress:
@@ -231,12 +240,12 @@ Ja
 Nej
 Bluetooth-adaptern ska vara fullt kompatibel med DS3 / DS4-kontroller.
 Bluetooth-adaptern kanske inte fungerar korrekt med DS3 / DS4-kontroller.
-Multitap Emulation
+Aktivera multitapemulering
 Slår på / av multitap emulering för valt spel.
 Multitap emulator på porten
 Välj port för multitap emulering.
-Fake DS3 Workaround
-Some fake DS3s need a workaround, this option will enable it.
+Inaktivera lösningen för falska DS3
+Några falska ds3s behöver lösningen, det här alternativet kommer att inaktivera det.
 Emulera FIELD vändning
 Fix för spel med problem i progressivt läge.
 Föräldrakontroll
@@ -249,18 +258,15 @@ Bygg-Alternativ:
 Fel - lösenordet kan ej användas.
 VMC %s filen är fragmenterad. Använd minneskort i port %d?
 Ljudinställningar
-Sound Effects
-Boot Sound
+Aktivera Ljudeffekter
+Aktivera Uppstartsljud
 Ljudeffektsvolym
 Uppstartsljudsvolym
 Bekräfta ändring av videoläge?
 Lägg Spellista i Cache (HDD)
-Notifications
-Config loaded from %s
-Theme loaded from %s
-Language loaded from %s
-%s partition mounted.
-Options
+Aktivera notifikationer
+%s Laddat från %s
+SpelMeny
 Spelinställningar sparade.
 %s inställningar borttagna
 Skriver över befintliga spelinställningar om aktiverad.
@@ -275,10 +281,3 @@ Genre
 Lansering
 Utvecklare
 Beskrivning
-Block Devices
-Controller Settings
-Turn on/off Block Device Manager.
-Turn on/off Block Devices (e.g. USB).
-USB Games
-iLink Games
-MX4SIO Games

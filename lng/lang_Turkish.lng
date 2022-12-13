@@ -1,6 +1,7 @@
 # Turkish translation by Gürkan DEMİR <vampire_bs@hotmail.com> aka: dante
-# For Open PS2 Loader v1.0.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 Turkish
+Open PS2 Loader %s
 Değişiklikleri kaydet
 Geri
 Ağ ayarları
@@ -11,7 +12,7 @@ Ayarlar yazılırken hata oluştu!
 Çıkış
 Ayarlar
 Menü
-BDM Oyunları
+USB Oyunları
 HDD Oyunları
 AĞ Oyunları
 Uygulamalar
@@ -41,6 +42,7 @@ Daire
 Oyun listesi
 Oyun ayarları
 Ayarları sil
+Oyunun tüm anahtarları kaldırıldı
 Kaydırma
 Yavaş
 Orta
@@ -51,29 +53,30 @@ Lütfen bekleyiniz
 Oyun kimliği yüklenirken hata oluştu
 Otomatik sıralama
 Dil dosyası yüklenirken hata oluştu
-Debug Colors
-Oyun kolu algılanmadı, bekliyor…
-Cover Art
+Hata ayıklama renklerini iptal et
+Oyun kolu algılanmadı, bekliyor...
+Kapak Resimlerini etkinleştir
 Geniş ekran
 Gücü kapat
 Ayarlar yükleniyor
 Ayarlar kayıt ediliyor
 Cihazı başlat
 Yenile
-BDM Start Mode
+USB cihazı başlangıç türü
 HDD cihazı başlangıç türü
 AĞ cihazı başlangıç türü
 Uygulamalar menüsü görünüm kipi
 Otomatik
 El ile
-NBD Sunucu Başlat
-NBD Sunucu Başlatma Hatası
-NBD Sunucu Başlıyor…
-NBD Sunucu Çalışıyor…
-NBD Sunucu Durduruluyor…
+HDL Sunucu Başlat
+HDL Sunucu Başlatma Hatası
+HDL Sunucu Başlıyor...
+HDL Sunucu Çalışıyor...
+HDL Sunucu Durduruluyor...
 IGR yeri
 Arkaplan rengi
 Metin rengi
+- PS2 - 
 - SMB Sunucusu -
 IP adres türü
 Sabit
@@ -97,7 +100,8 @@ Y.Adlandır
 Sil
 Çalıştır
 Görüntü ayarları
-Write Operations
+Yazma işlemlerini aktif et
+USB oyun bütünlüğünü kontrol et (Fragmentation)
 Enson oynanan oyunu hatırla
 Seçme tuşu
 Hata, oyun dosyası parçalı
@@ -110,6 +114,8 @@ Sistem çağrılarını çöz
 Videoları atla
 DVD-DL i etkinleştir
 IGR i etkisizleştir
+Kullanılmıyor
+Kullanılmıyor
 VMC Boyutu değiştirmek VMC nin biçimlendirilmesine neden olur
 Oluştur
 Başlat
@@ -130,7 +136,7 @@ Otomatik yenileme
 Hakkında
 Geliştiriciler
 Kalite Kontrolü
-BDM önek yolu
+USB önek yolu
 IGR'den sonra özel bir ELF'e başlar
 Dakika olarak değer, iptal etmek için 0 giriniz
 Otomatik Sabit Disk durdurma
@@ -159,6 +165,8 @@ Kip 3
 Kip 4
 Kip 5
 Kip 6
+Kip 7
+Kip 8
 GSM ayarları
 Ağ Bağlantı kipi
 100Mbit full-duplex
@@ -166,8 +174,9 @@ Ağ Bağlantı kipi
 10Mbit full-duplex
 10Mbit half-duplex
 GSM Ayarları
-GSM Selector
+GSM Aktif
 GSM'i Açar ve Kapatır
+VMODE
 Zorlanmış özel görüntüleme kipi
 Y-Konum
 Yatay Ayarlama
@@ -178,7 +187,7 @@ Overscan Ayarı
 FMV Atlama
 Full Motion Videoları atlar
 Hile Ayarları
-PS2RD Cheat Engine
+PS2RD Cheat Engine'i Aktif et
 PS2RD Cheat Engine'in oyunlara yama yapmasına izin ver
 PS2RD Cheat Engine Kipi
 Hileleri Otomatik veya Manuel seçer
@@ -196,14 +205,14 @@ Güncelleme iptal edildi.
 Internetten ayarlar indirilsin mi?
 Kişiselleştirilmiş Ayarlar
 Varsayılanlar indirildi
-Otomatik başlatılacak %i s…
+Otomatik başlatılacak %i s...
 Otomatik başlat
 Saniye olarak değer, iptal etmek için 0 giriniz
 PS2 Logosu
 Sadece konsolun bölgesine uyan, kabul edilebilir logolar gösterilir.
 PADEMU'yu ayarla
 Pad Emulator Ayarları
-Pad Emulator
+PadEmulator Aktif Et
 Seçilen oyun için PADEMU'nun durumu
 Pad Emulator modu
 Pad Emulator modunu seçin.
@@ -211,9 +220,9 @@ DualShock3/4 USB
 DualShock3/4 BT
 Port için ayarlar.
 Ayarlanacak Pad Emulator portunu seçin
-Emulation
+Emulasyonu aç
 Seçilen port için Pad Emulator durumu
-Vibration
+Titreşimi aç
 Seçilen port için Pad Emulator titreşimi durumu
 USB Bluetooth adaptörü MAC adresi:
 MAC adresi ile eşleşmiş DS kolu:
@@ -231,12 +240,12 @@ Evet
 Hayır
 Bluetooth adaptörü DS3/DS4 kolları ile büyük ihtimalle tam uyumlu.
 Bluetooth adaptörü DS3/DS4 kolları ile tam doğru çalışmayabilir.
-Multitap Emulation
+Multitap emulasyonunu aç
 Seçilen oyun için Multitap emulasyonu durumu
 Multitap emulasyonu portu
 Multitap emulasyonu için port seçin
-Fake DS3 Workaround
-Some fake DS3s need a workaround, this option will enable it.
+Sahte DS3ler için workaround'u kapat
+Bazı sahte DS3ler ile çalışabilmek için gereken workaround'u kapatır.
 FIELD flipping emüle et
 Progressive video modları ile bozulan oyunlar için çözüm yaması.
 Ebeveyn Kilidi Ayarları
@@ -249,18 +258,15 @@ Build Ayarları:
 Hata - bu parola kullanılamaz.
 VMC %sdosyası fragment olmuş, fiziksel HK ile devam edilsin mi (slot %d)?
 Ses Ayarları
-Sound Effects
-Boot Sound
+Ses Efektleri Olsun
+Açılış Sesi Olsun
 Ses Efektleri Kuvveti
 Açılış Sesi Kuvveti
 Video çıkış modu değiştirilsin mi?
 Oyun listesini cachele (HDD)
-Notifications
-Config loaded from %s
-Theme loaded from %s
-Language loaded from %s
-%s partition mounted.
-Options
+Bildirimleri aktifleştir
+%s yüklendi %s konumundan
+Oyun Menüsü
 Oyun ayarları kaydedildi.
 %s ayarları silindi.
 Aktifleştirildiğinde varolan oyun uyumluluk ayarlarının üzerine yazar.
@@ -275,10 +281,3 @@ Tür
 Çıkış
 Geliştirici
 Açıklama
-Block Devices
-Controller Settings
-Turn on/off Block Device Manager.
-Turn on/off Block Devices (e.g. USB).
-USB Games
-iLink Games
-MX4SIO Games

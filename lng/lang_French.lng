@@ -1,6 +1,7 @@
 # French translation by ShaolinAssassin completed by Algol & chronoss.
-# For Open PS2 Loader v1.0.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 French
+Open PS2 Loader %s
 Sauvegarder
 Retour
 Configuration réseau
@@ -8,10 +9,10 @@ Réglages avancés
 <non renseigné>
 Configs sauvées vers %s
 Erreur lors de la sauvegarde de la configuration
-Quitter
+Quitter Open PS2 Loader
 Configuration
 Menu
-Périphérique BDM
+Périphérique USB
 Disque dur interne
 Serveur SMB
 Apps
@@ -41,6 +42,7 @@ X
 Liste des jeux
 Réglages
 Supprimer Les Configs
+Réglages du jeu supprimés
 Défilement
 Lent
 Moyen
@@ -51,29 +53,30 @@ Veuillez patienter
 Erreur lors du chargement de l'ID du jeu
 Tri alphabétique
 Erreur lors du chargement du fichier langue
-Debug Colors
+Passer l'écran de debug
 La manette PS2 a été déconnectée…
-Cover Art
+Fichiers ART
 Écran large
 Éteindre le système
-Chargement…
+Chargement...
 Sauvegarde de la configuration
 Démarrer le périphérique
 Rafraîchir
-Démarrage du périphérique BDM
+Démarrage du périphérique USB
 Démarrage du disque dur interne
 Démarrage du serveur SMB
 Page apps
 Automatique
 Manuel
-Démarrer le serveur NBD
-Serveur NBD en cours de démarrage…
-Serveur NBD connecté…
-Échec au démarrage du serveur NBD
-Fermeture du serveur NBD…
-Chemin IGR
+Démarrer le serveur HDL
+Serveur HDL en cours de démarrage...
+Serveur HDL connecté…
+Échec au démarrage du serveur HDL
+Fermeture du serveur HDL…
+Sortie via IGR vers :
 Arrière-plan
 Texte principal
+- PS2 - 
 - Serveur SMB -
 Type d'adresse IP
 Statique
@@ -97,7 +100,8 @@ Renommer
 Suppr.
 Lancer
 Configuration de l'affichage
-Write Operations
+Opérations d'écriture
+Vérifier fragmentation (USB)
 Dernier jeu joué
 Touche de validation
 "Erreur, le jeu est fragmenté"
@@ -110,6 +114,8 @@ Purger OPL après lancement du jeu
 Passer les vidéos
 Émuler support double couche (DVD9 rippés en DVD5)
 Désactiver l'IGR (incompatible avec certains jeux)
+Non utilisé
+Non utilisé
 Changer la taille de la VMC la formatera
 Créer
 Démarrer
@@ -122,7 +128,7 @@ Nom
 Taille
 État
 Progression
-La VMC existe déjà
+La VMC existe déjà 
 Fichier VMC non valide, taille incorrecte
 La VMC doit d'abord être créée
 Erreur sur VMC %s. Continuer sur la carte mém. physique %d ?
@@ -130,7 +136,7 @@ Rafraîchissement automatique
 Crédits
 Développeurs
 Beta-testeurs
-Préfixe du chemin du périph. BDM
+Préfixe du chemin du périph. USB
 Laisser le champ <non renseigné> pour quitter OPL vers le navigateur PS2
 En minute(s), 0 pour désactiver l'arrêt automatique
 Arrêt auto. disque dur interne
@@ -151,7 +157,7 @@ Maj/Min
 VMC 1
 VMC 2
 ID
-Mode DMA
+DMA mode
 Synchronisation verticale
 Mode 1
 Mode 2
@@ -159,6 +165,8 @@ Mode 3
 Mode 4
 Mode 5
 Mode 6
+Mode 7
+Mode 8
 GSM
 Vitesse Ethernet
 100Mbit full-duplex
@@ -166,8 +174,9 @@ Vitesse Ethernet
 10Mbit full-duplex
 10Mbit half-duplex
 Configuration de GSM
-GSM Selector
+GSM
 Activer/Désactiver GSM
+Mode vidéo à forcer
 Modes vidéo disponibles : NTSC/PAL/60Hz/PS1/HDTV/VGA
 Ajustement horizontal de l'écran
 Ajouter/Soustraire
@@ -178,7 +187,7 @@ Ajustement de l'Overscan
 Avance rapide
 Passer les vidéos au format FMV
 PS2RD
-PS2RD Cheat Engine
+PS2RD
 Activer/Désactiver PS2RD
 Activation des codes
 Automatique/Manuel
@@ -203,22 +212,22 @@ Logo PS2
 Affiche le logo de disque valide correspondant à la région de la console.
 PADEMU
 Configuration émulateur manette
-Pad Emulator
+Émulateur manette 
 Activer/Désactiver émulateur manette pour ce jeu
 Mode
 USB/Bluetooth
-DualShock3/4 USB
-DualShock3/4 Bluetooth
+DualShock3 USB
+DualShock3 Bluetooth
 Port
 1-Feb
-Emulation
+Émulation manette
 Activer/Désactiver émulateur manette pour le port sélectionné
 Vibration
 Activer/Désactiver support vibration pour le port sélectionné
 Adresse MAC du récepteur Bluetooth
 DualShock3 connectée à l'adresse MAC
 Appairer
-Appairer manette DS3
+Appairer manette DS3 
 Appairer manette DS3 avec l'adresse MAC du récepteur Bluetooth
 Non connecté
 Informations sur l'adaptateur Bluetooth
@@ -235,8 +244,8 @@ Adaptateur Bluetooth potentiellement non compatible avec manettes DS3/4.
 Activer/Désactiver l'émulation du Multitap pour ce jeu
 Émulation du Multitap sur le port:
 Port 1/Port 2
-Fake DS3 Workaround
-Some fake DS3s need a workaround, this option will enable it
+Désactiver correctif pour manettes clones DS3
+Désactive correctif permettant à certaines manettes clones DS3 de fonctionner
 Émuler FIELD Flipping
 Correction jeux Tressautants en mode Vidéo Progressif.
 Paramètres du verrouillage parental
@@ -249,18 +258,15 @@ Options de compilation:
 Erreur - ce mot de passe ne peut pas être utilisé.
 Le fichier VMC %s est fragmenté. Continuer avec la carte mémoire dans l'emplacement %d?
 Paramètres Audio
-Sound Effects
-Boot Sound
+Activer les effets sonores
+Activer le son de démarrage
 Volume des effets sonores
 Volume du son de démarrage
 Confirmer le changement de mode vidéo?
 Masquer la liste des jeux (HDD)
-Notifications
-Configuration chargée depuis %s
-Theme chargé depuis %s
-Langue chargée depuis %s
-Partition %s montée
-Options
+Activer les notifications
+%s chargé par %s
+Menu Jeu
 Paramètres sauvegardés.
 %s paramètres supprimés.
 Remplace les paramètres de compatibilité des jeux existants lorsqu'ils sont activés.
@@ -275,10 +281,3 @@ Genre
 Release
 Développeurs
 Description
-Block Devices
-Controller Settings
-Turn on/off Block Device Manager.
-Turn on/off Block Devices (e.g. USB).
-USB Games
-iLink Games
-MX4SIO Games

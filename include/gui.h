@@ -57,7 +57,6 @@ extern int guiFrameId;
 #define GUI_SCREEN_MENU 1
 #define GUI_SCREEN_INFO 2
 #define GUI_SCREEN_GAME_MENU 3
-#define GUI_SCREEN_APP_MENU 4
 
 void guiSwitchScreen(int target);
 
@@ -129,7 +128,6 @@ void guiShowAbout();
 void guiShowConfig();
 void guiShowUIConfig();
 void guiShowAudioConfig();
-void guiShowControllerConfig();
 void guiShowNetConfig();
 void guiShowParentalLockConfig();
 

@@ -471,8 +471,6 @@ static int dgmacset = 0;
 static int dg_discon = 0;
 static int ver_set = 0, feat_set = 0;
 
-static int forceGlobalPadEmu;
-
 static char *bdaddr_to_str(u8 *bdaddr, char *addstr)
 {
     int i;
@@ -673,18 +671,12 @@ static int guiGamePadEmuInfoUpdater(int modified)
     return 0;
 }
 
-void guiGameShowPadEmuConfig(int forceGlobal)
+void guiGameShowPadEmuConfig(void)
 {
     const char *settingsSource[] = {_l(_STR_GLOBAL_SETTINGS), _l(_STR_PERGAME_SETTINGS), NULL};
     const char *PadEmuModes[] = {_l(_STR_DS34USB_MODE), _l(_STR_DS34BT_MODE), NULL};
 
     int PadEmuMtap, PadEmuMtapPort, i;
-	
-	forceGlobalPadEmu = forceGlobal;
-    diaSetEnabled(diaPadEmuConfig, PADCFG_PADEMU_SOURCE, !forceGlobalPadEmu);
-
-    if (forceGlobalPadEmu)
-        guiGameLoadPadEmuConfig(NULL, configGetByType(CONFIG_GAME));
 
     diaSetEnum(diaPadEmuConfig, PADCFG_PADEMU_SOURCE, settingsSource);
     diaSetEnum(diaPadEmuConfig, PADCFG_PADEMU_MODE, PadEmuModes);
@@ -746,36 +738,6 @@ void guiGameShowPadEmuConfig(int forceGlobal)
 
         if (result == UIID_BTN_OK)
             break;
-    }
-}
-
-static int guiGameSavePadEmuGameConfig(config_set_t *configSet, int result)
-{
-    if (gPadEmuSource == SETTINGS_PERGAME) {
-        diaGetInt(diaPadEmuConfig, PADCFG_PADEMU_ENABLE, &EnablePadEmu);
-
-        result = configSetInt(configSet, CONFIG_ITEM_PADEMUSOURCE, gPadEmuSource);
-        if (EnablePadEmu != 0)
-            result = configSetInt(configSet, CONFIG_ITEM_ENABLEPADEMU, EnablePadEmu);
-        else
-            configRemoveKey(configSet, CONFIG_ITEM_ENABLEPADEMU);
-
-        if (PadEmuSettings != 0)
-            result = configSetInt(configSet, CONFIG_ITEM_PADEMUSETTINGS, PadEmuSettings);
-        else
-            configRemoveKey(configSet, CONFIG_ITEM_PADEMUSETTINGS);
-    }
-
-    return result;
-}
-
-void guiGameSavePadEmuGlobalConfig(config_set_t *configGame)
-{
-    if (gPadEmuSource == SETTINGS_GLOBAL) {
-        diaGetInt(diaPadEmuConfig, PADCFG_PADEMU_ENABLE, &EnablePadEmu);
-
-        configSetInt(configGame, CONFIG_ITEM_ENABLEPADEMU, EnablePadEmu);
-        configSetInt(configGame, CONFIG_ITEM_PADEMUSETTINGS, PadEmuSettings);
     }
 }
 #endif
@@ -908,8 +870,23 @@ int guiGameSaveConfig(config_set_t *configSet, item_list_t *support)
 
 #ifdef PADEMU
     /// PADEMU ///
-    result = guiGameSavePadEmuGameConfig(configSet, result);
-    guiGameSavePadEmuGlobalConfig(configGame);
+    diaGetInt(diaPadEmuConfig, PADCFG_PADEMU_ENABLE, &EnablePadEmu);
+
+    if (gPadEmuSource == SETTINGS_PERGAME) {
+        result = configSetInt(configSet, CONFIG_ITEM_PADEMUSOURCE, gPadEmuSource);
+        if (EnablePadEmu != 0)
+            result = configSetInt(configSet, CONFIG_ITEM_ENABLEPADEMU, EnablePadEmu);
+        else
+            configRemoveKey(configSet, CONFIG_ITEM_ENABLEPADEMU);
+
+        if (PadEmuSettings != 0)
+            result = configSetInt(configSet, CONFIG_ITEM_PADEMUSETTINGS, PadEmuSettings);
+        else
+            configRemoveKey(configSet, CONFIG_ITEM_PADEMUSETTINGS);
+    } else if (gPadEmuSource == SETTINGS_GLOBAL) {
+        configSetInt(configGame, CONFIG_ITEM_ENABLEPADEMU, EnablePadEmu);
+        configSetInt(configGame, CONFIG_ITEM_PADEMUSETTINGS, PadEmuSettings);
+    }
 #endif
 
     diaGetString(diaCompatConfig, COMPAT_GAMEID, hexid, sizeof(hexid));
@@ -1071,14 +1048,12 @@ static void guiGameLoadPadEmuConfig(config_set_t *configSet, config_set_t *confi
     configGetInt(configGame, CONFIG_ITEM_PADEMUSETTINGS, &PadEmuSettings);
 
     // override global with per-game settings if available and selected.
-    if (!forceGlobalPadEmu) {
-        configGetInt(configSet, CONFIG_ITEM_PADEMUSOURCE, &gPadEmuSource);
-        if (gPadEmuSource == SETTINGS_PERGAME) {
-            if (!configGetInt(configSet, CONFIG_ITEM_ENABLEPADEMU, &EnablePadEmu))
-                EnablePadEmu = 0;
-            if (!configGetInt(configSet, CONFIG_ITEM_PADEMUSETTINGS, &PadEmuSettings))
-                PadEmuSettings = 0;
-        }
+    configGetInt(configSet, CONFIG_ITEM_PADEMUSOURCE, &gPadEmuSource);
+    if (gPadEmuSource == SETTINGS_PERGAME) {
+        if (!configGetInt(configSet, CONFIG_ITEM_ENABLEPADEMU, &EnablePadEmu))
+            EnablePadEmu = 0;
+        if (!configGetInt(configSet, CONFIG_ITEM_PADEMUSETTINGS, &PadEmuSettings))
+            PadEmuSettings = 0;
     }
     // set gui settings.
     int PadEmuMtap = (PadEmuSettings >> 24) & 1;

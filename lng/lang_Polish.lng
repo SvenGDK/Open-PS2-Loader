@@ -1,6 +1,7 @@
-# Wersja 0.26. W większości przetłumaczone przez dragolice. Ponownie tłumaczyć "próbowali" Jolek & KaiQ. Podziękowania dla Haker120, misiozola i innych z Forum CDRinfo.pl ("https://forum.cdrinfo.pl/f30/") za pomoc i sugestie.
-# For Open PS2 Loader v1.0.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# Wersja 0.22. W większości przetłumaczone przez dragolice. Ponownie tłumaczyć "próbowali" Jolek & KaiQ. Podziękowania dla Haker120, misiozola i innych z Forum CDRinfo.pl ("https://forum.cdrinfo.pl/f30/") za pomoc i sugestie.
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 Polski
+Open PS2 Loader %s
 Zapisz Zmiany
 Wróć
 Ustawienia Sieci
@@ -11,7 +12,7 @@ Błąd zapisu ustawień!
 Wyjdź
 Ustawienia
 Menu
-Gry BDM
+Gry USB
 Gry HDD
 Gry ETH
 Aplikacje
@@ -41,6 +42,7 @@ X
 Lista Gier
 Ustawienia Gry
 Usuń Ustawienia
+Usunięto wszystkie klucze dla gry.
 Szybkość Przewijania
 Wolno
 Średnio
@@ -49,31 +51,32 @@ Domyślne Menu
 Załaduj Z Dysku
 Proszę czekać.
 Błąd podczas ładowania identyfikatora gry.
-Automatyczne Sortowanie
+Sortowanie Automatyczne
 Błąd ładowania pliku językowego.
-Wyświetl Kolory Debugowania
-Nie wykryto kontrolera, oczekiwanie…
-Okładki
+Nie Wyświetlaj Kolorów Debugowania
+Nie wykryto kontrolera, oczekiwanie...
+Wyświetlanie Okładek
 Szeroki Ekran
 Wyłącz
-Wczytywanie ustawień…
-Zapisywanie ustawień…
+Wczytywanie ustawień...
+Zapisywanie ustawień...
 Uruchom Urządzenie
 Odśwież
-Uruchom BDM
-Uruchom HDD
-Uruchom ETH
+Uruchom Urządzenie USB
+Uruchom Urządzenie HDD
+Uruchom Urządzenie ETH
 Wyświetl Menu Aplikacji
 Automatyczny
 Ręcznie
-Uruchom Serwer NBD
-Uruchamianie Serwera NBD…
-Serwer NBD uruchomiony…
-Nieudane uruchomienie serwera NBD.
-Serwer NBD zostanie zamknięty…
+Uruchom Serwer HDL
+Uruchamianie Serwera HDL...
+Serwer HDL uruchomiony...
+Nieudane uruchomienie serwera HDL.
+Serwer HDL zostanie zamknięty...
 Ścieżka Dla IGR
 Kolor Tła
 Kolor Tekstu
+- PS2 -
 - Serwer SMB -
 Typ Adresu IP
 Statyczny
@@ -97,7 +100,8 @@ Zmień Nazwę
 Usuń
 Uruchom
 Ustawienia Obrazu
-Operacja Zapisu
+Włącz Operację Zapisu
+Sprawdź Fragmentację Gier USB
 Zapamiętaj Ostatnio Uruchomioną Grę
 Przycisk Wyboru
 Błąd, gra jest pofragmentowana.
@@ -110,6 +114,8 @@ Wymaż OPL Po Uruchomieniu Gry
 Pomiń Wstawki Filmowe
 Emuluj DVD-DL
 Wyłącz IGR
+Niewykorzystany
+Niewykorzystany
 Zmiana rozmiaru spowoduje przeformatowanie VMC.
 Utwórz
 Start
@@ -126,11 +132,11 @@ Plik VMC istnieje.
 Błędny plik VMC, nieprawidłowy rozmiar.
 Plik VMC musi zostać utworzony.
 Błąd dostępu do VMC %s, kontynuuj z kartą pamięci w gnieździe %d?
-Automatyczne Odświeżanie
+Odświeżanie Automatyczne
 O Programie
 Programiści
 Kontrola Jakości
-Prefix Ścieżki BDM
+Prefix Ścieżki USB
 Uruchom wybrany ELF po IGR.
 Wartość w minutach, 0 dla dezaktywacji.
 Automatyczne Zwalnianie Obrotów HDD
@@ -144,7 +150,7 @@ Wybór Koloru
 Połącz Ponownie
 Pozostaw puste aby wyświetlić listę udziałów.
 Prefix Ścieżki ETH
-Cofnij
+Cofnij	
 Odstęp
 Enter
 Tryb
@@ -159,6 +165,8 @@ Tryb 3
 Tryb 4
 Tryb 5
 Tryb 6
+Tryb 7
+Tryb 8
 Konfiguruj GSM
 Szybkość I Tryb Sieci
 100Mbit Pełny-dupleks
@@ -166,8 +174,9 @@ Szybkość I Tryb Sieci
 10Mbit Pełny-dupleks
 10Mbit Pół-dupleks
 Ustawienia GSM
-GSM Selector
+Aktywuj GSM
 Włącz lub wyłącz GSM.
+Tryb Wideo
 Wymuś określony tryb wyświetlania.
 Położenie Poziome
 Regulacja w poziomie.
@@ -178,7 +187,7 @@ Regulacja overscanu.
 Pomiń FMV
 Pomija wstawki filmowe.
 Ustawienia Kodów
-Silnik Kodów PS2RD
+Włącz Silnik Kodów PS2RD
 Pozwól silnikowi kodów PS2RD patchować grę.
 Tryb Silnika Kodów PS2RD
 Auto-wybieranie lub wybieranie kodów dla gry.
@@ -196,14 +205,14 @@ Aktualizacja przerwana.
 Pobrać ustawienia z sieci?
 Dodatkowe Ustawienia
 Pobrano domyślne.
-Auto start w %i s…
+Auto start w %i s...
 Auto Start
 Wartość w sekundach, 0 wyłącza auto start.
 Logo PS2
 Logo zostanie wyświetlone wyłącznie jeśli region gry i konsoli będzie taki sam.
 Konfiguracja Emulacji Pada
 Ustawienia Emulacji Pada
-Emulacja Pada
+Włącz Emulację Pada
 Włącza/wyłącza emulację Pada dla wybranej gry.
 Tryb Emulacji Pada
 Wybierz tryb emulacji Pada.
@@ -211,9 +220,9 @@ DualShock3/4 USB
 DualShock3/4 BT
 Ustawienia Portu:
 Wybierz Port emulacji Pada dla ustawień.
-Emulacja
+Włącz Emulację
 Włącz/wyłącz emulację Pada dla wybranego portu.
-Wibracje
+Włącz Wibracje
 Włącz/wyłącz wibracje dla wybranego portu emulacji Pada.
 Adres MAC adaptera Bluetooth USB:
 Kontroler DS sparowany z adresem MAC:
@@ -231,12 +240,12 @@ Tak
 Nie
 Adapter Bluetooth powinien być w pełni kompatybilny z kontrolerami DS3/DS4.
 Adapter Bluetooth może nie współpracować poprawnie z kontrolerami DS3/DS4.
-Emulacja Multitapa
+Włącz emulację Multitapa
 Włącza/wyłącza emulację Multitapa dla wybranej gry.
 Emulacja Multitapa Dla Portu:
 Wybierz port dla emulacji Multitapa.
-Poprawka Dla Klonów DS3
-Niektóre klony DS3 wymagają programowej poprawki, ta opcja ją włączy\wyłączy.
+Nie Stosuj Obejścia Dla Klonów DS3.
+Niektóre klony DS3 wymagają obejścia, ta opcja to wyłączy.
 Emuluj FIELD Flipping
 Poprawka dla gier w których występują usterki w trybie progresywnego obrazu.
 Ustawienia Blokady Rodzicielskiej
@@ -256,11 +265,8 @@ Głośność Dźwięku Startowego
 Potwierdasz zmianę rozdzielczości?
 Buforowanie Listy Gier (HDD)
 Powiadomienia
-Ustawienia załadowane z %s
-Motyw załadowany z %s
-Język załadowany z %s
-Zamontowano partycję %s.
-Opcje
+%s załadowany z %s
+Menu Gry
 Ustawienia gry zostały zapisane.
 %s ustawienia zostały usunięte.
 Po włączeniu nadpisuje istniejące ustawienia kompatybilności z grami.
@@ -275,10 +281,3 @@ Gatunek
 Data wydania
 Deweloper
 Opis
-Urządzenia Blokowe
-Ustawienia Kontrolera
-Włącz/wyłącz menedżera urządzeń blokowych.
-Włącz/wyłącz urządzenia blokowe (np. USB).
-Gry USB
-Gry iLink
-Gry MX4SIO

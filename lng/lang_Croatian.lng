@@ -1,6 +1,7 @@
 # Croatian translation by Blacky5678
-# For Open PS2 Loader v1.0.0 + betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-language-pack.20547/
+# For Open PS2 Loader 0.9.3+ betas - Official OPL Beta thread @https://www.psx-place.com/threads/open-ps2-loader-official-beta-releases.21573/
 Croatian
+OPL %s
 Spremi Promjene
 Natrag
 Network Settings
@@ -11,7 +12,7 @@ Greska zapisivanja postavki!
 Izlaz
 Postavke
 Izbornik
-BDM Igre
+USB Igre
 HDD Igre
 ETH Igre
 Aplikacije
@@ -41,6 +42,7 @@ Kriz
 Lista Igara
 Postavke Igre
 Ukloni Postavke
+Uklonjeni svi kljucevi za igru.
 Izlistati
 Sporo
 Srednje
@@ -51,29 +53,30 @@ Molimo, sacekajte.
 Greska tijekom ucitavanja ID-a igre.
 Automatsko Sortiranje
 Greska ucitavanja jezicne datoteke.
-Debug Colors
-Kontroler nije primijecen, cekanje…
-Cover Art
+Onemoguci Debug Boje
+Kontroler nije primijecen, cekanje...
+Omoguci Naslovnice Igara
 Siroki Zaslon
 Ugasi
-Ucitavanje konfiguracije…
-Spremanje konfiguracije…
+Ucitavanje konfiguracije...
+Spremanje konfiguracije...
 Zapocni Uredaj
 Osvjezi
-BDM Start Mode
+Pocetni Nacin USB Uredaja
 Pocetni Nacin HDD Uredaja
 Pocetni Nacin ETH Uredaja
 Nacin Prikaza Aplikacijskog Izbornika
 Automatski
 Rucno
-Zapocni NBD Server
-Zapocinjanje NBD Servera…
-Pokretanje NBD Servera…
-Neuspjesno zapocinjanje NBD Servera.
-Gasenje NBD Server…
+Zapocni HDL Server
+Zapocinjanje HDL Servera...
+Pokretanje HDL Servera...
+Neuspjesno zapocinjanje HDL Servera.
+Gasenje HDL Server...
 IGR Putanja
 Boja Pozadine
 Boja Teksta
+- PS2 -
 - SMB Server -
 Vrsta IP Adrese
 Staticna
@@ -97,7 +100,8 @@ Preimenuj
 Obrisi
 Pokreni
 Postavke Zaslona
-Write Operations
+Omoguci Operacije Pisanja
+Provjeri Fragmentaciju USB Igre
 Zapamti Zadnju Upaljenu Igru
 Tipka za Odabir
 Greska, igra je fragmentirana.
@@ -110,6 +114,8 @@ Otkaci Syscalls
 Preskoci Videe
 Emuliraj DVD-DL
 Onemoguci IGR
+Nekoristeno
+Nekoristeno
 Mijenjanje velice ce preurediti VMC.
 Stvori
 Zapocni
@@ -130,7 +136,7 @@ Automatsko Osvjezavanje
 O
 Koderi
 Osiguranje Kvalitete
-Putanja BDM Prefiksa
+Putanja USB Prefiksa
 Pokrece prilagodeni ELF nakon IGR-a.
 Vrijednost u minutama, 0 za onemogucivanje zavrtanja.
 Automatsko Zavrtanje HDD-a
@@ -159,6 +165,8 @@ Nacin 3
 Nacin 4
 Nacin 5
 Nacin 6
+Nacin 7
+Nacin 8
 Konfiguriraj GSM
 Nacin Povezivanja Etherneta
 100Mbit Puni-dupleks
@@ -166,8 +174,9 @@ Nacin Povezivanja Etherneta
 10Mbit Puni-dupleks
 10Mbit Pola-dupleksa
 GSM Postavke
-GSM Selector
+Omoguci GSM
 Uklj./Isklj. GSM
+VMOD
 Forsirani prilagodeni nacin ekrana.
 H-POZ
 Horizontalno nastimavanje.
@@ -178,7 +187,7 @@ Nastimavanje skaliranja.
 Preskoci FMV
 Preskakanje FMV-a
 Postavke Varanja
-PS2RD Cheat Engine
+Omoguci PS2RD Cheat Engine
 Dopusti PS2RD Cheat Engine da zakrpa tvoju igru.
 Nacin PS2RD Cheat Engine
 Automatski odabir ili odaberi varanja za igru.
@@ -196,14 +205,14 @@ Azuriranje otkazano.
 Preuzmi postavke sa mreze?
 Prilagodene Postavke
 Preuzeto Uobicajeno
-Automatski zapocni za %i s…
+Automatski zapocni za %i s...
 Automatski zapocni
 Vrijednost u sekundama, 0 za onemogucavanje automatskog pocetka.
 PS2 Logo
 Displayed for a valid disc logo matching the console's region.
 Konfiguriraj PADEMU
 Postavke Pad Emulatora
-Pad Emulator
+Omoguci Pad Emulator
 Uklj./Isklj. Pad Emulator za odabranu igru.
 Nacin Pad Emulatora
 Odabire nacin Pad Emulatora.
@@ -211,9 +220,9 @@ DualShock3/4 USB
 DualShock3/4 BT
 Postavke Za Port:
 Odaberi port za postavke Pad Emulatora.
-Emulation
+Omoguci Emulaciju
 Uklj./Isklj. Pad Emulator za odabrani port.
-Vibration
+Omoguci Vibraciju
 Uklj./Isklj. vibraciju za odabrani port Pad Emulatora.
 MAC Adresa USB Bluetooth Adaptera:
 DS Kontroler uparen na MAC Adresu:
@@ -231,12 +240,12 @@ Da
 Ne
 Bluetooth adapter bi trebao biti potpuno kompatibilan sa DS3/DS4 kontrolerom.
 Bluetooth adapter mozda nece raditi ispravno sa DS3/DS4 kontrolerom.
-Multitap Emulation
+Omoguci Emulaciju Multitapa
 Uklj./Isklj. emulaciju Multitapa za odabranu igru.
 Emulator Multitapa na Portu:
 Odaberi port za emulaciju Multitapa.
-Fake DS3 Workaround
-Some fake DS3s need a workaround, this option will enable it.
+Onemoguci Lazne DS3 Obilaske
+Neki lazni DS3 ce trebati obilaske, ova postavka ce to onemoguciti.
 Emuliraj preklapanje FIELD-a
 Zakrpe za igre koje se kvare pod progresivnim video nacinom.
 Postavke Roditeljskog Zakljucavanja
@@ -249,18 +258,15 @@ Izgradi Postavke:
 Greska - ova lozinka se ne moze koristiti.
 VMC %s datoteka je fragmentirana. Nastaviti sa Memory Cardom u slotu %d?
 Postavke Zvuka
-Sound Effects
-Boot Sound
+Omoguci Zvucne Efekte
+Omoguci Zvuk Pokretanja
 Glasnoca Zvucnih Efekata
 Glasnoca Zvuka Pokretanja
 Potvrdi promjenu video nacina?
 Predmemorija Liste Igara (HDD)
-Notifications
-Config loaded from %s
-Theme loaded from %s
-Language loaded from %s
-%s partition mounted.
-Options
+Omoguci Notifikacije
+%s ucitano sa %s
+Izbornik Igre
 Postavke igre su spremljene.
 %s postavke su uklonjene.
 Prepisivanje postojecih postavki kompatibilnosti igre kada je omoguceno.
@@ -275,10 +281,3 @@ Genre
 Release
 Developer
 Description
-Block Devices
-Controller Settings
-Turn on/off Block Device Manager.
-Turn on/off Block Devices (e.g. USB).
-USB Games
-iLink Games
-MX4SIO Games
