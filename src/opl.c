@@ -1446,6 +1446,94 @@ void handleHdlSrv()
 }
 
 // ----------------------------------------------------------
+// -------------------- NBD SRV Support ---------------------
+// ----------------------------------------------------------
+static int loadLwnbdSvr(void)
+{
+    int ret, padStatus;
+
+    // deint audio lib while nbd server is running
+    sfxEnd();
+
+    // block all io ops, wait for the ones still running to finish
+    ioBlockOps(1);
+    guiExecDeferredOps();
+
+    // Deinitialize all support without shutting down the HDD unit.
+    deinitAllSupport(NO_EXCEPTION, IO_MODE_SELECTED_ALL);
+    clearErrorMessage(); /*	At this point, an error might have been displayed (since background tasks were completed).
+					Clear it, otherwise it will get displayed after the server is closed.	*/
+
+    unloadPads();
+    sysReset(0);
+
+    ret = ethLoadInitModules();
+    if (ret == 0) {
+        ret = sysLoadModuleBuffer(&ps2atad_irx, size_ps2atad_irx, 0, NULL);
+        if (ret >= 0) {
+            ret = sysLoadModuleBuffer(&lwnbdsvr_irx, size_lwnbdsvr_irx, 0, NULL);
+            if (ret >= 0)
+                ret = 0;
+        }
+    }
+
+    padInit(0);
+
+    // init all pads
+    padStatus = 0;
+    while (!padStatus)
+        padStatus = startPads();
+
+    // now ready to display some status
+
+    return ret;
+}
+
+static void unloadLwnbdSvr(void)
+{
+    ethDeinitModules();
+    unloadPads();
+
+    reset();
+
+    LOG_INIT();
+    LOG_ENABLE();
+
+    // reinit the input pads
+    padInit(0);
+
+    int ret = 0;
+    while (!ret)
+        ret = startPads();
+
+    // now start io again
+    ioBlockOps(0);
+
+    // init all supports again
+    initAllSupport(1);
+
+    // deferred reinit of audio lib to avoid crashing if devices aren't ready
+    ioPutRequest(IO_CUSTOM_SIMPLEACTION, &deferredAudioInit);
+}
+
+void handleLwnbdSrv()
+{
+    char temp[256];
+    // prepare for lwnbd, display screen with info
+    guiRenderTextScreen(_l(_STR_STARTINGNBD));
+    if (loadLwnbdSvr() == 0) {
+        snprintf(temp, sizeof(temp), "%s\nIP: %d.%d.%d.%d %s", _l(_STR_RUNNINGNBD),
+                 ps2_ip[0], ps2_ip[1], ps2_ip[2], ps2_ip[3], ps2_ip_use_dhcp ? "DHCP" : "");
+        guiMsgBox(temp, 0, NULL);
+    } else
+        guiMsgBox(_l(_STR_STARTFAILNBD), 0, NULL);
+
+    // restore normal functionality again
+    guiRenderTextScreen(_l(_STR_UNLOADNBD));
+    unloadLwnbdSvr();
+}
+
+// ----------------------------------------------------------
 // --------------------- Init/Deinit ------------------------
 // ----------------------------------------------------------
 static void reset(void)

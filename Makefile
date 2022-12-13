@@ -1,7 +1,7 @@
 VERSION = 1
 SUBVERSION = 0
-PATCHLEVEL = 0
-EXTRAVERSION =
+PATCHLEVEL = 2
+EXTRAVERSION = 0
 
 # How to DEBUG?
 # Simply type "make <debug mode>" to build OPL with the necessary debugging functionality.
@@ -22,45 +22,25 @@ EXTRAVERSION =
 # You can also specify variables when executing make: "make RTL=1 IGS=1 PADEMU=1"
 
 #Enables/disables Right-To-Left (RTL) language support
-RTL ?= 0
-
+RTL = 0
 #Enables/disables In Game Screenshot (IGS). NB: It depends on GSM and IGR to work
-IGS ?= 0
-
+IGS = 0
 #Enables/disables pad emulator
-PADEMU ?= 0
-
+PADEMU = 0
 #Enables/disables building of an edition of OPL that will support the DTL-T10000 (SDK v2.3+)
-DTL_T10000 ?= 0
-
+DTL_T10000 = 0
 #Nor stripping neither compressing binary ELF after compiling.
-NOT_PACKED ?= 0
+NOT_PACKED = 1
 
 # ======== END OF CONFIGURABLE SECTION. DO NOT MODIFY VARIABLES AFTER THIS POINT!! ========
-DEBUG ?= 0
-EESIO_DEBUG ?= 0
-INGAME_DEBUG ?= 0
-DECI2_DEBUG ?= 0
+DEBUG = 0
+EESIO_DEBUG = 0
+INGAME_DEBUG = 0
+DECI2_DEBUG = 0
 
 # ======== DO NOT MODIFY VALUES AFTER THIS POINT! UNLESS YOU KNOW WHAT YOU ARE DOING ========
-REVISION = $(shell expr $(shell git rev-list --count HEAD) + 2)
-
-GIT_HASH = $(shell git rev-parse --short=7 HEAD 2>/dev/null)
-ifeq ($(shell git diff --quiet; echo $$?),1)
-  DIRTY = -dirty
-endif
-ifneq ($(shell test -d .git; echo $$?),0)
-  DIRTY = -dirty
-endif
-
-GIT_TAG = $(shell git describe --exact-match --tags 2>/dev/null)
-ifeq ($(GIT_TAG),)
-	# git revision is not tagged
-	OPL_VERSION = v$(VERSION).$(SUBVERSION).$(PATCHLEVEL)$(if $(EXTRAVERSION),-$(EXTRAVERSION))-$(REVISION)$(if $(GIT_HASH),-$(GIT_HASH))$(if $(DIRTY),$(DIRTY))$(if $(LOCALVERSION),-$(LOCALVERSION))
-else
-	# git revision is tagged
-	OPL_VERSION = $(GIT_TAG)$(if $(DIRTY),$(DIRTY))
-endif
+REVISION = 1
+OPL_VERSION = v1.0.2
 
 FRONTEND_OBJS = pad.o fntsys.o renderman.o menusys.o OSDHistory.o system.o lang.o config.o hdd.o dialogs.o \
 		dia.o ioman.o texcache.o themes.o supportbase.o usbsupport.o ethsupport.o hddsupport.o \
@@ -84,7 +64,7 @@ MISC_OBJS =	icon_sys_A.o icon_sys_J.o icon_sys_C.o conf_theme_OPL.o \
 
 IOP_OBJS =	iomanx.o filexio.o ps2fs.o usbd.o usbhdfsd.o usbhdfsdfsv.o \
 		ps2atad.o hdpro_atad.o poweroff.o ps2hdd.o xhdd.o genvmc.o hdldsvr.o \
-		ps2dev9.o smsutils.o ps2ip.o smap.o isofs.o nbns-iop.o \
+		ps2dev9.o smsutils.o ps2ip.o smap.o isofs.o nbns-iop.o lwnbdsvr.o \
 		sio2man.o padman.o mcman.o mcserv.o \
 		httpclient-iop.o netman.o ps2ips.o \
 		usb_mcemu.o hdd_mcemu.o smb_mcemu.o \
@@ -97,9 +77,9 @@ EECORE_OBJS = ee_core.o ioprp.o util.o \
 		hdd_cdvdman.o hdd_hdpro_cdvdman.o cdvdfsv.o \
 		ingame_smstcpip.o smap_ingame.o smbman.o smbinit.o
 
-EE_BIN = opl.elf
+EE_BIN = OPNPS2LD.elf 
 EE_BIN_STRIPPED = opl_stripped.elf
-EE_BIN_PACKED = OPNPS2LD.ELF
+EE_BIN_PACKED = OPNPS2LD_packed.ELF
 EE_VPKD = OPNPS2LD-$(OPL_VERSION)
 EE_SRC_DIR = src/
 EE_OBJS_DIR = obj/
@@ -287,6 +267,8 @@ clean:
 	$(MAKE) -C modules/vmc/genvmc clean
 	echo " -hdldsvr"
 	$(MAKE) -C modules/hdd/hdldsvr clean
+	echo " -lwnbdsvr"
+	$(MAKE) -C modules/network/lwnbdsvr clean
 	echo " -udptty-ingame"
 	$(MAKE) -C modules/debug/udptty-ingame clean
 	echo " -ioptrap"
@@ -598,6 +580,12 @@ $(EE_ASM_DIR)hdldsvr.s: modules/hdd/hdldsvr/hdldsvr.irx | $(EE_ASM_DIR)
 
 $(EE_ASM_DIR)udptty.s: $(PS2SDK)/iop/irx/udptty.irx | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ udptty_irx
+	
+modules/network/lwnbdsvr/lwnbdsvr.irx: modules/network/lwnbdsvr
+	$(MAKE) -C $<
+	
+$(EE_ASM_DIR)lwnbdsvr.s: modules/network/lwnbdsvr/lwnbdsvr.irx | $(EE_ASM_DIR)
+	$(BIN2S) $< $@ lwnbdsvr_irx
 
 modules/debug/udptty-ingame/udptty.irx: modules/debug/udptty-ingame
 	$(MAKE) -C $<

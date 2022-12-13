@@ -27,6 +27,7 @@ enum MENU_IDs {
     MENU_NET_CONFIG,
     MENU_NET_UPDATE,
     MENU_START_HDL,
+	MENU_START_NBD,
     MENU_ABOUT,
     MENU_SAVE_CHANGES,
     MENU_EXIT,
@@ -207,6 +208,7 @@ static void menuInitMainMenu(void)
     submenuAppendItem(&mainMenu, -1, NULL, MENU_NET_UPDATE, _STR_NET_UPDATE);
     if (gHDDStartMode && gEnableWrite) // enabled at all?
         submenuAppendItem(&mainMenu, -1, NULL, MENU_START_HDL, _STR_STARTHDL);
+		submenuAppendItem(&mainMenu, -1, NULL, MENU_START_NBD, _STR_STARTNBD);
     submenuAppendItem(&mainMenu, -1, NULL, MENU_ABOUT, _STR_ABOUT);
     submenuAppendItem(&mainMenu, -1, NULL, MENU_SAVE_CHANGES, _STR_SAVE_CHANGES);
     submenuAppendItem(&mainMenu, -1, NULL, MENU_EXIT, _STR_EXIT);
@@ -824,6 +826,9 @@ void menuHandleInputMenu()
         } else if (id == MENU_START_HDL) {
             if (menuCheckParentalLock() == 0)
                 handleHdlSrv();
+		} else if (id == MENU_START_NBD) {
+            if (menuCheckParentalLock() == 0)
+                handleLwnbdSrv();
         } else if (id == MENU_ABOUT) {
             guiShowAbout();
         } else if (id == MENU_SAVE_CHANGES) {

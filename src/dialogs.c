@@ -793,7 +793,7 @@ struct UIItem diaAbout[] = {
     {UI_BREAK},
 
     {UI_SPACER},
-    {UI_LABEL, 0, 1, 1, -1, 0, 15, {.label = {"... and the anonymous ...", -1}}},
+    {UI_LABEL, 0, 1, 1, -1, 0, 15, {.label = {"SvenGDK - and the anonymous ...", -1}}},
     {UI_BREAK},
 
     {UI_BREAK},
@@ -818,6 +818,14 @@ struct UIItem diaAbout[] = {
 
     {UI_SPACER},
     {UI_LABEL, 0, 1, 1, -1, 0, 15, {.label = {"icyson55", -1}}},
+    {UI_BREAK},
+
+    // More updates
+    {UI_LABEL, 0, 1, 1, -1, 0, 15, {.label = {"OPL-Launcher and NBD server integration", -1}}},
+    {UI_BREAK},
+
+    {UI_SPACER},
+    {UI_LABEL, 0, 1, 1, -1, 0, 15, {.label = {"KrahJohlito - bignaux - SvenGDK", -1}}},
     {UI_BREAK},
 
     // Build Options

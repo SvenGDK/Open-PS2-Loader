@@ -49,6 +49,9 @@ extern int size_hdd_hdpro_cdvdman_irx;
 extern void *hdldsvr_irx;
 extern int size_hdldsvr_irx;
 
+extern void *lwnbdsvr_irx;
+extern int size_lwnbdsvr_irx;
+
 extern void *hdd_mcemu_irx;
 extern int size_hdd_mcemu_irx;
 
