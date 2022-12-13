@@ -6,7 +6,7 @@ Review LICENSE file for further details.
 
 Forked from https://github.com/ps2homebrew/Open-PS2-Loader v1.0.0 source code.
 
-This source code and ELF of v1.0.2 include OPL-Launcher and NBD server support.
+This source code and ELF of v1.0.2 include OPL-Launcher and NBD server support (HDL server is still included!).
 
 ## Introduction
 
