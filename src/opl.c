@@ -175,7 +175,6 @@ int gDisableDebug;
 int gPS2Logo;
 int gDefaultDevice;
 int gEnableWrite;
-int gCheckUSBFragmentation;
 char gUSBPrefix[32];
 char gETHPrefix[32];
 int gRememberLastPlayed;
@@ -218,8 +217,8 @@ void moduleUpdateMenu(int mode, int themeChanged, int langChanged)
         if (gTheme->infoElems.first)
             menuAddHint(&mod->menuItem, _STR_INFO, SQUARE_ICON);
 
-        if (!(mod->support->flags & MODE_FLAG_NO_COMPAT))
-            menuAddHint(&mod->menuItem, _STR_GAME_MENU, TRIANGLE_ICON);
+        if (!(mod->support->flags & MODE_FLAG_NO_COMPAT) || gEnableWrite)
+            menuAddHint(&mod->menuItem, _STR_OPTIONS, TRIANGLE_ICON);
 
         menuAddHint(&mod->menuItem, _STR_REFRESH, SELECT_ICON);
     }
@@ -294,6 +293,11 @@ static void itemExecTriangle(struct menu_item *curMenu)
                 menuInitGameMenu();
                 guiSwitchScreen(GUI_SCREEN_GAME_MENU);
                 guiGameLoadConfig(support, gameMenuLoadConfig(NULL));
+            }
+        } else {
+            if (menuCheckParentalLock() == 0 && gEnableWrite) {
+                menuInitAppMenu();
+                guiSwitchScreen(GUI_SCREEN_APP_MENU);
             }
         }
     } else
@@ -529,7 +533,7 @@ config_set_t *oplGetLegacyAppsConfig(void)
         return appConfig;
     }
 
-    for (i = MODE_COUNT; i >= 0; i--) {
+    for (i = MODE_COUNT - 1; i >= 0; i--) {
         listSupport = list_support[i].support;
         if ((listSupport != NULL) && (listSupport->enabled) && (listSupport->itemGetLegacyAppsPath != NULL)) {
             listSupport->itemGetLegacyAppsPath(appsPath, sizeof(appsPath));
@@ -557,7 +561,7 @@ config_set_t *oplGetLegacyAppsInfo(char *name)
     config_set_t *appConfig;
     char appsPath[128];
 
-    for (i = MODE_COUNT; i >= 0; i--) {
+    for (i = MODE_COUNT - 1; i >= 0; i--) {
         listSupport = list_support[i].support;
         if ((listSupport != NULL) && (listSupport->enabled) && (listSupport->itemGetLegacyAppsInfo != NULL)) {
             listSupport->itemGetLegacyAppsInfo(appsPath, sizeof(appsPath), name);
@@ -837,7 +841,6 @@ static void _loadConfig()
             configGetInt(configOPL, CONFIG_OPL_DEFAULT_DEVICE, &gDefaultDevice);
             configGetInt(configOPL, CONFIG_OPL_ENABLE_WRITE, &gEnableWrite);
             configGetInt(configOPL, CONFIG_OPL_HDD_SPINDOWN, &gHDDSpindown);
-            configGetInt(configOPL, CONFIG_OPL_USB_CHECK_FRAG, &gCheckUSBFragmentation);
             configGetStrCopy(configOPL, CONFIG_OPL_USB_PREFIX, gUSBPrefix, sizeof(gUSBPrefix));
             configGetStrCopy(configOPL, CONFIG_OPL_ETH_PREFIX, gETHPrefix, sizeof(gETHPrefix));
             configGetInt(configOPL, CONFIG_OPL_REMEMBER_LAST, &gRememberLastPlayed);
@@ -987,7 +990,6 @@ static void _saveConfig()
         configSetInt(configOPL, CONFIG_OPL_DEFAULT_DEVICE, gDefaultDevice);
         configSetInt(configOPL, CONFIG_OPL_ENABLE_WRITE, gEnableWrite);
         configSetInt(configOPL, CONFIG_OPL_HDD_SPINDOWN, gHDDSpindown);
-        configSetInt(configOPL, CONFIG_OPL_USB_CHECK_FRAG, gCheckUSBFragmentation);
         configSetStr(configOPL, CONFIG_OPL_USB_PREFIX, gUSBPrefix);
         configSetStr(configOPL, CONFIG_OPL_ETH_PREFIX, gETHPrefix);
         configSetInt(configOPL, CONFIG_OPL_REMEMBER_LAST, gRememberLastPlayed);
@@ -1657,7 +1659,6 @@ static void setDefaults(void)
     gRememberLastPlayed = 0;
     gAutoStartLastPlayed = 9;
     gSelectButton = KEY_CIRCLE; //Default to Japan.
-    gCheckUSBFragmentation = 1;
     gUSBPrefix[0] = '\0';
     gETHPrefix[0] = '\0';
     gEnableNotifications = 0;

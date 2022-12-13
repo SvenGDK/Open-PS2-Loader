@@ -643,6 +643,26 @@ void sbRebuildULCfg(base_game_info_t **list, const char *prefix, int gamecount, 
     }
 }
 
+static void sbCreatePath_name(const base_game_info_t *game, char *path, const char *prefix, const char *sep, int part, const char *game_name)
+{
+    switch (game->format) {
+        case GAME_FORMAT_USBLD:
+            snprintf(path, 256, "%sul.%08X.%s.%02x", prefix, USBA_crc32(game_name), game->startup, part);
+            break;
+        case GAME_FORMAT_ISO:
+            snprintf(path, 256, "%s%s%s%s%s", prefix, (game->media == SCECdPS2CD) ? "CD" : "DVD", sep, game_name, game->extension);
+            break;
+        case GAME_FORMAT_OLD_ISO:
+            snprintf(path, 256, "%s%s%s%s.%s%s", prefix, (game->media == SCECdPS2CD) ? "CD" : "DVD", sep, game->startup, game_name, game->extension);
+            break;
+    }
+}
+
+void sbCreatePath(const base_game_info_t *game, char *path, const char *prefix, const char *sep, int part)
+{
+    sbCreatePath_name(game, path, prefix, sep, part, game->name);
+}
+
 void sbDelete(base_game_info_t **list, const char *prefix, const char *sep, int gamecount, int id)
 {
     char path[256];

@@ -13,6 +13,10 @@
 
 ENTRY(_start);
 
+PHDRS {
+  text PT_LOAD;
+}
+
 SECTIONS {
 	.text 0x00082000: {
 		_ftext = . ;
@@ -22,7 +26,7 @@ SECTIONS {
 		KEEP(*(.init))
 		KEEP(*(.fini))
 		QUAD(0)
-	}
+	} :text
 
 	PROVIDE(_etext = .);
 	PROVIDE(etext = .);

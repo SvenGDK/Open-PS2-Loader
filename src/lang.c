@@ -3,6 +3,7 @@
 #include "include/util.h"
 #include "include/fntsys.h"
 #include "include/ioman.h"
+#include "include/themes.h"
 
 // Language support
 static char *internalEnglish[LANG_STR_COUNT] = {
@@ -49,7 +50,7 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Game Settings",
     "Remove Settings",
     "Removed all keys for the game.",
-    "Scrolling",
+    "Scrolling Speed",
     "Slow",
     "Medium",
     "Fast",
@@ -112,7 +113,6 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Run",
     "Display Settings",
     "Enable Write Operations",
-    "Check USB Game Fragmentation",
     "Remember Last Played Game",
     "Select Button",
     "Error, the game is fragmented.",
@@ -278,6 +278,7 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Enable Notifications",
     "%s loaded from %s",
     "Game Menu",
+	"Options",
     "Game settings saved.",
     "%s settings removed.",
     "Overwrites existing game compatibility settings when enabled.",
@@ -292,6 +293,7 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Release",
     "Developer",
     "Description",
+	"Controller Settings",
 };
 
 static int guiLangID = 0;
@@ -486,6 +488,7 @@ int lngSetGuiValue(int langID)
                 language_t *currLang = &languages[langID - 1];
                 if (lngLoadFromFile(currLang->filePath, currLang->name)) {
                     guiLangID = langID;
+					thmSetGuiValue(thmGetGuiValue(), 1);
                     return 1;
                 }
             }
@@ -493,6 +496,7 @@ int lngSetGuiValue(int langID)
             guiLangID = 0;
             // lang switched back to internalEnglish, reload default font
             fntLoadDefault(NULL);
+			thmSetGuiValue(thmGetGuiValue(), 1);
         }
     }
     return 0;
