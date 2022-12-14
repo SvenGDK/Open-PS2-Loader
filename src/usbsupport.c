@@ -377,7 +377,7 @@ static int usbGetImage(char *folder, int isRelative, char *value, char *suffix, 
         snprintf(path, sizeof(path), "%s%s/%s_%s", usbPrefix, folder, value, suffix);
     else
         snprintf(path, sizeof(path), "%s%s_%s", folder, value, suffix);
-    return texDiscoverLoad(resultTex, path, -1, psm);
+    return texDiscoverLoad(resultTex, path, -1);
 }
 
 //This may be called, even if usbInit() was not.

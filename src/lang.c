@@ -294,6 +294,22 @@ static char *internalEnglish[LANG_STR_COUNT] = {
     "Developer",
     "Description",
 	"Controller Settings",
+	"OSD Language Settings",
+	"Change language",
+	"OSD Language",
+	"Japanese",
+	"English",
+	"French",
+	"Spanish",
+	"German",
+	"Italian",
+	"Dutch",
+	"Portuguese",
+	"Russian",
+	"Korean",
+	"Trad. Chinese",
+	"Simpl. Chinese",
+
 };
 
 static int guiLangID = 0;

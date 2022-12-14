@@ -6,10 +6,10 @@ Review LICENSE file for further details.
 
 Forked from https://github.com/ps2homebrew/Open-PS2-Loader v1.0.0 source code.
 
-This updated v1.0.0 build includes:
+This updated version includes:
 - OPL-Launcher support
 - HDL server support
 - NBD server support
 - Controller Settings Menu
 - Apps Menu
-- Various fixes + updates from the stable v1.0.0 release.
+- Various fixes + updates from the stable v1.1.0 Release + v1.2.0 Beta.

@@ -40,6 +40,8 @@ int PadEmuSettings;
 int DisableDebug;
 int *gCheatList; //Store hooks/codes addr+val pairs
 
+int enforceLanguage;
+
 static int eecoreInit(int argc, char **argv)
 {
     SifInitRpc(0);
@@ -96,6 +98,20 @@ static int eecoreInit(int argc, char **argv)
     PadEmuSettings = _strtoi(_strtok(NULL, " "));
 #endif
 
+    CustomOSDConfigParam.spdifMode = _strtoi(_strtok(NULL, " "));
+    CustomOSDConfigParam.screenType = _strtoi(_strtok(NULL, " "));
+    CustomOSDConfigParam.videoOutput = _strtoi(_strtok(NULL, " "));
+    CustomOSDConfigParam.japLanguage = _strtoi(_strtok(NULL, " "));
+    CustomOSDConfigParam.ps1drvConfig = _strtoi(_strtok(NULL, " "));
+    CustomOSDConfigParam.version = _strtoi(_strtok(NULL, " "));
+    CustomOSDConfigParam.language = _strtoi(_strtok(NULL, " "));
+    CustomOSDConfigParam.timezoneOffset = _strtoi(_strtok(NULL, " "));
+    enforceLanguage = _strtoi(_strtok(NULL, " "));
+
+    if (enforceLanguage)
+        DPRINTF("Enforcing language...\n\tCustomOSDConfig2Param: %d %d %d %d %d %d %d %d\n", PARAM.spdifMode, PARAM.screenType, PARAM.videoOutput, PARAM.japLanguage, PARAM.ps1drvConfig, PARAM.version, PARAM.language, PARAM.timezoneOffset);
+    else
+        DPRINTF("Language will not be manipulated\n");
     i++;
 
     eeloadCopy = (void *)_strtoui(_strtok(argv[i], " "));

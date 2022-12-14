@@ -128,6 +128,11 @@ enum UI_ITEMS {
     NETUPD_PROGRESS,
     NETUPD_BTN_START,
     NETUPD_BTN_CANCEL,
+	
+	OSD_LANGUAGE_SOURCE,
+    OSD_LANGUAGE_ENABLE,
+    OSD_LANGUAGE_VALUE,
+	
 #ifdef PADEMU
 	PADEMU_GLOBAL_BUTTON,
     PADCFG_PADEMU_SOURCE,
@@ -192,4 +197,5 @@ extern struct UIItem diaVMC[];
 extern struct UIItem diaNetCompatUpdate[];
 extern struct UIItem diaParentalLockConfig[];
 
+extern struct UIItem diaOSDConfig[];
 #endif

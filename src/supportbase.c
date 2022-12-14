@@ -581,9 +581,9 @@ int sbPrepare(base_game_info_t *game, config_set_t *configSet, int size_cdvdman,
 
     InitCheatsConfig(configSet);
 
-#ifdef PADEMU
     config_set_t *configGame = configGetByType(CONFIG_GAME);
-
+	
+#ifdef PADEMU
     gPadEmuSource = 0;
     gEnablePadEmu = 0;
     gPadEmuSettings = 0;
@@ -596,6 +596,12 @@ int sbPrepare(base_game_info_t *game, config_set_t *configSet, int size_cdvdman,
         configGetInt(configGame, CONFIG_ITEM_PADEMUSETTINGS, &gPadEmuSettings);
     }
 #endif
+
+    if (configGetInt(configSet, CONFIG_ITEM_OSDLNG_SOURCE, &gOSDLanguageSource)) {
+        configGetInt(configSet, CONFIG_ITEM_OSDLNG, &gOSDLanguageValue);
+    } else {
+        configGetInt(configGame, CONFIG_ITEM_OSDLNG, &gOSDLanguageValue);
+    }
 
     *patchindex = i;
 

@@ -147,23 +147,6 @@ static void hddFindOPLPartition(void)
     return;
 }
 
-static int CreateOPLPartition(const char *oplPart, const char *mountpoint)
-{
-    int formatArg[3] = {PFS_ZONE_SIZE, 0x2d66, PFS_FRAGMENT};
-    int fd, result;
-    char cmd[43];
-
-    sprintf(cmd, "%s,,,128M,PFS", oplPart);
-    if ((fd = open(cmd, O_CREAT | O_TRUNC | O_WRONLY)) >= 0) {
-        close(fd);
-        result = fileXioFormat(mountpoint, oplPart, (const char *)&formatArg, sizeof(formatArg));
-    } else {
-        result = fd;
-    }
-
-    return result;
-}
-
 static int hddCreateOPLPartition(const char *name)
 {
     int formatArg[3] = {PFS_ZONE_SIZE, 0x2d66, PFS_FRAGMENT};
@@ -541,7 +524,7 @@ static int hddGetImage(char *folder, int isRelative, char *value, char *suffix, 
         snprintf(path, sizeof(path), "%s%s/%s_%s", hddPrefix, folder, value, suffix);
     else
         snprintf(path, sizeof(path), "%s%s_%s", folder, value, suffix);
-    return texDiscoverLoad(resultTex, path, -1, psm);
+    return texDiscoverLoad(resultTex, path, -1);
 }
 
 //This may be called, even if hddInit() was not.

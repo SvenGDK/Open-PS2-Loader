@@ -190,6 +190,10 @@ hdl_game_info_t *gAutoLaunchGame;
 char gOPLPart[128];
 char *gHDDPrefix;
 
+int gOSDLanguageValue;
+int gOSDLanguageEnable;
+int gOSDLanguageSource;
+
 void moduleUpdateMenu(int mode, int themeChanged, int langChanged)
 {
     if (mode == -1)
@@ -1774,6 +1778,7 @@ static void autoLaunchHDDGame(char *argv[])
     LOG_ENABLE();
 
     hddLoadModules();
+	InitConsoleRegionData();
 
     ret = configReadMulti(CONFIG_ALL);
     if (CONFIG_ALL & CONFIG_OPL) {

@@ -1,6 +1,6 @@
 VERSION = 1
 SUBVERSION = 0
-PATCHLEVEL = 3
+PATCHLEVEL = 5
 EXTRAVERSION = 0
 
 # How to DEBUG?
@@ -30,7 +30,7 @@ PADEMU = 0
 #Enables/disables building of an edition of OPL that will support the DTL-T10000 (SDK v2.3+)
 DTL_T10000 = 0
 #Nor stripping neither compressing binary ELF after compiling.
-NOT_PACKED = 1
+NOT_PACKED ?= 0
 
 # ======== END OF CONFIGURABLE SECTION. DO NOT MODIFY VARIABLES AFTER THIS POINT!! ========
 DEBUG = 0
@@ -40,7 +40,7 @@ DECI2_DEBUG = 0
 
 # ======== DO NOT MODIFY VALUES AFTER THIS POINT! UNLESS YOU KNOW WHAT YOU ARE DOING ========
 REVISION = 1
-OPL_VERSION = v1.0.3
+OPL_VERSION = v1.0.5
 
 FRONTEND_OBJS = pad.o fntsys.o renderman.o menusys.o OSDHistory.o system.o lang.o config.o hdd.o dialogs.o \
 		dia.o ioman.o texcache.o themes.o supportbase.o usbsupport.o ethsupport.o hddsupport.o \
@@ -77,9 +77,9 @@ EECORE_OBJS = ee_core.o ioprp.o util.o \
 		hdd_cdvdman.o hdd_hdpro_cdvdman.o cdvdfsv.o \
 		ingame_smstcpip.o smap_ingame.o smbman.o smbinit.o
 
-EE_BIN = OPNPS2LD.elf 
+EE_BIN = opl.elf
 EE_BIN_STRIPPED = opl_stripped.elf
-EE_BIN_PACKED = OPNPS2LD_packed.ELF
+EE_BIN_PACKED = OPNPS2LD.ELF
 EE_VPKD = OPNPS2LD-$(OPL_VERSION)
 EE_SRC_DIR = src/
 EE_OBJS_DIR = obj/
