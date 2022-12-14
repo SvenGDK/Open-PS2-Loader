@@ -11,5 +11,7 @@ This updated version includes:
 - HDL server support
 - NBD server support
 - Controller Settings Menu
+- OSD Language Configuration Menu
 - Apps Menu
+- Expanded SMB Ports
 - Various fixes + updates from the stable v1.1.0 Release + v1.2.0 Beta.
