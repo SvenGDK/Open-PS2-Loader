@@ -12,4 +12,4 @@ This updated v1.0.0 build includes:
 - NBD server support
 - Controller Settings Menu
 - Apps Menu
-- Various fixes + updates from the stable v1.0.0 release.
+- Various fixes + updates from the stable v1.1.0 release.
