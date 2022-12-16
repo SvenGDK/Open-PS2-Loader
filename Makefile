@@ -1,8 +1,3 @@
-VERSION = 1
-SUBVERSION = 0
-PATCHLEVEL = 5
-EXTRAVERSION = 0
-
 # How to DEBUG?
 # Simply type "make <debug mode>" to build OPL with the necessary debugging functionality.
 # Debug modes:
@@ -11,9 +6,6 @@ EXTRAVERSION = 0
 #	ingame_debug	-	UI-side + in-game debug mode. IOP core modules will not be built as debug versions (UDPTTY).
 #	eesio_debug	-	UI-side + eecore debug mode (EE SIO)
 #	deci2_debug	-	UI-side + in-game DECI2 debug mode (EE-side only).
-
-# I want to put my name in my custom build! How can I do it?
-# Type "make LOCALVERSION=-foobar"
 
 # ======== START OF CONFIGURABLE SECTION ========
 # You can adjust the variables in this section to meet your needs.
@@ -27,8 +19,6 @@ RTL ?= 0
 IGS ?= 0
 #Enables/disables pad emulator
 PADEMU ?= 0
-#Enables/disables building of an edition of OPL that will support the DTL-T10000 (SDK v2.3+)
-DTL_T10000 = 0
 #Nor stripping neither compressing binary ELF after compiling.
 NOT_PACKED ?= 0
 
@@ -102,15 +92,8 @@ ifeq ($(RTL),1)
   EE_CFLAGS += -D__RTL
 endif
 
-ifeq ($(DTL_T10000),1)
-  EE_CFLAGS += -D_DTL_T10000
-  EECORE_EXTRA_FLAGS += DTL_T10000=1
-  UDNL_SRC = modules/iopcore/udnl-t300
-  UDNL_OUT = modules/iopcore/udnl-t300/udnl.irx
-else
-  UDNL_SRC = modules/iopcore/udnl
-  UDNL_OUT = modules/iopcore/udnl/udnl.irx
-endif
+UDNL_SRC = modules/iopcore/udnl
+UDNL_OUT = modules/iopcore/udnl/udnl.irx
 
 ifeq ($(IGS),1)
   EE_CFLAGS += -DIGS
