@@ -844,6 +844,7 @@ static void HarvestMoonAWLPatch(int region)
 void apply_patches(const char *path)
 {
     const patchlist_t *p;
+    int mode;
 
     // if there are patches matching game name/mode then fill the patch table
     for (p = patch_list; p->game; p++) {

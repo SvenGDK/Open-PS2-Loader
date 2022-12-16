@@ -22,11 +22,11 @@ EXTRAVERSION = 0
 # You can also specify variables when executing make: "make RTL=1 IGS=1 PADEMU=1"
 
 #Enables/disables Right-To-Left (RTL) language support
-RTL = 0
+RTL ?= 0
 #Enables/disables In Game Screenshot (IGS). NB: It depends on GSM and IGR to work
-IGS = 0
+IGS ?= 0
 #Enables/disables pad emulator
-PADEMU = 0
+PADEMU ?= 0
 #Enables/disables building of an edition of OPL that will support the DTL-T10000 (SDK v2.3+)
 DTL_T10000 = 0
 #Nor stripping neither compressing binary ELF after compiling.
@@ -184,6 +184,57 @@ ifneq ($(NOT_PACKED),1)
 	$(MAKE) $(EE_BIN_PACKED)
 else
 	$(MAKE) $(EE_BIN)
+endif
+
+all-variants:
+	echo "Building Open PS2 Loader $(OPL_VERSION) with other variants."
+	
+ifneq ($(NOT_PACKED),1)	
+	$(MAKE) IGS=1 $(EE_BIN_PACKED)
+	mv $(EE_BIN_PACKED) OPNPS2LD-IGS.ELF
+	$(MAKE) clean
+	echo "IGS Variant created: OPNPS2LD-IGS.ELF"
+	
+	$(MAKE) RTL=1 $(EE_BIN_PACKED)
+	mv $(EE_BIN_PACKED) OPNPS2LD-RTL.ELF
+	$(MAKE) clean	
+	echo "RTL Variant created: OPNPS2LD-RTL.ELF"
+	
+	$(MAKE) PADEMU=1 $(EE_BIN_PACKED)
+	mv $(EE_BIN_PACKED) OPNPS2LD-PADEMU.ELF
+	$(MAKE) clean
+	echo "PADEMU Variant created: OPNPS2LD-PADEMU.ELF"
+	
+	$(MAKE) IGS=1 RTL=1 PADEMU=1 $(EE_BIN_PACKED)
+	mv $(EE_BIN_PACKED) OPNPS2LD-ALL.ELF
+	$(MAKE) clean
+	echo "ALL Variant created: OPNPS2LD-ALL.ELF"
+	
+	$(MAKE) $(EE_BIN_PACKED)
+	echo "Open PS2 Loader $(OPL_VERSION) build: OPNPS2LD.ELF"
+else
+	$(MAKE) IGS=1 $(EE_BIN)
+	mv $(EE_BIN) opl-IGS.elf
+	$(MAKE) clean
+	echo "IGS Variant created: opl-IGS.elf"
+	
+	$(MAKE) RTL=1 $(EE_BIN)
+	mv $(EE_BIN) opl-RTL.elf
+	$(MAKE) clean	
+	echo "RTL Variant created: opl-RTL.elf"
+	
+	$(MAKE) PADEMU=1 $(EE_BIN)
+	mv $(EE_BIN) opl-PADEMU.elf
+	$(MAKE) clean
+	echo "PADEMU Variant created: opl-PADEMU.elf"
+	
+	$(MAKE) IGS=1 RTL=1 PADEMU=1 $(EE_BIN)
+	mv $(EE_BIN) opl-ALL.elf
+	$(MAKE) clean	
+	echo "ALL Variant created: opl-ALL.elf"
+	
+	$(MAKE) $(EE_BIN)
+	echo "Open PS2 Loader $(OPL_VERSION) build: opl.elf"
 endif
 
 release:
@@ -449,7 +500,7 @@ modules/isofs/isofs.irx: modules/isofs
 $(EE_ASM_DIR)isofs.s: modules/isofs/isofs.irx | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ isofs_irx
 
-$(EE_ASM_DIR)usbd.s: $(PS2SDK)/iop/irx/usbd.irx | $(EE_ASM_DIR)
+$(EE_ASM_DIR)usbd.s: $(PS2SDK)/iop/irx/usbd_mini.irx | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ usbd_irx
 
 $(EE_ASM_DIR)libsd.s: $(PS2SDK)/iop/irx/libsd.irx | $(EE_ASM_DIR)

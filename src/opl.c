@@ -168,6 +168,8 @@ int showCfgPopup;
 #ifdef PADEMU
 int gEnablePadEmu;
 int gPadEmuSettings;
+int gPadMacroSource;
+int gPadMacroSettings;
 #endif
 int gScrollSpeed;
 char gExitPath[32];

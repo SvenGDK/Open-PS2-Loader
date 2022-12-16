@@ -288,7 +288,7 @@ unsigned int USBA_crc32(char *string)
     do {
         byte = string[count++];
         crc = crctab[byte ^ ((crc >> 24) & 0xFF)] ^ ((crc << 8) & 0xFFFFFF00);
-    } while (string[count - 1] != 0);
+    } while ((string[count - 1] != 0) && (count <= 32));
 
     return crc;
 }
@@ -774,8 +774,8 @@ void sysLaunchLoaderElf(const char *filename, const char *mode_str, int size_cdv
     sprintf(KernelConfig, "%u %u", (unsigned int)eeloadCopy, (unsigned int)initUserMemory);
 
 #ifdef PADEMU
-#define PADEMU_SPECIFIER " %d, %u"
-#define PADEMU_ARGUMENT , gEnablePadEmu, (unsigned int)(gPadEmuSettings >> 8)
+#define PADEMU_SPECIFIER " %d %u %u"
+#define PADEMU_ARGUMENT  , gEnablePadEmu, (unsigned int)(gPadEmuSettings >> 8), (unsigned int)(gPadMacroSettings)
 #else
 #define PADEMU_SPECIFIER
 #define PADEMU_ARGUMENT

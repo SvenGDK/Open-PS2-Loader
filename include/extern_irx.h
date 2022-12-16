@@ -1,7 +1,6 @@
 #ifndef EXTERN_IRX_H
 #define EXTERN_IRX_H
 
-
 // Try to keep this list alphabetical
 
 extern void *apemodpatch_irx;

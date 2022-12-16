@@ -420,21 +420,37 @@ int sbReadList(base_game_info_t **list, const char *prefix, int *fsize, int *gam
                 memset(*list, 0, sizeof(base_game_info_t) * count);
 
                 while (size > 0) {
-                    read(fd, &GameEntry, sizeof(USBExtreme_game_entry_t));
-
+                    unsigned int name_checksum;
                     base_game_info_t *g = &(*list)[id++];
 
+                    // populate game entry in list even if entry corrupted
+                    read(fd, &GameEntry, sizeof(USBExtreme_game_entry_t));
+                    size -= sizeof(USBExtreme_game_entry_t);
+					
                     // to ensure no leaks happen, we copy manually and pad the strings
                     memcpy(g->name, GameEntry.name, UL_GAME_NAME_MAX);
                     g->name[UL_GAME_NAME_MAX] = '\0';
-                    memcpy(g->startup, &GameEntry.startup[3], GAME_STARTUP_MAX);
+                    memcpy(g->startup, GameEntry.startup, GAME_STARTUP_MAX);
                     g->startup[GAME_STARTUP_MAX] = '\0';
                     g->extension[0] = '\0';
                     g->parts = GameEntry.parts;
                     g->media = GameEntry.media;
                     g->format = GAME_FORMAT_USBLD;
-                    g->sizeMB = -1;
-                    size -= sizeof(USBExtreme_game_entry_t);
+                    g->sizeMB = 0;
+                    name_checksum = USBA_crc32(g->name);
+					
+					// TODO: size calculation is very slow
+                    // implmented some caching, or do not touch at all
+
+                    // calculate total size for individual game
+                    // for (part = 0; part < g->parts && ulfd >= 0; part++) {
+                    //     snprintf(path, sizeof(path), "%sul.%08X.%s.%02x", prefix, name_checksum, g->startup, part);
+                    //     ulfd = openFile(path, O_RDONLY);
+                    //     if (ulfd >= 0) {
+                    //         g->sizeMB += (getFileSize(ulfd) >> 20);
+                    //         close(ulfd);
+                    //     }
+                    // }
                 }
             }
         }
@@ -587,6 +603,8 @@ int sbPrepare(base_game_info_t *game, config_set_t *configSet, int size_cdvdman,
     gPadEmuSource = 0;
     gEnablePadEmu = 0;
     gPadEmuSettings = 0;
+    gPadMacroSource = 0;
+    gPadMacroSettings = 0;
 
     if (configGetInt(configSet, CONFIG_ITEM_PADEMUSOURCE, &gPadEmuSource)) {
         configGetInt(configSet, CONFIG_ITEM_ENABLEPADEMU, &gEnablePadEmu);
@@ -595,11 +613,19 @@ int sbPrepare(base_game_info_t *game, config_set_t *configSet, int size_cdvdman,
         configGetInt(configGame, CONFIG_ITEM_ENABLEPADEMU, &gEnablePadEmu);
         configGetInt(configGame, CONFIG_ITEM_PADEMUSETTINGS, &gPadEmuSettings);
     }
+	
+    if (configGetInt(configSet, CONFIG_ITEM_PADMACROSOURCE, &gPadMacroSource)) {
+        configGetInt(configSet, CONFIG_ITEM_PADMACROSETTINGS, &gPadMacroSettings);
+    } else {
+        configGetInt(configGame, CONFIG_ITEM_PADMACROSETTINGS, &gPadMacroSettings);
+    }
 #endif
 
     if (configGetInt(configSet, CONFIG_ITEM_OSDLNG_SOURCE, &gOSDLanguageSource)) {
+		configGetInt(configSet, CONFIG_ITEM_OSDLNG_ENABLE, &gOSDLanguageEnable);
         configGetInt(configSet, CONFIG_ITEM_OSDLNG, &gOSDLanguageValue);
     } else {
+        configGetInt(configGame, CONFIG_ITEM_OSDLNG_ENABLE, &gOSDLanguageEnable);
         configGetInt(configGame, CONFIG_ITEM_OSDLNG, &gOSDLanguageValue);
     }
 
@@ -629,15 +655,15 @@ void sbRebuildULCfg(base_game_info_t **list, const char *prefix, int gamecount, 
 
         memset(&GameEntry, 0, sizeof(GameEntry));
         GameEntry.Byte08 = 0x08; // just to be compatible with original ul.cfg
-        strcpy(GameEntry.startup, "ul.");
+        memcpy(GameEntry.magic, "ul.", 3);
 
         for (i = 0; i < gamecount; i++) {
             game = &(*list)[i];
 
             if (game->format == GAME_FORMAT_USBLD && (i != excludeID)) {
-                memset(&GameEntry.startup[3], 0, GAME_STARTUP_MAX);
+                memcpy(GameEntry.startup, game->startup, GAME_STARTUP_MAX);
                 memcpy(GameEntry.name, game->name, UL_GAME_NAME_MAX);
-                strncpy(&GameEntry.startup[3], game->startup, GAME_STARTUP_MAX);
+                // don't fill last symbol with zero, cause trailing symbol can be useful character
                 GameEntry.parts = game->parts;
                 GameEntry.media = game->media;
 
@@ -750,8 +776,7 @@ config_set_t *sbPopulateConfig(base_game_info_t *game, const char *prefix, const
     configRead(config); //Does not matter if the config file could be loaded or not.
 
     configSetStr(config, CONFIG_ITEM_NAME, game->name);
-    if (game->sizeMB != -1)
-        configSetInt(config, CONFIG_ITEM_SIZE, game->sizeMB);
+    configSetInt(config, CONFIG_ITEM_SIZE, game->sizeMB);
 
     configSetStr(config, CONFIG_ITEM_FORMAT, game->format != GAME_FORMAT_USBLD ? "ISO" : "UL");
     configSetStr(config, CONFIG_ITEM_MEDIA, game->media == SCECdPS2CD ? "CD" : "DVD");

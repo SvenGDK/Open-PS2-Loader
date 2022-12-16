@@ -10,6 +10,7 @@
 #include "include/usbsupport.h"
 #include "include/ethsupport.h"
 #include "include/hddsupport.h"
+#include "../ee_core/include/syshook.h"
 
 static int appForceUpdate = 1;
 static int appItemCount = 0;
@@ -73,12 +74,11 @@ static float appGetELFSize(char *path)
 static char *appGetBoot(char *device, int max, char *path)
 {
     char *pos, *filenamesep;
-    int len;
 
     // Looking for the boot device & filename from the path
     pos = strrchr(path, ':');
     if (pos != NULL) {
-        len = (int)(pos + 1 - path);
+        int len = (int)(pos + 1 - path);
         if (len + 1 > max)
             len = max - 1;
         strncpy(device, path, len);
@@ -196,7 +196,7 @@ static int appScanCallback(const char *path, config_set_t *appConfig, void *arg)
 {
     struct app_info_linked **appsLinkedList = (struct app_info_linked **)arg;
     struct app_info_linked *app;
-    const char *title, *boot;
+    const char *title, *boot, *argv1;
 
     if (configGetStr(appConfig, APP_CONFIG_TITLE, &title) != 0 && configGetStr(appConfig, APP_CONFIG_BOOT, &boot) != 0) {
         if (*appsLinkedList == NULL) {
@@ -222,6 +222,11 @@ static int appScanCallback(const char *path, config_set_t *appConfig, void *arg)
         app->app.boot[APP_BOOT_MAX] = '\0';
         strncpy(app->app.path, path, APP_PATH_MAX + 1);
         app->app.path[APP_PATH_MAX] = '\0';
+        if (configGetStr(appConfig, APP_CONFIG_ARGV1, &argv1) != 0) {
+            strncpy(app->app.argv1, argv1, APP_ARGV1_MAX + 1);
+            app->app.argv1[APP_ARGV1_MAX] = '\0';
+        } else
+            app->app.argv1[0] = '\0';
         app->app.legacy = 0;
         return 0;
     } else {
@@ -235,7 +240,6 @@ static int appScanCallback(const char *path, config_set_t *appConfig, void *arg)
 static int appUpdateItemList(void)
 {
     struct app_info_linked *appsLinkedList, *appNext;
-    int i;
 
     appFreeList();
 
@@ -252,6 +256,7 @@ static int appUpdateItemList(void)
         appsList = malloc(appItemCount * sizeof(app_info_t));
 
         if (appsList != NULL) {
+			int i;
             for (i = 0; appsLinkedList != NULL; i++) { //appsLinkedList contains items in reverse order.
                 memcpy(&appsList[appItemCount - i - 1], &appsLinkedList->app, sizeof(app_info_t));
 
@@ -351,23 +356,38 @@ static void appRenameItem(int id, char *newName)
 
 static void appLaunchItem(int id, config_set_t *configSet)
 {
-    int mode, fd;
+    int fd;
     const char *filename;
-
+    const char *argv1;
+	
     //Retrieve configuration set by appGetConfig()
     configGetStr(configSet, CONFIG_ITEM_STARTUP, &filename);
 
     fd = open(filename, O_RDONLY);
     if (fd >= 0) {
+        int mode, argc = 1;
+        char partition[128];
+        char *argv[2];
         close(fd);
 
         //To keep the necessary device accessible, we will assume the mode that owns the device which contains the file to boot.
         mode = oplPath2Mode(filename);
         if (mode < 0)
             mode = APP_MODE; //Legacy apps mode on memory card (mc?:/*)
+		
+        if (mode == HDD_MODE)
+            snprintf(partition, sizeof(partition), "%s:", gOPLPart);
+
+        argv[0] = (char *)filename;
+
+        if (configGetStr(configSet, CONFIG_ITEM_ALTSTARTUP, &argv1) != 0) {
+            argv[1] = (char *)argv1;
+            argc = 2;
+        }
 
         deinit(UNMOUNT_EXCEPTION, mode); // CAREFUL: deinit will call appCleanUp, so configApps/cur will be freed
-        sysExecElf(filename);
+        sysExecElf(filename); //arg not ready yet
+		//sysLoadElf(filename, argc, argv);
     } else
         guiMsgBox(_l(_STR_ERR_FILE_INVALID), 0, NULL);
 }
@@ -397,6 +417,7 @@ static config_set_t *appGetConfig(int id)
 
         configSetStr(config, CONFIG_ITEM_NAME, appsList[id].boot);
         configSetStr(config, CONFIG_ITEM_LONGNAME, appsList[id].title);
+		configSetStr(config, CONFIG_ITEM_ALTSTARTUP, appsList[id].argv1); // reuse AltStartup for argument 1
         snprintf(path, sizeof(path), "%s/%s", appsList[id].path, appsList[id].boot);
         configSetStr(config, CONFIG_ITEM_STARTUP, path);
 

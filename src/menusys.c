@@ -43,6 +43,7 @@ enum GAME_MENU_IDs {
     GAME_VMC_SETTINGS,
 #ifdef PADEMU
     GAME_PADEMU_SETTINGS,
+    GAME_PADMACRO_SETTINGS,
 #endif
 	GAME_OSD_LANGUAGE_SETTINGS,
     GAME_SAVE_CHANGES,
@@ -242,6 +243,7 @@ void menuInitGameMenu(void)
     submenuAppendItem(&gameMenu, -1, NULL, GAME_VMC_SETTINGS, _STR_VMC_SCREEN);
 #ifdef PADEMU
     submenuAppendItem(&gameMenu, -1, NULL, GAME_PADEMU_SETTINGS, _STR_PADEMUCONFIG);
+    submenuAppendItem(&gameMenu, -1, NULL, GAME_PADMACRO_SETTINGS, _STR_PADMACROCONFIG);
 #endif
 	submenuAppendItem(&gameMenu, -1, NULL, GAME_OSD_LANGUAGE_SETTINGS, _STR_OSD_SETTINGS);
     submenuAppendItem(&gameMenu, -1, NULL, GAME_SAVE_CHANGES, _STR_SAVE_CHANGES);
@@ -862,6 +864,7 @@ void menuHandleInputMenu()
                 saveConfig(CONFIG_OPL | CONFIG_NETWORK | CONFIG_GAME, 1);
 #ifdef PADEMU
                 guiGameSavePadEmuGlobalConfig(configGetByType(CONFIG_GAME));
+				guiGameSavePadMacroGlobalConfig(configGetByType(CONFIG_GAME));
                 saveConfig(CONFIG_GAME, 0);
 #endif
                 menuSetParentalLockCheckState(1); //Re-enable parental lock check.
@@ -1025,11 +1028,16 @@ void menuRenderGameMenu()
         // render, advance
         fntRenderString(gTheme->fonts[0], 320, y, ALIGN_CENTER, 0, 0, submenuItemGetText(&it->item), (cp == sitem) ? gTheme->selTextColor : gTheme->textColor);
         y += spacing;
-        if (cp == (GAME_SAVE_CHANGES - 1) || cp == (GAME_REMOVE_CHANGES - 1))
+#ifdef PADEMU
+        if (cp == 5 || cp == 7)
+            y += spacing / 2; // leave a blank space before rendering Save & Remove Settings.
+#else
+        if (cp == 3 || cp == 5)
             y += spacing / 2;
+#endif
     }
 
-    //hints
+    // hints
     guiDrawSubMenuHints();
 }
 
@@ -1075,6 +1083,8 @@ void menuHandleInputGameMenu()
 #ifdef PADEMU
         } else if (menuID == GAME_PADEMU_SETTINGS) {
             guiGameShowPadEmuConfig(0);
+        } else if (menuID == GAME_PADMACRO_SETTINGS) {
+            guiGameShowPadMacroConfig(0);
 #endif
         } else if (menuID == GAME_OSD_LANGUAGE_SETTINGS) {
             guiGameShowOSDLanguageConfig(0);
