@@ -15,7 +15,7 @@ This updated version includes:
 - OSD Language Configuration Menu
 - Apps Menu
 - Expanded SMB Ports
-- Allows usage of o
+- Allows usage of other partitions than +OPL
 - Various fixes + updates from the stable v1.1.0 Release + v1.2.0 Beta.
 
 Thanks to ackmax, AKuHAK , bignaux, israpps, KrahJohlito, uyjulian, ... !
