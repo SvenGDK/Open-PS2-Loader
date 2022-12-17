@@ -11,12 +11,13 @@
 #include "include/opl.h"
 #include "include/gui.h"
 #include "include/ethsupport.h"
+#include "include/hddsupport.h"
 #include "include/util.h"
 #include "include/pad.h"
 #include "include/system.h"
 #include "include/ioman.h"
 #include "include/ioprp.h"
-#include "include/usbsupport.h"
+#include "include/bdmsupport.h"
 #include "include/OSDHistory.h"
 #include "include/renderman.h"
 #include "include/extern_irx.h"
@@ -225,7 +226,7 @@ void sysReset(int modload_mask)
     sysLoadModuleBuffer(&poweroff_irx, size_poweroff_irx, 0, NULL);
 
     if (modload_mask & SYS_LOAD_USB_MODULES) {
-        usbLoadModules();
+        bdmLoadModules();
     }
     if (modload_mask & SYS_LOAD_ISOFS_MODULE) {
         sysLoadModuleBuffer(&isofs_irx, size_isofs_irx, 0, NULL);
@@ -352,13 +353,15 @@ void sysExecExit(void)
 }
 
 //Module bits
-#define CORE_IRX_USB 0x01
-#define CORE_IRX_ETH 0x02
-#define CORE_IRX_SMB 0x04
-#define CORE_IRX_HDD 0x08
-#define CORE_IRX_VMC 0x10
-#define CORE_IRX_DEBUG 0x20
-#define CORE_IRX_DECI2 0x40
+#define CORE_IRX_USB    0x01
+#define CORE_IRX_ETH    0x02
+#define CORE_IRX_SMB    0x04
+#define CORE_IRX_HDD    0x08
+#define CORE_IRX_VMC    0x10
+#define CORE_IRX_DEBUG  0x20
+#define CORE_IRX_DECI2  0x40
+#define CORE_IRX_ILINK  0x80
+#define CORE_IRX_MX4SIO 0x100
 
 typedef struct
 {
@@ -434,8 +437,12 @@ static unsigned int sendIrxKernelRAM(const char *startup, const char *mode_str, 
     int i, modcount;
     unsigned int curIrxSize, size_ioprp_image, total_size;
 
-    if (!strcmp(mode_str, "USB_MODE"))
+    if (!strcmp(mode_str, "BDM_USB_MODE"))
         modules |= CORE_IRX_USB;
+    else if (!strcmp(mode_str, "BDM_ILK_MODE"))
+        modules |= CORE_IRX_ILINK;
+    else if (!strcmp(mode_str, "BDM_M4S_MODE"))
+        modules |= CORE_IRX_MX4SIO;
     else if (!strcmp(mode_str, "ETH_MODE"))
         modules |= CORE_IRX_ETH | CORE_IRX_SMB;
     else
@@ -466,8 +473,22 @@ static unsigned int sendIrxKernelRAM(const char *startup, const char *mode_str, 
 #define PADEMU_ARG
 #endif
     if ((modules & CORE_IRX_USB) PADEMU_ARG) {
-        irxptr_tab[modcount].info = size_pusbd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_USBD);
-        irxptr_tab[modcount++].ptr = pusbd_irx;
+        irxptr_tab[modcount].info = size_usbd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_USBD);
+        irxptr_tab[modcount++].ptr = (void *)&usbd_irx;
+    }
+    if (modules & CORE_IRX_USB) {
+        irxptr_tab[modcount].info = size_usbmass_bd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_USBMASSBD);
+        irxptr_tab[modcount++].ptr = (void *)&usbmass_bd_irx;
+    }
+    if (modules & CORE_IRX_ILINK) {
+        irxptr_tab[modcount].info = size_iLinkman_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_ILINK);
+        irxptr_tab[modcount++].ptr = (void *)&iLinkman_irx;
+        irxptr_tab[modcount].info = size_IEEE1394_bd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_ILINKBD);
+        irxptr_tab[modcount++].ptr = (void *)&IEEE1394_bd_irx;
+    }
+    if (modules & CORE_IRX_MX4SIO) {
+        irxptr_tab[modcount].info = size_mx4sio_bd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_MX4SIOBD);
+        irxptr_tab[modcount++].ptr = (void *)&mx4sio_bd_irx;
     }
     if (modules & CORE_IRX_ETH) {
         irxptr_tab[modcount].info = size_smap_ingame_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_SMAP);
@@ -789,7 +810,7 @@ void sysLaunchLoaderElf(const char *filename, const char *mode_str, int size_cdv
 
     argc = 0;
     sprintf(config_str, "%s %d %s %d %u.%u.%u.%u %u.%u.%u.%u %u.%u.%u.%u %d %u %d" PADEMU_SPECIFIER CONFIGPARAMDATA,
-            mode_str, gDisableDebug, gExitPath, gHDDSpindown,
+            mode_str, gEnableDebug, gExitPath, gHDDSpindown,
             local_ip_address[0], local_ip_address[1], local_ip_address[2], local_ip_address[3],
             local_netmask[0], local_netmask[1], local_netmask[2], local_netmask[3],
             local_gateway[0], local_gateway[1], local_gateway[2], local_gateway[3],
@@ -854,7 +875,9 @@ int sysExecElf(const char *path)
     elf_pheader_t *eph;
     void *pdata;
     int i;
-    char *elf_argv[1];
+    char *elf_argv[2];
+    char argv[256];
+    int elf_argc = 1;
 
     // NB: ELFLDR.ELF is embedded
     boot_elf = (u8 *)&elfldr_elf;
@@ -883,30 +906,34 @@ int sysExecElf(const char *path)
     SifExitRpc();
 
     elf_argv[0] = (char *)path;
+	
+    if (strncmp(path, "pfs", 3) == 0) {
+        snprintf(argv, sizeof(argv), "%s:%s", gOPLPart, elf_argv[0]);
+        elf_argv[1] = argv;
+        elf_argc++;
+    }
 
     FlushCache(0);
     FlushCache(2);
 
-    ExecPS2((void *)eh->entry, NULL, 1, elf_argv);
+    ExecPS2((void *)eh->entry, NULL, elf_argc, elf_argv);
 
     return 0;
 }
 
 int sysCheckMC(void)
 {
-    int dummy, ret;
-
-    mcGetInfo(0, 0, &dummy, &dummy, &dummy);
-    mcSync(0, NULL, &ret);
-
-    if (-1 == ret || 0 == ret)
+    DIR *mc0_root_dir = opendir("mc0:/");
+    if (mc0_root_dir != NULL) {
+        closedir(mc0_root_dir);
         return 0;
+    }
 
-    mcGetInfo(1, 0, &dummy, &dummy, &dummy);
-    mcSync(0, NULL, &ret);
-
-    if (-1 == ret || 0 == ret)
+    DIR *mc1_root_dir = opendir("mc1:/");
+    if (mc1_root_dir != NULL) {
+        closedir(mc1_root_dir);
         return 1;
+    }
 
     return -11;
 }

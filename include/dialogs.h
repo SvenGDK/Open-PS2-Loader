@@ -30,18 +30,21 @@ enum UI_ITEMS {
     CFG_HDDGAMELISTCACHE,
     CFG_EXITTO,
     CFG_DEFDEVICE,
-    CFG_USBMODE,
+    CFG_BDMMODE,
     CFG_HDDMODE,
     CFG_ETHMODE,
     CFG_APPMODE,
+	CFG_ENABLEILK,
+	CFG_ENABLEMX4SIO,
     CFG_LASTPLAYED,
     CFG_LBL_AUTOSTARTLAST,
     CFG_AUTOSTARTLAST,
     CFG_SELECTBUTTON,
     CFG_ENWRITEOP,
-    CFG_USBPREFIX,
+    CFG_BDMPREFIX,
     CFG_ETHPREFIX,
     CFG_HDDSPINDOWN,
+	BLOCKDEVICE_BUTTON,
 
     ABOUT_TITLE,
     ABOUT_BUILD_DETAILS,
@@ -209,6 +212,7 @@ extern struct UIItem diaAbout[];
 extern struct UIItem diaVMC[];
 extern struct UIItem diaNetCompatUpdate[];
 extern struct UIItem diaParentalLockConfig[];
+extern struct UIItem diaBlockDevicesConfig[];
 
 extern struct UIItem diaOSDConfig[];
 #endif

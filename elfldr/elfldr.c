@@ -14,21 +14,18 @@
 #include <string.h>
 #include <stdio.h>
 
-static inline void _strcpy(char *dst, const char *src)
+/*static inline void _strcpy(char *dst, const char *src)
 {
     memcpy(dst, src, strlen(src) + 1);
 }
-
 static inline void _strcat(char *dst, const char *src)
 {
     _strcpy(&dst[strlen(dst)], src);
 }
-
 static int _strncmp(const char *s1, const char *s2, int length)
 {
     const char *a = s1;
     const char *b = s2;
-
     while (length > 0) {
         if ((*a == 0) || (*b == 0))
             return -1;
@@ -36,9 +33,8 @@ static int _strncmp(const char *s1, const char *s2, int length)
             return 1;
         length--;
     }
-
     return 0;
-}
+}*/
 
 static inline void BootError(char *filename)
 {
@@ -100,14 +96,6 @@ int main(int argc, char *argv[])
         SifLoadModule("rom0:MCSERV", 0, NULL);
         SifLoadFileExit();
         SifExitRpc();
-
-        if (_strncmp(argv[0], "pfs", 3) == 0) {
-            static char _argv[256];
-            _strcpy(_argv, "hdd0:+OPL:");
-            _strcat(_argv, argv[0]);
-
-            argv[0] = _argv;
-        }
 
         ExecPS2((void *)exd.epc, (void *)exd.gp, argc, argv);
     } else {

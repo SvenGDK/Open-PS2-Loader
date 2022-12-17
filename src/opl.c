@@ -26,7 +26,7 @@
 #include "httpclient.h"
 
 #include "include/supportbase.h"
-#include "include/usbsupport.h"
+#include "include/bdmsupport.h"
 #include "include/ethsupport.h"
 #include "include/hddsupport.h"
 #include "include/appsupport.h"
@@ -140,10 +140,12 @@ char gPCUserName[32];
 char gPCPassword[32];
 int gNetworkStartup;
 int gHDDSpindown;
-int gUSBStartMode;
+int gBDMStartMode;
 int gHDDStartMode;
 int gETHStartMode;
 int gAPPStartMode;
+int gEnableILK;
+int gEnableMX4SIO;
 int gAutosort;
 int gAutoRefresh;
 int gEnableNotifications;
@@ -173,11 +175,11 @@ int gPadMacroSettings;
 #endif
 int gScrollSpeed;
 char gExitPath[32];
-int gDisableDebug;
+int gEnableDebug;
 int gPS2Logo;
 int gDefaultDevice;
 int gEnableWrite;
-char gUSBPrefix[32];
+char gBDMPrefix[32];
 char gETHPrefix[32];
 int gRememberLastPlayed;
 int KeyPressedOnce;
@@ -313,9 +315,9 @@ static void itemExecTriangle(struct menu_item *curMenu)
 static void initMenuForListSupport(int mode)
 {
     opl_io_module_t *mod = &list_support[mode];
-    mod->menuItem.icon_id = mod->support->iconId;
+    mod->menuItem.icon_id = mod->support->itemIconId();
     mod->menuItem.text = NULL;
-    mod->menuItem.text_id = mod->support->textId;
+    mod->menuItem.text_id = mod->support->itemTextId();
 
     mod->menuItem.userdata = mod->support;
 
@@ -380,7 +382,7 @@ static void initSupport(item_list_t *itemList, int startMode, int mode, int forc
 
 static void initAllSupport(int force_reinit)
 {
-    initSupport(usbGetObject(0), gUSBStartMode, USB_MODE, force_reinit);
+    initSupport(bdmGetObject(0), gBDMStartMode, BDM_MODE, force_reinit);
     initSupport(ethGetObject(0), gETHStartMode, ETH_MODE, force_reinit || (gNetworkStartup >= ERROR_ETH_SMB_CONN));
     initSupport(hddGetObject(0), gHDDStartMode, HDD_MODE, force_reinit);
     initSupport(appGetObject(0), gAPPStartMode, APP_MODE, force_reinit);
@@ -388,7 +390,7 @@ static void initAllSupport(int force_reinit)
 
 static void deinitAllSupport(int exception, int modeSelected)
 {
-    moduleCleanup(&list_support[USB_MODE], exception, modeSelected);
+    moduleCleanup(&list_support[BDM_MODE], exception, modeSelected);
     moduleCleanup(&list_support[ETH_MODE], exception, modeSelected);
     moduleCleanup(&list_support[HDD_MODE], exception, modeSelected);
     moduleCleanup(&list_support[APP_MODE], exception, modeSelected);
@@ -600,6 +602,10 @@ static void updateMenuFromGameList(opl_io_module_t *mdl)
     if (gRememberLastPlayed)
         configGetStr(configGetByType(CONFIG_LAST), "last_played", &temp);
 
+    // refresh device icon and text (for bdm)
+    mdl->menuItem.icon_id = mdl->support->itemIconId();
+    mdl->menuItem.text_id = mdl->support->itemTextId();
+
     // read the new game list
     struct gui_update_t *gup = NULL;
     int count = mdl->support->itemUpdate();
@@ -711,18 +717,21 @@ void setErrorMessage(int strId)
 static int lscstatus = CONFIG_ALL;
 static int lscret = 0;
 
-static int checkLoadConfigUSB(int types)
+static int checkLoadConfigBDM(int types)
 {
     char path[64];
     int value;
+	
+    snprintf(path, sizeof(path), "%sconf_opl.cfg", gHDDPrefix);
+    value = open(path, O_RDONLY);
 
     // check USB
-    if (usbFindPartition(path, "conf_opl.cfg", 0)) {
+    if (bdmFindPartition(path, "conf_opl.cfg", 0)) {
         configEnd();
-        configInit(path);
+        configInit(gHDDPrefix);
         value = configReadMulti(types);
         config_set_t *configOPL = configGetByType(CONFIG_OPL);
-        configSetInt(configOPL, CONFIG_OPL_USB_MODE, START_MODE_AUTO);
+        configSetInt(configOPL, CONFIG_OPL_BDM_MODE, START_MODE_AUTO);
         return value;
     }
 
@@ -759,7 +768,7 @@ static int tryAlternateDevice(int types)
 
     //First, try the device that OPL booted from.
     if (!strncmp(pwd, "mass", 4) && (pwd[4] == ':' || pwd[5] == ':')) {
-        if ((value = checkLoadConfigUSB(types)) != 0)
+        if ((value = checkLoadConfigBDM(types)) != 0)
             return value;
     } else if (!strncmp(pwd, "hdd", 3) && (pwd[3] == ':' || pwd[4] == ':')) {
         if ((value = checkLoadConfigHDD(types)) != 0)
@@ -768,7 +777,7 @@ static int tryAlternateDevice(int types)
 
     //Config was not found on the boot device. Check all supported devices.
     // Check USB device
-    if ((value = checkLoadConfigUSB(types)) != 0)
+    if ((value = checkLoadConfigBDM(types)) != 0)
         return value;
     // Check HDD
     if ((value = checkLoadConfigHDD(types)) != 0)
@@ -790,11 +799,11 @@ static int tryAlternateDevice(int types)
         configInit("mass0:");
     } else {
         // No? Check if the save location on the HDD is available.
-        dir = opendir("pfs0:");
+        dir = opendir(gHDDPrefix);
         if (dir != NULL) {
             closedir(dir);
             configEnd();
-            configInit("pfs0:");
+            configInit(gHDDPrefix);
         }
     }
     showCfgPopup = 0;
@@ -838,7 +847,7 @@ static void _loadConfig()
             if (configGetInt(configOPL, CONFIG_OPL_SWAP_SEL_BUTTON, &value))
                 gSelectButton = value == 0 ? KEY_CIRCLE : KEY_CROSS;
 
-            configGetInt(configOPL, CONFIG_OPL_DISABLE_DEBUG, &gDisableDebug);
+            configGetInt(configOPL, CONFIG_OPL_DISABLE_DEBUG, &gEnableDebug);
             configGetInt(configOPL, CONFIG_OPL_PS2LOGO, &gPS2Logo);
             configGetInt(configOPL, CONFIG_OPL_HDD_GAME_LIST_CACHE, &gHDDGameListCache);
             configGetStrCopy(configOPL, CONFIG_OPL_EXIT_PATH, gExitPath, sizeof(gExitPath));
@@ -847,14 +856,16 @@ static void _loadConfig()
             configGetInt(configOPL, CONFIG_OPL_DEFAULT_DEVICE, &gDefaultDevice);
             configGetInt(configOPL, CONFIG_OPL_ENABLE_WRITE, &gEnableWrite);
             configGetInt(configOPL, CONFIG_OPL_HDD_SPINDOWN, &gHDDSpindown);
-            configGetStrCopy(configOPL, CONFIG_OPL_USB_PREFIX, gUSBPrefix, sizeof(gUSBPrefix));
+            configGetStrCopy(configOPL, CONFIG_OPL_BDM_PREFIX, gBDMPrefix, sizeof(gBDMPrefix));
             configGetStrCopy(configOPL, CONFIG_OPL_ETH_PREFIX, gETHPrefix, sizeof(gETHPrefix));
             configGetInt(configOPL, CONFIG_OPL_REMEMBER_LAST, &gRememberLastPlayed);
             configGetInt(configOPL, CONFIG_OPL_AUTOSTART_LAST, &gAutoStartLastPlayed);
-            configGetInt(configOPL, CONFIG_OPL_USB_MODE, &gUSBStartMode);
+            configGetInt(configOPL, CONFIG_OPL_BDM_MODE, &gBDMStartMode);
             configGetInt(configOPL, CONFIG_OPL_HDD_MODE, &gHDDStartMode);
             configGetInt(configOPL, CONFIG_OPL_ETH_MODE, &gETHStartMode);
             configGetInt(configOPL, CONFIG_OPL_APP_MODE, &gAPPStartMode);
+            configGetInt(configOPL, CONFIG_OPL_ENABLE_ILINK, &gEnableILK);
+            configGetInt(configOPL, CONFIG_OPL_ENABLE_MX4SIO, &gEnableMX4SIO);
             configGetInt(configOPL, CONFIG_OPL_SFX, &gEnableSFX);
             configGetInt(configOPL, CONFIG_OPL_BOOT_SND, &gEnableBootSND);
             configGetInt(configOPL, CONFIG_OPL_SFX_VOLUME, &gSFXVolume);
@@ -903,12 +914,12 @@ static void _loadConfig()
     showCfgPopup = 1;
 }
 
-static int trySaveConfigUSB(int types)
+static int trySaveConfigBDM(int types)
 {
     char path[64];
 
     // check USB
-    if (usbFindPartition(path, "conf_opl.cfg", 1)) {
+    if (bdmFindPartition(path, "conf_opl.cfg", 1)) {
         configSetMove(path);
         return configWriteMulti(types);
     }
@@ -921,7 +932,7 @@ static int trySaveConfigHDD(int types)
     hddLoadModules();
     //Check that the formatted & usable HDD is connected.
     if (hddCheck() == 0) {
-        configSetMove("pfs0:");
+        configSetMove(gHDDPrefix);
         return configWriteMulti(types);
     }
 
@@ -943,7 +954,7 @@ static int trySaveAlternateDevice(int types)
 
     //First, try the device that OPL booted from.
     if (!strncmp(pwd, "mass", 4) && (pwd[4] == ':' || pwd[5] == ':')) {
-        if ((value = trySaveConfigUSB(types)) > 0)
+        if ((value = trySaveConfigBDM(types)) > 0)
             return value;
     } else if (!strncmp(pwd, "hdd", 3) && (pwd[3] == ':' || pwd[4] == ':')) {
         if ((value = trySaveConfigHDD(types)) > 0)
@@ -957,7 +968,7 @@ static int trySaveAlternateDevice(int types)
             return value;
     }
     // Try a USB device
-    if ((value = trySaveConfigUSB(types)) > 0)
+    if ((value = trySaveConfigBDM(types)) > 0)
         return value;
     // Try the HDD
     if ((value = trySaveConfigHDD(types)) > 0)
@@ -987,7 +998,7 @@ static void _saveConfig()
         configSetInt(configOPL, CONFIG_OPL_XOFF, gXOff);
         configSetInt(configOPL, CONFIG_OPL_YOFF, gYOff);
         configSetInt(configOPL, CONFIG_OPL_OVERSCAN, gOverscan);
-        configSetInt(configOPL, CONFIG_OPL_DISABLE_DEBUG, gDisableDebug);
+        configSetInt(configOPL, CONFIG_OPL_DISABLE_DEBUG, gEnableDebug);
         configSetInt(configOPL, CONFIG_OPL_PS2LOGO, gPS2Logo);
         configSetInt(configOPL, CONFIG_OPL_HDD_GAME_LIST_CACHE, gHDDGameListCache);
         configSetStr(configOPL, CONFIG_OPL_EXIT_PATH, gExitPath);
@@ -996,14 +1007,16 @@ static void _saveConfig()
         configSetInt(configOPL, CONFIG_OPL_DEFAULT_DEVICE, gDefaultDevice);
         configSetInt(configOPL, CONFIG_OPL_ENABLE_WRITE, gEnableWrite);
         configSetInt(configOPL, CONFIG_OPL_HDD_SPINDOWN, gHDDSpindown);
-        configSetStr(configOPL, CONFIG_OPL_USB_PREFIX, gUSBPrefix);
+        configSetStr(configOPL, CONFIG_OPL_BDM_PREFIX, gBDMPrefix);
         configSetStr(configOPL, CONFIG_OPL_ETH_PREFIX, gETHPrefix);
         configSetInt(configOPL, CONFIG_OPL_REMEMBER_LAST, gRememberLastPlayed);
         configSetInt(configOPL, CONFIG_OPL_AUTOSTART_LAST, gAutoStartLastPlayed);
-        configSetInt(configOPL, CONFIG_OPL_USB_MODE, gUSBStartMode);
+        configSetInt(configOPL, CONFIG_OPL_BDM_MODE, gBDMStartMode);
         configSetInt(configOPL, CONFIG_OPL_HDD_MODE, gHDDStartMode);
         configSetInt(configOPL, CONFIG_OPL_ETH_MODE, gETHStartMode);
         configSetInt(configOPL, CONFIG_OPL_APP_MODE, gAPPStartMode);
+        configSetInt(configOPL, CONFIG_OPL_ENABLE_ILINK, gEnableILK);
+        configSetInt(configOPL, CONFIG_OPL_ENABLE_MX4SIO, gEnableMX4SIO);
         configSetInt(configOPL, CONFIG_OPL_SFX, gEnableSFX);
         configSetInt(configOPL, CONFIG_OPL_BOOT_SND, gEnableBootSND);
         configSetInt(configOPL, CONFIG_OPL_SFX_VOLUME, gSFXVolume);
@@ -1072,7 +1085,7 @@ void applyConfig(int themeID, int langID)
 
     initAllSupport(0);
 
-    moduleUpdateMenu(USB_MODE, changed, langChanged);
+    moduleUpdateMenu(BDM_MODE, changed, langChanged);
     moduleUpdateMenu(ETH_MODE, changed, langChanged);
     moduleUpdateMenu(HDD_MODE, changed, langChanged);
     moduleUpdateMenu(APP_MODE, changed, langChanged);
@@ -1148,7 +1161,7 @@ static void compatUpdate(item_list_t *support, unsigned char mode, config_set_t 
     const char *startup;
 
     switch (support->mode) {
-        case USB_MODE:
+        case BDM_MODE:
             device = 3;
             break;
         case ETH_MODE:
@@ -1613,7 +1626,7 @@ void setDefaultColors(void)
 
 static void setDefaults(void)
 {
-    clearIOModuleT(&list_support[USB_MODE]);
+    clearIOModuleT(&list_support[BDM_MODE]);
     clearIOModuleT(&list_support[ETH_MODE]);
     clearIOModuleT(&list_support[HDD_MODE]);
     clearIOModuleT(&list_support[APP_MODE]);
@@ -1658,14 +1671,14 @@ static void setDefaults(void)
     gDefaultDevice = APP_MODE;
     gAutosort = 1;
     gAutoRefresh = 0;
-    gDisableDebug = 1;
+    gEnableDebug = 0;
     gPS2Logo = 0;
     gHDDGameListCache = 0;
     gEnableWrite = 0;
     gRememberLastPlayed = 0;
     gAutoStartLastPlayed = 9;
     gSelectButton = KEY_CIRCLE; //Default to Japan.
-    gUSBPrefix[0] = '\0';
+    gBDMPrefix[0] = '\0';
     gETHPrefix[0] = '\0';
     gEnableNotifications = 0;
     gEnableArt = 0;
@@ -1675,10 +1688,13 @@ static void setDefaults(void)
     gSFXVolume = 80;
     gBootSndVolume = 80;
 
-    gUSBStartMode = START_MODE_DISABLED;
+    gBDMStartMode = START_MODE_DISABLED;
     gHDDStartMode = START_MODE_DISABLED;
     gETHStartMode = START_MODE_DISABLED;
     gAPPStartMode = START_MODE_DISABLED;
+
+    gEnableILK = 0;
+    gEnableMX4SIO = 0;
 
     frameCounter = 0;
 

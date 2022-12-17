@@ -72,9 +72,13 @@ extern u32 g_compat_mask;
 
 extern char GameID[16];
 extern int GameMode;
-#define USB_MODE 0
-#define ETH_MODE 1
-#define HDD_MODE 2
+enum GAME_MODE {
+    BDM_ILK_MODE,
+	BDM_M4S_MODE,
+    BDM_USB_MODE,
+    ETH_MODE,
+    HDD_MODE,
+};
 
 extern char ExitPath[32];
 extern int HDDSpindown;
@@ -86,7 +90,7 @@ extern int PadEmuSettings;
 extern int PadMacroSettings;
 #endif
 
-extern int DisableDebug;
+extern int EnableDebug;
 #define GS_BGCOLOUR *((volatile unsigned long int *)0x120000E0)
 
 extern int *gCheatList; //Store hooks/codes addr+val pairs

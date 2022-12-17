@@ -8,21 +8,24 @@ Forked from https://github.com/ps2homebrew/Open-PS2-Loader v1.0.0 source code.
 This updated version includes:
 - OPL-Launcher support
 - HDL & NBD server support
+- iLink support
+- MX4SIO support
 - Controller Settings Menu
 - Gamepad Macros (Modification of Gamepads - Requires PADEMU)
 - OSD Language Configuration Menu
 - Apps Menu
 - Expanded SMB Ports
+- Allows usage of o
 - Various fixes + updates from the stable v1.1.0 Release + v1.2.0 Beta.
 
-Thanks to bignaux, ackmax, israpps, uyjulian, AKuHAK, ...!
+Thanks to ackmax, AKuHAK , bignaux, israpps, KrahJohlito, uyjulian, ... !
 
 <details>
   <summary> <b> How to compile this version: </b> </summary>
 <p>
 
 - Requires setup of old PS2SDK
-- Add usbd_mini.irx from newer SDK to /usr/local/ps2dev/ps2sdk/iop/irx
+- Add usbd_mini.irx, mx4sio_bd.irx and mx4sio_bd_mini.irx from newer SDK to /usr/local/ps2dev/ps2sdk/iop/irx
 
 #### Compile all variants
 ```make all-variants```

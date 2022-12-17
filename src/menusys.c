@@ -860,14 +860,13 @@ void menuHandleInputMenu()
 				guiShowAbout();
         } else if (id == MENU_SAVE_CHANGES) {
             if (menuCheckParentalLock() == 0) {
-				guiGameSaveOSDLanguageGlobalConfig(configGetByType(CONFIG_GAME));
-                saveConfig(CONFIG_OPL | CONFIG_NETWORK | CONFIG_GAME, 1);
 #ifdef PADEMU
                 guiGameSavePadEmuGlobalConfig(configGetByType(CONFIG_GAME));
-				guiGameSavePadMacroGlobalConfig(configGetByType(CONFIG_GAME));
-                saveConfig(CONFIG_GAME, 0);
+                saveConfig(CONFIG_OPL | CONFIG_NETWORK | CONFIG_GAME, 1);
+#else
+                saveConfig(CONFIG_OPL | CONFIG_NETWORK, 1);
 #endif
-                menuSetParentalLockCheckState(1); //Re-enable parental lock check.
+                menuSetParentalLockCheckState(1); // Re-enable parental lock check.
             }
         } else if (id == MENU_EXIT) {
             if (guiMsgBox(_l(_STR_CONFIRMATION_EXIT), 1, NULL))
@@ -883,7 +882,7 @@ void menuHandleInputMenu()
 
     if (getKeyOn(KEY_START) || getKeyOn(gSelectButton == KEY_CIRCLE ? KEY_CROSS : KEY_CIRCLE)) {
         //Check if there is anything to show the user, at all.
-        if (gAPPStartMode || gETHStartMode || gUSBStartMode || gHDDStartMode)
+        if (gAPPStartMode || gETHStartMode || gBDMStartMode || gHDDStartMode)
             guiSwitchScreen(GUI_SCREEN_MAIN);
     }
 }
