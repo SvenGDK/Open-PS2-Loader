@@ -34,8 +34,7 @@ enum UI_ITEMS {
     CFG_HDDMODE,
     CFG_ETHMODE,
     CFG_APPMODE,
-	CFG_ENABLEILK,
-	CFG_ENABLEMX4SIO,
+	CFG_ENABLEFW,
     CFG_LASTPLAYED,
     CFG_LBL_AUTOSTARTLAST,
     CFG_AUTOSTARTLAST,
@@ -44,7 +43,6 @@ enum UI_ITEMS {
     CFG_BDMPREFIX,
     CFG_ETHPREFIX,
     CFG_HDDSPINDOWN,
-	BLOCKDEVICE_BUTTON,
 
     ABOUT_TITLE,
     ABOUT_BUILD_DETAILS,
@@ -212,7 +210,6 @@ extern struct UIItem diaAbout[];
 extern struct UIItem diaVMC[];
 extern struct UIItem diaNetCompatUpdate[];
 extern struct UIItem diaParentalLockConfig[];
-extern struct UIItem diaBlockDevicesConfig[];
 
 extern struct UIItem diaOSDConfig[];
 #endif

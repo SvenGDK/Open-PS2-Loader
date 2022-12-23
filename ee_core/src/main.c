@@ -38,7 +38,7 @@ int EnablePadEmuOp;
 int PadEmuSettings;
 int PadMacroSettings;
 #endif
-int EnableDebug;
+int DisableDebug;
 int *gCheatList; //Store hooks/codes addr+val pairs
 
 int enforceLanguage;
@@ -56,8 +56,6 @@ static int eecoreInit(int argc, char **argv)
     p = _strtok(argv[i], " ");
     if (!_strncmp(argv[i], "BDM_ILK_MODE", 12))
         GameMode = BDM_ILK_MODE;
-    else if (!_strncmp(argv[i], "BDM_M4S_MODE", 12))
-        GameMode = BDM_M4S_MODE;
     else if (!_strncmp(p, "BDM_USB_MODE", 12))
         GameMode = BDM_USB_MODE;
     else if (!_strncmp(p, "ETH_MODE", 8))
@@ -67,10 +65,10 @@ static int eecoreInit(int argc, char **argv)
     DPRINTF("Game Mode = %d\n", GameMode);
 
     p = _strtok(NULL, " ");
-    EnableDebug = 0;
+    DisableDebug = 0;
     if (!_strncmp(p, "1", 1)) {
-        EnableDebug = 1;
-        DPRINTF("Debug Colors enabled\n");
+        DisableDebug = 1;
+        DPRINTF("Debug Colors disabled\n");
     }
 
     p = _strtok(NULL, " ");
@@ -172,7 +170,7 @@ static int eecoreInit(int argc, char **argv)
     DPRINTF("Installing Kernel Hooks...\n");
     Install_Kernel_Hooks();
 
-    if (EnableDebug)
+    if (!DisableDebug)
         GS_BGCOLOUR = 0xff0000; //Blue
 
     SifExitRpc();

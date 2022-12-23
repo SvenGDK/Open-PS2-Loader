@@ -48,7 +48,7 @@ static int showPartPopup = 0;
 static int showThmPopup;
 static int showLngPopup;
 
-static clock_t popupTimer;
+static clock_t popupTimer = 0;
 
 // forward decl.
 static void guiShow();
@@ -202,7 +202,7 @@ void guiShowAbout()
     char OPLVersion[40];
     char OPLBuildDetails[40];
 
-    snprintf(OPLVersion, sizeof(OPLVersion), "Open PS2 Loader %s", OPL_VERSION);
+    snprintf(OPLVersion, sizeof(OPLVersion), _l(_STR_OPL_VER), OPL_VERSION);
     diaSetLabel(diaAbout, ABOUT_TITLE, OPLVersion);
 
     snprintf(OPLBuildDetails, sizeof(OPLBuildDetails), "GSM %s"
@@ -250,14 +250,20 @@ static void guiResetNotifications(void)
     popupTimer = 0;
 }
 
-static void guiRenderNotifications(char *string, int y)
+static void guiRenderNotifications(char *type, char *path, int y)
 {
+    char notification[128];
+    char *col_pos;
     int x;
 
-    x = screenWidth - rmUnScaleX(fntCalcDimensions(gTheme->fonts[0], string)) - 10;
+    snprintf(notification, sizeof(notification), _l(_STR_NOTIFICATIONS), type, path);
+    if ((col_pos = strchr(notification, ':')) != NULL)
+        *(col_pos + 1) = '\0';
+
+    x = screenWidth - rmUnScaleX(fntCalcDimensions(gTheme->fonts[0], notification)) - 10;
 
     rmDrawRect(x - 10, y, screenWidth - x, MENU_ITEM_HEIGHT + 10, gColDarker);
-    fntRenderString(gTheme->fonts[0], x - 5, y + 5, ALIGN_NONE, 0, 0, string, gTheme->textColor);
+    fntRenderString(gTheme->fonts[0], x - 5, y + 5, ALIGN_NONE, 0, 0, notification, gTheme->textColor);
 }
 
 static void guiShowNotifications(void)
@@ -266,7 +272,9 @@ static void guiShowNotifications(void)
     char *col_pos;
     int y = 10;
     int yadd = 35;
+    clock_t currentTime;
 
+    currentTime = clock();
     if (showPartPopup || showThmPopup || showLngPopup || showCfgPopup) {
         if (!popupTimer) {
             popupTimer = clock() + 5000 * (CLOCKS_PER_SEC / 1000);
@@ -277,39 +285,26 @@ static void guiShowNotifications(void)
             col_pos = strchr(gOPLPart, ':');
             col_pos++;
 
-            snprintf(notification, sizeof(notification), _l(_STR_PARTITION_NOTIFICATION), col_pos);
-            guiRenderNotifications(notification, y);
+            guiRenderNotifications("PART", notification, y);
             y += yadd;
         }
 
         if (showCfgPopup) {
-            snprintf(notification, sizeof(notification), _l(_STR_CFG_NOTIFICATION), configGetDir());
-            if ((col_pos = strchr(notification, ':')) != NULL)
-                *(col_pos + 1) = '\0';
-
-            guiRenderNotifications(notification, y);
+            guiRenderNotifications("CFG", configGetDir(), y);
             y += yadd;
         }
 
         if (showThmPopup) {
-            snprintf(notification, sizeof(notification), _l(_STR_THM_NOTIFICATION), thmGetFilePath(thmGetGuiValue()));
-            if ((col_pos = strchr(notification, ':')) != NULL)
-                *(col_pos + 1) = '\0';
-
-            guiRenderNotifications(notification, y);
+            guiRenderNotifications("THM", thmGetFilePath(thmGetGuiValue()), y);
             y += yadd;
         }
 
-        if (showLngPopup) {
-            snprintf(notification, sizeof(notification), _l(_STR_LNG_NOTIFICATION), lngGetFilePath(lngGetGuiValue()));
-            if ((col_pos = strchr(notification, ':')) != NULL)
-                *(col_pos + 1) = '\0';
-            guiRenderNotifications(notification, y);
-        }
-		
-        if (clock() >= popupTimer) {
+        if (showLngPopup)
+            guiRenderNotifications("LNG", lngGetFilePath(lngGetGuiValue()), y);
+
+        if (currentTime >= popupTimer) {
             guiResetNotifications();
-            showPartPopup = 0;
+			showPartPopup = 0;
             showCfgPopup = 0;
         }
     }
@@ -434,20 +429,6 @@ void guiShowNetCompatUpdateSingle(int id, item_list_t *support, config_set_t *co
     }
 }
 
-static void guiShowBlockDeviceConfig(void)
-{
-    int ret;
-
-    diaSetInt(diaBlockDevicesConfig, CFG_ENABLEILK, gEnableILK);
-    diaSetInt(diaBlockDevicesConfig, CFG_ENABLEMX4SIO, gEnableMX4SIO);
-
-    ret = diaExecuteDialog(diaBlockDevicesConfig, -1, 1, NULL);
-    if (ret) {
-        diaGetInt(diaBlockDevicesConfig, CFG_ENABLEILK, &gEnableILK);
-        diaGetInt(diaBlockDevicesConfig, CFG_ENABLEMX4SIO, &gEnableMX4SIO);
-    }
-}
-
 static int guiUpdater(int modified)
 {
     int showAutoStartLast;
@@ -458,7 +439,7 @@ static int guiUpdater(int modified)
         diaSetVisible(diaConfig, CFG_AUTOSTARTLAST, showAutoStartLast);
 		
         diaGetInt(diaConfig, CFG_BDMMODE, &gBDMStartMode);
-        diaSetVisible(diaConfig, BLOCKDEVICE_BUTTON, gBDMStartMode);
+        diaSetEnabled(diaConfig, CFG_ENABLEFW, gBDMStartMode);
     }
     return 0;
 }
@@ -475,7 +456,7 @@ void guiShowConfig()
     diaSetEnum(diaConfig, CFG_ETHMODE, deviceModes);
     diaSetEnum(diaConfig, CFG_APPMODE, deviceModes);
 
-    diaSetInt(diaConfig, CFG_DEBUG, gEnableDebug);
+    diaSetInt(diaConfig, CFG_DEBUG, gDisableDebug);
     diaSetInt(diaConfig, CFG_PS2LOGO, gPS2Logo);
     diaSetInt(diaConfig, CFG_HDDGAMELISTCACHE, gHDDGameListCache);
     diaSetString(diaConfig, CFG_EXITTO, gExitPath);
@@ -490,14 +471,15 @@ void guiShowConfig()
 
     diaSetInt(diaConfig, CFG_DEFDEVICE, gDefaultDevice);
     diaSetInt(diaConfig, CFG_BDMMODE, gBDMStartMode);
-    diaSetVisible(diaConfig, BLOCKDEVICE_BUTTON, gBDMStartMode);
     diaSetInt(diaConfig, CFG_HDDMODE, gHDDStartMode);
     diaSetInt(diaConfig, CFG_ETHMODE, gETHStartMode);
     diaSetInt(diaConfig, CFG_APPMODE, gAPPStartMode);
 	
+    diaSetInt(diaConfig, CFG_ENABLEFW, gEnableFW);
+
     int ret = diaExecuteDialog(diaConfig, -1, 1, &guiUpdater);
     if (ret) {
-        diaGetInt(diaConfig, CFG_DEBUG, &gEnableDebug);
+        diaGetInt(diaConfig, CFG_DEBUG, &gDisableDebug);
         diaGetInt(diaConfig, CFG_PS2LOGO, &gPS2Logo);
         diaGetInt(diaConfig, CFG_HDDGAMELISTCACHE, &gHDDGameListCache);
         diaGetString(diaConfig, CFG_EXITTO, gExitPath, sizeof(gExitPath));
@@ -513,8 +495,7 @@ void guiShowConfig()
         diaGetInt(diaConfig, CFG_ETHMODE, &gETHStartMode);
         diaGetInt(diaConfig, CFG_APPMODE, &gAPPStartMode);
 
-        if (ret == BLOCKDEVICE_BUTTON)
-            guiShowBlockDeviceConfig();
+        diaGetInt(diaConfig, CFG_ENABLEFW, &gEnableFW);
 
         applyConfig(-1, -1);
         menuReinitMainMenu();
@@ -1384,7 +1365,7 @@ static void guiDrawOverlays()
     }
 
     // BLURT output
-    // if (gEnableDebug)
+    //    if (!gDisableDebug)
     //        fntRenderString(gTheme->fonts[0], 0, screenHeight - 24, ALIGN_NONE, 0, 0, blurttext, GS_SETREG_RGBA(255, 255, 0, 128));
 }
 

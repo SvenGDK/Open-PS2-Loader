@@ -118,8 +118,7 @@ extern int gHDDStartMode;
 extern int gETHStartMode;
 extern int gAPPStartMode;
 
-extern int gEnableILK;
-extern int gEnableMX4SIO;
+extern int gEnableFW;
 
 extern int gAutosort;
 extern int gAutoRefresh;
@@ -167,8 +166,8 @@ extern int gPadMacroSettings;
 extern int gScrollSpeed;
 // Exit path
 extern char gExitPath[32];
-// Enable Debug Colors
-extern int gEnableDebug;
+// Disable Debug Colors
+extern int gDisableDebug;
 
 extern int gPS2Logo;
 

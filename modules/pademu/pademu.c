@@ -187,7 +187,7 @@ int hookRegisterLibraryEntires(iop_library_t *lib)
 {
     register int ret;
 
-    if (!memcmp(lib->name, "sio2man", 8)) {
+    if (!strncmp(lib->name, "sio2man", 8)) {
         ret = pRegisterLibraryEntires(lib);
         if (ret == 0) {
             ReleaseLibraryEntries((struct irx_export_table *)lib);

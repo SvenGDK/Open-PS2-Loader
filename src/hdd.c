@@ -152,9 +152,9 @@ static int hddGetHDLGameInfo(struct GameDataEntry *game, hdl_game_info_t *ginfo)
         strncpy(ginfo->partition_name, game->id, APA_IDMAX);
         ginfo->partition_name[APA_IDMAX] = '\0';
         strncpy(ginfo->name, hdl_header->gamename, HDL_GAME_NAME_MAX);
-        ginfo->name[HDL_GAME_NAME_MAX] = '\0';
+		ginfo->name[HDL_GAME_NAME_MAX] = '\0';
         strncpy(ginfo->startup, hdl_header->startup, sizeof(ginfo->startup) - 1);
-        ginfo->startup[sizeof(ginfo->startup) - 1] = '\0';
+		ginfo->startup[sizeof(ginfo->startup) - 1] = '\0';
         ginfo->hdl_compat_flags = hdl_header->hdl_compat_flags;
         ginfo->ops2l_compat_flags = hdl_header->ops2l_compat_flags;
         ginfo->dma_type = hdl_header->dma_type;

@@ -47,7 +47,7 @@ static int checkMC()
             closedir(mc0_root_dir);
             mc0_is_ps2card = 1;
         }
-
+		
         mc1_is_ps2card = 0;
         DIR *mc1_root_dir = opendir("mc1:/");
         if (mc1_root_dir != NULL) {
@@ -117,9 +117,9 @@ void checkMCFolder(void)
     }
 
     snprintf(path, sizeof(path), "mc%d:OPL/icon.sys", mcID & 1);
-    fd = openFile(path, O_RDONLY);
+    fd = open(path, O_RDONLY);
     if (fd < 0) {
-        fd = open(path, O_WRONLY | O_CREAT | O_TRUNC);
+        fd = openFile(path, O_WRONLY | O_CREAT | O_TRUNC);
         if (fd >= 0) {
             write(fd, &icon_sys, size_icon_sys);
             close(fd);
@@ -535,14 +535,14 @@ int CheckPS2Logo(int fd, u32 lba)
             } else {
                 strcat(text, "don't match!");
             }
-            if (gEnableDebug)
+            if (!gDisableDebug)
                 guiWarning(text, 12);
         } else {
-            if (gEnableDebug)
+            if (!gDisableDebug)
                 guiWarning("Not a valid PS2 Logo first byte!", 12);
         }
     } else {
-        if (gEnableDebug)
+        if (!gDisableDebug)
             guiWarning("Error reading first 12 disc sectors (PS2 Logo)!", 25);
     }
     return ValidPS2Logo;

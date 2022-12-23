@@ -74,7 +74,6 @@ extern char GameID[16];
 extern int GameMode;
 enum GAME_MODE {
     BDM_ILK_MODE,
-	BDM_M4S_MODE,
     BDM_USB_MODE,
     ETH_MODE,
     HDD_MODE,
@@ -90,7 +89,7 @@ extern int PadEmuSettings;
 extern int PadMacroSettings;
 #endif
 
-extern int EnableDebug;
+extern int DisableDebug;
 #define GS_BGCOLOUR *((volatile unsigned long int *)0x120000E0)
 
 extern int *gCheatList; //Store hooks/codes addr+val pairs

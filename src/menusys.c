@@ -860,13 +860,15 @@ void menuHandleInputMenu()
 				guiShowAbout();
         } else if (id == MENU_SAVE_CHANGES) {
             if (menuCheckParentalLock() == 0) {
+				guiGameSaveOSDLanguageGlobalConfig(configGetByType(CONFIG_GAME));
 #ifdef PADEMU
                 guiGameSavePadEmuGlobalConfig(configGetByType(CONFIG_GAME));
+				guiGameSavePadMacroGlobalConfig(configGetByType(CONFIG_GAME));
                 saveConfig(CONFIG_OPL | CONFIG_NETWORK | CONFIG_GAME, 1);
 #else
                 saveConfig(CONFIG_OPL | CONFIG_NETWORK, 1);
 #endif
-                menuSetParentalLockCheckState(1); // Re-enable parental lock check.
+                menuSetParentalLockCheckState(1); //Re-enable parental lock check.
             }
         } else if (id == MENU_EXIT) {
             if (guiMsgBox(_l(_STR_CONFIRMATION_EXIT), 1, NULL))

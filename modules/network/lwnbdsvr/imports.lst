@@ -25,9 +25,9 @@ I_DeleteThread
 thbase_IMPORTS_end
 
 sysclib_IMPORTS_start
-I_strcpy
 I_sprintf
 I_strncmp
+I_strcpy
 I_strlen
 I_memset
 sysclib_IMPORTS_end

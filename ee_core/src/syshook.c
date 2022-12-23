@@ -88,7 +88,7 @@ void sysLoadElf(char *filename, int argc, char **argv)
 
     DPRINTF("t_loadElf: elf path = '%s'\n", filename);
 
-    if (EnableDebug)
+    if (!DisableDebug)
         GS_BGCOLOUR = 0x00ff00; //Green
 
     DPRINTF("t_loadElf: cleaning user memory...");

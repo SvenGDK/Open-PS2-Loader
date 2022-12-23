@@ -18,14 +18,17 @@
 {
     memcpy(dst, src, strlen(src) + 1);
 }
+
 static inline void _strcat(char *dst, const char *src)
 {
     _strcpy(&dst[strlen(dst)], src);
 }
+
 static int _strncmp(const char *s1, const char *s2, int length)
 {
     const char *a = s1;
     const char *b = s2;
+
     while (length > 0) {
         if ((*a == 0) || (*b == 0))
             return -1;
@@ -33,6 +36,7 @@ static int _strncmp(const char *s1, const char *s2, int length)
             return 1;
         length--;
     }
+
     return 0;
 }*/
 

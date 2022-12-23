@@ -30,14 +30,13 @@ DECI2_DEBUG = 0
 
 # ======== DO NOT MODIFY VALUES AFTER THIS POINT! UNLESS YOU KNOW WHAT YOU ARE DOING ========
 REVISION = 1
-OPL_VERSION = v1.0.9
+OPL_VERSION = v1.0.9-2
 
 FRONTEND_OBJS = pad.o fntsys.o renderman.o menusys.o OSDHistory.o system.o lang.o config.o hdd.o dialogs.o \
 		dia.o ioman.o texcache.o themes.o supportbase.o bdmsupport.o ethsupport.o hddsupport.o \
 		appsupport.o gui.o guigame.o textures.o opl.o atlas.o nbns.o httpclient.o gsm.o cheatman.o sound.o ps2cnf.o
 
 GFX_OBJS =	usb_icon.o hdd_icon.o eth_icon.o app_icon.o \
-		usb_bd_icon.o ilk_bd_icon.o m4s_bd_icon.o \
 		cross_icon.o triangle_icon.o circle_icon.o square_icon.o select_icon.o start_icon.o \
 		left_icon.o right_icon.o up_icon.o down_icon.o \
 		load0.o load1.o load2.o load3.o load4.o load5.o load6.o load7.o \
@@ -54,7 +53,7 @@ MISC_OBJS =	icon_sys_A.o icon_sys_J.o icon_sys_C.o conf_theme_OPL.o \
 		boot.o cancel.o confirm.o cursor.o message.o transition.o
 
 IOP_OBJS =	iomanx.o filexio.o ps2fs.o usbd.o bdmevent.o \
-		bdm.o bdmfs_vfat.o usbmass_bd.o iLinkman.o IEEE1394_bd.o mx4sio_bd.o \
+		bdm.o bdmfs_vfat.o usbmass_bd.o iLinkman.o IEEE1394_bd.o \
 		ps2atad.o hdpro_atad.o poweroff.o ps2hdd.o xhdd.o genvmc.o hdldsvr.o \
 		ps2dev9.o smsutils.o ps2ip.o smap.o isofs.o nbns-iop.o lwnbdsvr.o \
 		sio2man.o padman.o mcman.o mcserv.o \
@@ -485,7 +484,7 @@ modules/isofs/isofs.irx: modules/isofs
 $(EE_ASM_DIR)isofs.s: modules/isofs/isofs.irx | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ isofs_irx
 
-$(EE_ASM_DIR)usbd.s: $(PS2SDK)/iop/irx/usbd_mini.irx | $(EE_ASM_DIR)
+$(EE_ASM_DIR)usbd.s: $(PS2SDK)/iop/irx/usbd.irx | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ usbd_irx
 
 $(EE_ASM_DIR)libsd.s: $(PS2SDK)/iop/irx/libsd.irx | $(EE_ASM_DIR)
@@ -546,9 +545,6 @@ $(EE_ASM_DIR)usbmass_bd.s: $(PS2SDK)/iop/irx/usbmass_bd.irx | $(EE_ASM_DIR)
 
 $(EE_ASM_DIR)IEEE1394_bd.s: $(PS2SDK)/iop/irx/IEEE1394_bd.irx | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ IEEE1394_bd_irx
-	
-$(EE_ASM_DIR)mx4sio_bd.s: $(PS2SDK)/iop/irx/mx4sio_bd.irx | $(EE_ASM_DIR)
-	$(BIN2S) $< $@ mx4sio_bd_irx
 else
 # block device drivers without printf's
 $(EE_ASM_DIR)usbmass_bd.s: $(PS2SDK)/iop/irx/usbmass_bd_mini.irx | $(EE_ASM_DIR)
@@ -556,9 +552,6 @@ $(EE_ASM_DIR)usbmass_bd.s: $(PS2SDK)/iop/irx/usbmass_bd_mini.irx | $(EE_ASM_DIR)
 
 $(EE_ASM_DIR)IEEE1394_bd.s: $(PS2SDK)/iop/irx/IEEE1394_bd_mini.irx | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ IEEE1394_bd_irx
-	
-$(EE_ASM_DIR)mx4sio_bd.s: $(PS2SDK)/iop/irx/mx4sio_bd_mini.irx | $(EE_ASM_DIR)
-	$(BIN2S) $< $@ mx4sio_bd_irx
 endif
 
 modules/bdmevent/bdmevent.irx: modules/bdmevent
@@ -725,15 +718,6 @@ $(EE_ASM_DIR)load7.s: gfx/load7.png | $(EE_ASM_DIR)
 
 $(EE_ASM_DIR)usb_icon.s: gfx/usb.png | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ usb_png
-	
-$(EE_ASM_DIR)usb_bd_icon.s: gfx/usb_bd.png | $(EE_ASM_DIR)
-	$(BIN2S) $< $@ usb_bd_png
-
-$(EE_ASM_DIR)ilk_bd_icon.s: gfx/ilk_bd.png | $(EE_ASM_DIR)
-	$(BIN2S) $< $@ ilk_bd_png
-
-$(EE_ASM_DIR)m4s_bd_icon.s: gfx/m4s_bd.png | $(EE_ASM_DIR)
-	$(BIN2S) $< $@ m4s_bd_png
 
 $(EE_ASM_DIR)hdd_icon.s: gfx/hdd.png | $(EE_ASM_DIR)
 	$(BIN2S) $< $@ hdd_png

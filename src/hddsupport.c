@@ -33,6 +33,8 @@ static unsigned char hddModulesLoaded = 0;
 static char *hddPrefix = "pfs0:";
 static hdl_games_list_t hddGames;
 
+char gOPLPart[128];
+
 // forward declaration
 static item_list_t hddGameList;
 
@@ -131,6 +133,7 @@ static void hddFindOPLPartition(void)
             configFree(config);
             close(fd);
 
+            fileXioUmount(hddPrefix);
             return;
         }
 
@@ -150,6 +153,7 @@ static void hddFindOPLPartition(void)
     }
 
     snprintf(gOPLPart, sizeof(gOPLPart), "hdd0:+OPL");
+    fileXioUmount(hddPrefix);
 
     return;
 }
@@ -227,10 +231,7 @@ void hddLoadModules(void)
 
         LOG("HDDSUPPORT modules loaded\n");
 		
-        if (gOPLPart[0] == '\0')
-            hddFindOPLPartition();
-
-        fileXioUmount(hddPrefix);
+        hddFindOPLPartition();
 
         ret = fileXioMount(hddPrefix, gOPLPart, FIO_MT_RDWR);
         if (ret == -ENOENT) {
@@ -534,16 +535,6 @@ static int hddGetImage(char *folder, int isRelative, char *value, char *suffix, 
     return texDiscoverLoad(resultTex, path, -1);
 }
 
-static int hddGetTextId(void)
-{
-    return _STR_HDD_GAMES;
-}
-
-static int hddGetIconId(void)
-{
-    return HDD_ICON;
-}
-
 //This may be called, even if hddInit() was not.
 static void hddCleanUp(int exception)
 {
@@ -714,6 +705,6 @@ static void hddGetLegacyAppsInfo(char *path, int max, char *name)
 }
 
 static item_list_t hddGameList = {
-    HDD_MODE, 0, 0, MODE_FLAG_COMPAT_DMA, MENU_MIN_INACTIVE_FRAMES, HDD_MODE_UPDATE_DELAY, "HDD Games", &hddGetTextId, &hddGetAppsPath, &hddGetLegacyAppsPath, &hddGetLegacyAppsInfo, &hddInit, &hddNeedsUpdate, &hddUpdateGameList,
+    HDD_MODE, 0, 0, MODE_FLAG_COMPAT_DMA, MENU_MIN_INACTIVE_FRAMES, HDD_MODE_UPDATE_DELAY, "HDD Games", _STR_HDD_GAMES, &hddGetAppsPath, &hddGetLegacyAppsPath, &hddGetLegacyAppsInfo, &hddInit, &hddNeedsUpdate, &hddUpdateGameList,
     &hddGetGameCount, &hddGetGame, &hddGetGameName, &hddGetGameNameLength, &hddGetGameStartup, &hddDeleteGame, &hddRenameGame,
-    &hddLaunchGame, &hddGetConfig, &hddGetImage, &hddCleanUp, &hddShutdown, &hddCheckVMC, &hddGetIconId};
+    &hddLaunchGame, &hddGetConfig, &hddGetImage, &hddCleanUp, &hddShutdown, &hddCheckVMC, HDD_ICON};

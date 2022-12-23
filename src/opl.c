@@ -125,6 +125,7 @@ static opl_io_module_t list_support[MODE_COUNT];
 
 // Global data
 char *gBaseMCDir;
+char *gHDDPrefix;
 int ps2_ip_use_dhcp;
 int ps2_ip[4];
 int ps2_netmask[4];
@@ -144,8 +145,7 @@ int gBDMStartMode;
 int gHDDStartMode;
 int gETHStartMode;
 int gAPPStartMode;
-int gEnableILK;
-int gEnableMX4SIO;
+int gEnableFW;
 int gAutosort;
 int gAutoRefresh;
 int gEnableNotifications;
@@ -175,7 +175,7 @@ int gPadMacroSettings;
 #endif
 int gScrollSpeed;
 char gExitPath[32];
-int gEnableDebug;
+int gDisableDebug;
 int gPS2Logo;
 int gDefaultDevice;
 int gEnableWrite;
@@ -315,9 +315,9 @@ static void itemExecTriangle(struct menu_item *curMenu)
 static void initMenuForListSupport(int mode)
 {
     opl_io_module_t *mod = &list_support[mode];
-    mod->menuItem.icon_id = mod->support->itemIconId();
+    mod->menuItem.icon_id = mod->support->iconId;
     mod->menuItem.text = NULL;
-    mod->menuItem.text_id = mod->support->itemTextId();
+    mod->menuItem.text_id = mod->support->textId;
 
     mod->menuItem.userdata = mod->support;
 
@@ -602,10 +602,6 @@ static void updateMenuFromGameList(opl_io_module_t *mdl)
     if (gRememberLastPlayed)
         configGetStr(configGetByType(CONFIG_LAST), "last_played", &temp);
 
-    // refresh device icon and text (for bdm)
-    mdl->menuItem.icon_id = mdl->support->itemIconId();
-    mdl->menuItem.text_id = mdl->support->itemTextId();
-
     // read the new game list
     struct gui_update_t *gup = NULL;
     int count = mdl->support->itemUpdate();
@@ -721,14 +717,11 @@ static int checkLoadConfigBDM(int types)
 {
     char path[64];
     int value;
-	
-    snprintf(path, sizeof(path), "%sconf_opl.cfg", gHDDPrefix);
-    value = open(path, O_RDONLY);
 
     // check USB
     if (bdmFindPartition(path, "conf_opl.cfg", 0)) {
         configEnd();
-        configInit(gHDDPrefix);
+        configInit(path);
         value = configReadMulti(types);
         config_set_t *configOPL = configGetByType(CONFIG_OPL);
         configSetInt(configOPL, CONFIG_OPL_BDM_MODE, START_MODE_AUTO);
@@ -741,13 +734,15 @@ static int checkLoadConfigBDM(int types)
 static int checkLoadConfigHDD(int types)
 {
     int value;
+	char path[64];
 
     hddLoadModules();
-    value = open("pfs0:conf_opl.cfg", O_RDONLY);
+    snprintf(path, sizeof(path), "%sconf_opl.cfg", gHDDPrefix);
+    value = open(path, O_RDONLY);
     if (value >= 0) {
         close(value);
         configEnd();
-        configInit("pfs0:");
+        configInit(gHDDPrefix);
         value = configReadMulti(types);
         config_set_t *configOPL = configGetByType(CONFIG_OPL);
         configSetInt(configOPL, CONFIG_OPL_HDD_MODE, START_MODE_AUTO);
@@ -847,7 +842,7 @@ static void _loadConfig()
             if (configGetInt(configOPL, CONFIG_OPL_SWAP_SEL_BUTTON, &value))
                 gSelectButton = value == 0 ? KEY_CIRCLE : KEY_CROSS;
 
-            configGetInt(configOPL, CONFIG_OPL_DISABLE_DEBUG, &gEnableDebug);
+            configGetInt(configOPL, CONFIG_OPL_DISABLE_DEBUG, &gDisableDebug);
             configGetInt(configOPL, CONFIG_OPL_PS2LOGO, &gPS2Logo);
             configGetInt(configOPL, CONFIG_OPL_HDD_GAME_LIST_CACHE, &gHDDGameListCache);
             configGetStrCopy(configOPL, CONFIG_OPL_EXIT_PATH, gExitPath, sizeof(gExitPath));
@@ -864,8 +859,7 @@ static void _loadConfig()
             configGetInt(configOPL, CONFIG_OPL_HDD_MODE, &gHDDStartMode);
             configGetInt(configOPL, CONFIG_OPL_ETH_MODE, &gETHStartMode);
             configGetInt(configOPL, CONFIG_OPL_APP_MODE, &gAPPStartMode);
-            configGetInt(configOPL, CONFIG_OPL_ENABLE_ILINK, &gEnableILK);
-            configGetInt(configOPL, CONFIG_OPL_ENABLE_MX4SIO, &gEnableMX4SIO);
+            configGetInt(configOPL, CONFIG_OPL_ENABLE_FW, &gEnableFW);
             configGetInt(configOPL, CONFIG_OPL_SFX, &gEnableSFX);
             configGetInt(configOPL, CONFIG_OPL_BOOT_SND, &gEnableBootSND);
             configGetInt(configOPL, CONFIG_OPL_SFX_VOLUME, &gSFXVolume);
@@ -998,7 +992,7 @@ static void _saveConfig()
         configSetInt(configOPL, CONFIG_OPL_XOFF, gXOff);
         configSetInt(configOPL, CONFIG_OPL_YOFF, gYOff);
         configSetInt(configOPL, CONFIG_OPL_OVERSCAN, gOverscan);
-        configSetInt(configOPL, CONFIG_OPL_DISABLE_DEBUG, gEnableDebug);
+        configSetInt(configOPL, CONFIG_OPL_DISABLE_DEBUG, gDisableDebug);
         configSetInt(configOPL, CONFIG_OPL_PS2LOGO, gPS2Logo);
         configSetInt(configOPL, CONFIG_OPL_HDD_GAME_LIST_CACHE, gHDDGameListCache);
         configSetStr(configOPL, CONFIG_OPL_EXIT_PATH, gExitPath);
@@ -1015,8 +1009,7 @@ static void _saveConfig()
         configSetInt(configOPL, CONFIG_OPL_HDD_MODE, gHDDStartMode);
         configSetInt(configOPL, CONFIG_OPL_ETH_MODE, gETHStartMode);
         configSetInt(configOPL, CONFIG_OPL_APP_MODE, gAPPStartMode);
-        configSetInt(configOPL, CONFIG_OPL_ENABLE_ILINK, gEnableILK);
-        configSetInt(configOPL, CONFIG_OPL_ENABLE_MX4SIO, gEnableMX4SIO);
+        configSetInt(configOPL, CONFIG_OPL_ENABLE_FW, gEnableFW);
         configSetInt(configOPL, CONFIG_OPL_SFX, gEnableSFX);
         configSetInt(configOPL, CONFIG_OPL_BOOT_SND, gEnableBootSND);
         configSetInt(configOPL, CONFIG_OPL_SFX_VOLUME, gSFXVolume);
@@ -1671,7 +1664,7 @@ static void setDefaults(void)
     gDefaultDevice = APP_MODE;
     gAutosort = 1;
     gAutoRefresh = 0;
-    gEnableDebug = 0;
+    gDisableDebug = 1;
     gPS2Logo = 0;
     gHDDGameListCache = 0;
     gEnableWrite = 0;
@@ -1693,8 +1686,7 @@ static void setDefaults(void)
     gETHStartMode = START_MODE_DISABLED;
     gAPPStartMode = START_MODE_DISABLED;
 
-    gEnableILK = 0;
-    gEnableMX4SIO = 0;
+    gEnableFW = 0;
 
     frameCounter = 0;
 

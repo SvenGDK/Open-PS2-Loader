@@ -270,7 +270,7 @@ void sysPowerOff(void)
 
 static unsigned int crctab[0x400];
 
-unsigned int USBA_crc32(char *string)
+unsigned int USBA_crc32(const char *string)
 {
     int crc, table, count, byte;
 
@@ -353,15 +353,14 @@ void sysExecExit(void)
 }
 
 //Module bits
-#define CORE_IRX_USB    0x01
-#define CORE_IRX_ETH    0x02
-#define CORE_IRX_SMB    0x04
-#define CORE_IRX_HDD    0x08
-#define CORE_IRX_VMC    0x10
-#define CORE_IRX_DEBUG  0x20
-#define CORE_IRX_DECI2  0x40
-#define CORE_IRX_ILINK  0x80
-#define CORE_IRX_MX4SIO 0x100
+#define CORE_IRX_USB 0x01
+#define CORE_IRX_ETH 0x02
+#define CORE_IRX_SMB 0x04
+#define CORE_IRX_HDD 0x08
+#define CORE_IRX_VMC 0x10
+#define CORE_IRX_DEBUG 0x20
+#define CORE_IRX_DECI2 0x40
+#define CORE_IRX_ILINK 0x80
 
 typedef struct
 {
@@ -441,8 +440,6 @@ static unsigned int sendIrxKernelRAM(const char *startup, const char *mode_str, 
         modules |= CORE_IRX_USB;
     else if (!strcmp(mode_str, "BDM_ILK_MODE"))
         modules |= CORE_IRX_ILINK;
-    else if (!strcmp(mode_str, "BDM_M4S_MODE"))
-        modules |= CORE_IRX_MX4SIO;
     else if (!strcmp(mode_str, "ETH_MODE"))
         modules |= CORE_IRX_ETH | CORE_IRX_SMB;
     else
@@ -485,10 +482,6 @@ static unsigned int sendIrxKernelRAM(const char *startup, const char *mode_str, 
         irxptr_tab[modcount++].ptr = (void *)&iLinkman_irx;
         irxptr_tab[modcount].info = size_IEEE1394_bd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_ILINKBD);
         irxptr_tab[modcount++].ptr = (void *)&IEEE1394_bd_irx;
-    }
-    if (modules & CORE_IRX_MX4SIO) {
-        irxptr_tab[modcount].info = size_mx4sio_bd_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_MX4SIOBD);
-        irxptr_tab[modcount++].ptr = (void *)&mx4sio_bd_irx;
     }
     if (modules & CORE_IRX_ETH) {
         irxptr_tab[modcount].info = size_smap_ingame_irx | SET_OPL_MOD_ID(OPL_MODULE_ID_SMAP);
@@ -810,7 +803,7 @@ void sysLaunchLoaderElf(const char *filename, const char *mode_str, int size_cdv
 
     argc = 0;
     sprintf(config_str, "%s %d %s %d %u.%u.%u.%u %u.%u.%u.%u %u.%u.%u.%u %d %u %d" PADEMU_SPECIFIER CONFIGPARAMDATA,
-            mode_str, gEnableDebug, gExitPath, gHDDSpindown,
+            mode_str, gDisableDebug, gExitPath, gHDDSpindown,
             local_ip_address[0], local_ip_address[1], local_ip_address[2], local_ip_address[3],
             local_netmask[0], local_netmask[1], local_netmask[2], local_netmask[3],
             local_gateway[0], local_gateway[1], local_gateway[2], local_gateway[3],

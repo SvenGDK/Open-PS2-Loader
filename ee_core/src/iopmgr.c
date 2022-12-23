@@ -132,9 +132,6 @@ static void ResetIopSpecial(const char *args, unsigned int arglen)
             LoadOPLModule(OPL_MODULE_ID_ILINK, 0, 0, NULL);
             LoadOPLModule(OPL_MODULE_ID_ILINKBD, 0, 0, NULL);
             break;
-        case BDM_M4S_MODE:
-            LoadOPLModule(OPL_MODULE_ID_MX4SIOBD, 0, 0, NULL);
-            break;
     };
 }
 
@@ -144,7 +141,7 @@ static void ResetIopSpecial(const char *args, unsigned int arglen)
 int New_Reset_Iop(const char *arg, int arglen)
 {
     DPRINTF("New_Reset_Iop start!\n");
-    if (EnableDebug)
+    if (!DisableDebug)
         GS_BGCOLOUR = 0xFF00FF; //Purple
 
     SifInitRpc(0);
@@ -165,12 +162,12 @@ int New_Reset_Iop(const char *arg, int arglen)
     sbv_patch_enable_lmb();
 
     ResetIopSpecial(NULL, 0);
-    if (EnableDebug)
+    if (!DisableDebug)
         GS_BGCOLOUR = 0x00A5FF; //Orange
 
     if (arglen > 0) {
         ResetIopSpecial(&arg[10], arglen - 10);
-        if (EnableDebug)
+        if (!DisableDebug)
             GS_BGCOLOUR = 0x00FFFF; //Yellow
     }
 
@@ -201,7 +198,7 @@ int New_Reset_Iop(const char *arg, int arglen)
     if (set_reg_disabled)
         set_reg_hook = 4;
 
-    if (EnableDebug)
+    if (!DisableDebug)
         GS_BGCOLOUR = 0x000000; //Black
 
     return 1;

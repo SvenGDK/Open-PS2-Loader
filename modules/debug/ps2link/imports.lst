@@ -8,6 +8,7 @@ I_memset
 I_memcpy
 I_strlen
 I_strncpy
+I_strncmp
 sysclib_IMPORTS_end
 
 thsemap_IMPORTS_start
@@ -34,6 +35,14 @@ ioman_IMPORTS_end
 
 ps2ip_IMPORTS_start
 I_lwip_send
+I_lwip_sendto
+I_lwip_socket
+I_lwip_listen
+I_lwip_recv
+I_lwip_recvfrom
+I_lwip_close
+I_lwip_bind
+I_lwip_accept
 ps2ip_IMPORTS_end
 
 sifcmd_IMPORTS_start
@@ -72,5 +81,6 @@ ioptrap_IMPORTS_end
 
 poweroff_IMPORTS_start
 I_SetPowerButtonHandler
+I_AddPowerOffHandler
 I_PoweroffShutdown
 poweroff_IMPORTS_end
