@@ -9,7 +9,6 @@ This updated version includes:
 - OPL-Launcher support
 - HDL & NBD server support
 - iLink support
-- MX4SIO support
 - Controller Settings Menu
 - Gamepad Macros (Modification of Gamepads - Requires PADEMU)
 - OSD Language Configuration Menu
@@ -25,7 +24,7 @@ Thanks to ackmax, AKuHAK , bignaux, israpps, KrahJohlito, uyjulian, ... !
 <p>
 
 - Requires setup of old PS2SDK
-- Add usbd_mini.irx, mx4sio_bd.irx and mx4sio_bd_mini.irx from newer SDK to /usr/local/ps2dev/ps2sdk/iop/irx
+- Add usbd_mini.irx from newer SDK to /usr/local/ps2dev/ps2sdk/iop/irx
 
 #### Compile all variants
 ```make all-variants```
