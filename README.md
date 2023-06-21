@@ -3,9 +3,10 @@
 Copyright © 2013-2022, Ifcaro & jimmikaelkael.
 Licenced under AFL v3.0 - Review the LICENSE file for further details.
 
-Forked from https://github.com/ps2homebrew/Open-PS2-Loader v1.0.0 source code.
+This is a modified version of OpenPS2Loader v1.0.0.</br>
+Created for the PSX (DESR) consoles that have issues booting games with OPL-Launcher from internal HDD.
 
-This updated version includes:
+This updated and modified version includes:
 - OPL-Launcher support
 - HDL & NBD server support
 - iLink support
