@@ -3,22 +3,21 @@
 Copyright © 2013-2022, Ifcaro & jimmikaelkael.
 Licenced under AFL v3.0 - Review the LICENSE file for further details.
 
-This is a modified version of OpenPS2Loader v1.0.0.</br>
-Created for the PSX (DESR) consoles that have issues booting games with OPL-Launcher from internal HDD.
+This is a modified version of Open PS2 Loader [v1.0.0](https://github.com/ps2homebrew/Open-PS2-Loader/tree/v1.0.0).</br>
+Created for the PSX DVR (DESR) consoles that have issues booting games from internal HDD using [OPL-Launcher](https://github.com/ps2homebrew/OPL-Launcher).
 
 This updated and modified version includes:
 - OPL-Launcher support
 - HDL & NBD server support
-- iLink support
 - Controller Settings Menu
-- Gamepad Macros (Modification of Gamepads - Requires PADEMU)
+- Gamepad Macros (Modification of Gamepads - Requires PADEMU variant)
 - OSD Language Configuration Menu
 - Apps Menu
 - Expanded SMB Ports
 - Allows usage of other partitions than +OPL
-- Various fixes + updates from the stable v1.1.0 Release + v1.2.0 Beta.
+- Various fixes + updates from the stable v1.1.0 Release + v1.2.0 Beta
 
-Thanks to ackmax, AKuHAK , bignaux, israpps, KrahJohlito, uyjulian, ... !
+Thanks to ackmax, AKuHAK, bignaux, israpps, KrahJohlito, uyjulian, ... !
 
 <details>
   <summary> <b> Releases </b> </summary>
@@ -59,8 +58,8 @@ When you download and extract the latest Open PS2 Loader from this repo, you wil
 - Install the client and reboot.
 - Open CMD as administrator and run: </br> ```wnbd-client.exe map hdd1 SERVER_IP``` <- Shown in OPL when NBD server started.
 - You can now install games with hdl_dump like: </br> ```hdl_dump inject_dvd hdd1: "GAME_TITLE" "ISO_FILE" "BLUS_123.45" *u4```
-- Unfortunately, this process can take up to 1-2 hours depending on game size.
-- If you want to disconnect, open CMD as administrator and run: </br> ```wnbd-client.exe unmap hdd1```
+  - This process can take up to 1-2 hours depending on game size.
+- If you want to disconnect from the NBD server, open a Command Prompt as administrator and run: </br> ```wnbd-client.exe unmap hdd1```
 
 </p>
 </details>
@@ -69,8 +68,17 @@ When you download and extract the latest Open PS2 Loader from this repo, you wil
   <summary> <b> How to compile this version </b> </summary>
 <p>
 
-- Requires setup of old PS2SDK
-- Add usbd_mini.irx from newer SDK to /usr/local/ps2dev/ps2sdk/iop/irx
+- Use [ps2dev v1.2.0](https://github.com/ps2dev/ps2dev/releases/tag/v1.2.0)
+- Add following code to $PS2SDK/common/include/usbhdfsd-common.h
+
+```
+/** Check if fragments exist */
+#define USBMASS_IOCTL_CHECK_CHAIN    0x0004
+/** Return fragment table **/
+#define USBMASS_IOCTL_GET_FRAGLIST   0x0005
+/** Get the device number for the block device backing the mass partition */
+#define USBMASS_IOCTL_GET_DEVICE_NUMBER     0x0006
+```
 
 #### Compile all variants
 ```make all-variants```
