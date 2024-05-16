@@ -15,9 +15,9 @@ This updated and modified version includes:
 - Apps Menu
 - Expanded SMB Ports
 - Allows usage of other partitions than +OPL
-- Various fixes + updates from the stable v1.1.0 Release + v1.2.0 Beta
+- Fixes & Updates from the latest Open PS2 Loader release
 
-Thanks to ackmax, AKuHAK, bignaux, israpps, KrahJohlito, uyjulian, ... !
+Thanks to ackmax, AKuHAK, bignaux, israpps, KrahJohlito, uyjulian and all other contributors of Open PS2 Loader !
 
 <details>
   <summary> <b> Releases </b> </summary>
@@ -27,13 +27,11 @@ When you download and extract the latest Open PS2 Loader from this repo, you wil
 
 | Variant | File Name | Description |
 | --------- | ----------- | ----------- |
-| `Release` | OPNPS2LD.ELF | Regular OPL release with GSM. |
-| `ALL` | OPNPS2LD-ALL.ELF | OPL with GSM and all the features below. |
-| `IGS` | OPNPS2LD-IGS.ELF | OPL with In-Game Screenshot feature. |
-| `PADEMU` | OPNPS2LD-PADEMU.ELF | OPL with Pad emulation for DS3 & DS4. |
-| `RTL` | OPNPS2LD-RTL.ELF | OPL with the right to left language support. |
-
-- You can also compile you own variant, see "How to compile this version".
+| `Release` | OPNPS2LD.ELF | Regular OPNPS2LD release with GSM. |
+| `ALL` | OPNPS2LD-ALL.ELF | With GSM and all the features below. |
+| `IGS` | OPNPS2LD-IGS.ELF | With In-Game Screenshot feature. |
+| `PADEMU` | OPNPS2LD-PADEMU.ELF | With Pad emulation for DS3 & DS4. |
+| `RTL` | OPNPS2LD-RTL.ELF | With Right-To-Left language support. |
 
 </p>
 </details>
@@ -68,6 +66,7 @@ When you download and extract the latest Open PS2 Loader from this repo, you wil
   <summary> <b> How to compile this version </b> </summary>
 <p>
 
+- Install ps2dev requirements
 - Use [ps2dev v1.2.0](https://github.com/ps2dev/ps2dev/releases/tag/v1.2.0)
 - Add following code to $PS2SDK/common/include/usbhdfsd-common.h
 
